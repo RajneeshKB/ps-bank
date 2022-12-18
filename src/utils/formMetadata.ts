@@ -23,10 +23,7 @@ export interface IRegistrationInputs extends AddressType {
   panNumber: string
   aadharNumber: string
 }
-// export type FormProps = {
-//   control: Control<RegistrationBasicInputs>
-//   handleSubmit: any
-// }
+
 export type RegistrationBasicInputs = {
   customerEmail: string
   customerMob: string
