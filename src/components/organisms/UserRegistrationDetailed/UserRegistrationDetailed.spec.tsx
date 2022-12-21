@@ -17,7 +17,7 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
     const { getAllByRole } = renderWithRouter(
       <UserRegistrationDetailsForm
         basicRegistrationData={mockProps.mockBasicData}
-        onFormSubmit={mockProps.mockFormSubmit}
+        formSubmitCallback={mockProps.mockFormSubmit}
       />
     )
     expect(getAllByRole('textbox')).toHaveLength(6)
@@ -31,7 +31,7 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
     const { getByRole } = renderWithRouter(
       <UserRegistrationDetailsForm
         basicRegistrationData={mockProps.mockBasicData}
-        onFormSubmit={mockProps.mockFormSubmit}
+        formSubmitCallback={mockProps.mockFormSubmit}
       />
     )
     const submitButton = getByRole('button', { name: 'Submit' })
@@ -47,7 +47,7 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
     const { getByRole, getAllByRole, getByLabelText } = renderWithRouter(
       <UserRegistrationDetailsForm
         basicRegistrationData={mockProps.mockBasicData}
-        onFormSubmit={mockProps.mockFormSubmit}
+        formSubmitCallback={mockProps.mockFormSubmit}
       />
     )
     const occupationBox = getByLabelText('Occupation *')

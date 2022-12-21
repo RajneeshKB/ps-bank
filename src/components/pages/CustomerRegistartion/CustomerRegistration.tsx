@@ -1,13 +1,18 @@
 import React, { FC, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import { Card, CardContent, Divider, Paper, Typography } from '@mui/material'
 import { RegistrationSuccessModal } from '../../molecules/RegistrationSuccess'
 import { UserRegistrationDetailsForm } from '../../organisms/UserRegistrationDetailed'
 import { useBankContext } from '../../../context'
 import { registrationDetailsStyles } from './styles'
+import { CUSTOMER_REGISTRATION } from '../../../utils'
 
 const CustomerRegistration: FC = () => {
+  // const [regResponse, updateRegResponse] = useState()
   const [showModal, toggleShowModal] = useState(false)
+  const queryClient = useQueryClient()
+  const registrationResponse = queryClient.getQueryData([CUSTOMER_REGISTRATION])
   const navigate = useNavigate()
   const {
     state: { registrationData },
@@ -18,7 +23,13 @@ const CustomerRegistration: FC = () => {
     toggleModalView()
     navigate('/')
   }
-
+  const registrationCompletionHandler = () => {
+    // eslint-disable-next-line no-console
+    console.log('registration done', registrationResponse)
+    toggleModalView()
+  }
+  // eslint-disable-next-line no-console
+  console.log('registration done', registrationResponse)
   if (!registrationData?.customerName) return <Navigate to="/" />
   return (
     <Paper sx={registrationDetailsStyles.formWrapper}>
@@ -30,7 +41,7 @@ const CustomerRegistration: FC = () => {
           <Divider variant="fullWidth" sx={registrationDetailsStyles.divider} />
           <UserRegistrationDetailsForm
             basicRegistrationData={registrationData}
-            onFormSubmit={toggleModalView}
+            formSubmitCallback={registrationCompletionHandler}
           />
         </CardContent>
       </Card>

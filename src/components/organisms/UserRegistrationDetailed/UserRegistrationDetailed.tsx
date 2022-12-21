@@ -1,6 +1,10 @@
+import { CircularProgress, Stack, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import { Control, useForm } from 'react-hook-form'
+import { registerCustomerQuery } from '../../../gqlQueries'
+import { useCustomMutation } from '../../../hooks/useCustomMutation'
 import {
+  CUSTOMER_REGISTRATION,
   IRegistrationInputs,
   RegistrationBasicInputs,
   REGISTRATION_DETAILS_DEFAULT_VALUES,
@@ -16,24 +20,54 @@ type FormProps = {
 
 interface IUserRegistrationDetailedProps {
   basicRegistrationData: RegistrationBasicInputs
-  onFormSubmit: () => void
+  formSubmitCallback: (_arg: any) => void
 }
 const UserRegistrationDetailed: FC<IUserRegistrationDetailedProps> = ({
   basicRegistrationData,
-  onFormSubmit,
+  formSubmitCallback,
 }) => {
   const { control, handleSubmit }: FormProps = useForm<IRegistrationInputs>({
     defaultValues: REGISTRATION_DETAILS_DEFAULT_VALUES,
   })
+  const customerMutation = useCustomMutation({
+    query: registerCustomerQuery,
+    queryKey: [CUSTOMER_REGISTRATION],
+  })
+
   const registerUser = (formData: IRegistrationInputs) => {
-    // eslint-disable-next-line no-console
-    console.log('registration successful wth user data', {
-      ...basicRegistrationData,
-      ...formData,
+    const customerRegistrationData = {
+      customerData: {
+        ...basicRegistrationData,
+        ...formData,
+      },
+    }
+
+    // const customerRegistrationData = {
+    //   input: {
+    //     ...basicRegistrationData,
+    //     ...formData,
+    //   },
+    // }
+
+    customerMutation.mutate(customerRegistrationData, {
+      onSettled: (mutationResponse) => {
+        // eslint-disable-next-line no-console
+        console.log('submitted', mutationResponse)
+        formSubmitCallback(mutationResponse)
+      },
     })
-    onFormSubmit()
   }
 
+  if (customerMutation.isLoading) {
+    return (
+      <Stack>
+        <CircularProgress />
+        <Typography variant="caption">
+          Registergin Customer, please wait!
+        </Typography>
+      </Stack>
+    )
+  }
   return (
     <FormBuilder
       formControls={USER_REGISTRATION_DETAILS}
