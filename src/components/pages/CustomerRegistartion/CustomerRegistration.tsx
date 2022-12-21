@@ -5,9 +5,10 @@ import { RegistrationSuccessModal } from '../../molecules/RegistrationSuccess'
 import { UserRegistrationDetailsForm } from '../../organisms/UserRegistrationDetailed'
 import { useBankContext } from '../../../context'
 import { registrationDetailsStyles } from './styles'
+import { FailureModal } from '../../molecules/FailureModal'
 
 const CustomerRegistration: FC = () => {
-  // const [regResponse, updateRegResponse] = useState()
+  const [regResponse, updateRegResponse] = useState({ data: {}, error: {} })
   const [showModal, toggleShowModal] = useState(false)
   const navigate = useNavigate()
   const {
@@ -19,9 +20,8 @@ const CustomerRegistration: FC = () => {
     toggleModalView()
     navigate('/')
   }
-  const registrationCompletionHandler = (submittionResponse: any) => {
-    // eslint-disable-next-line no-console
-    console.log('registration done', submittionResponse)
+  const registrationCompletionHandler = ({ data, error }: any) => {
+    updateRegResponse({ data, error })
     toggleModalView()
   }
   if (!registrationData?.customerName) return <Navigate to="/" />
@@ -39,10 +39,19 @@ const CustomerRegistration: FC = () => {
           />
         </CardContent>
       </Card>
-      <RegistrationSuccessModal
-        showModal={showModal}
-        onCloseClick={closeModalAndNavigate}
-      />
+      {showModal &&
+        (regResponse?.data ? (
+          <RegistrationSuccessModal
+            customerData={regResponse.data}
+            showModal={showModal}
+            onCloseClick={closeModalAndNavigate}
+          />
+        ) : (
+          <FailureModal
+            showModal={showModal}
+            onCloseClick={closeModalAndNavigate}
+          />
+        ))}
     </Paper>
   )
 }

@@ -41,10 +41,10 @@ const UserRegistrationDetailed: FC<IUserRegistrationDetailedProps> = ({
     registerCustomerMutation({
       variables: customerRegistrationData,
       onCompleted: (mutationResponse) => {
-        formSubmitCallback(mutationResponse)
+        formSubmitCallback({ data: mutationResponse })
       },
       onError: (mutationResponse) => {
-        formSubmitCallback(mutationResponse)
+        formSubmitCallback({ error: mutationResponse })
       },
     })
   }

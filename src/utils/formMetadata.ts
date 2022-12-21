@@ -40,6 +40,8 @@ export const USER_REGISTRATION_BASIC: FormMetaData[] = [
     subCategory: '',
     validation: {
       required: { value: true, message: 'name is required' },
+      maxLength: { value: 25, message: 'maximum 25 characters allowed' },
+      minLength: { value: 4, message: 'minimum 4 characters is required' },
     },
   },
   {
@@ -111,6 +113,10 @@ export const USER_REGISTRATION_DETAILS: FormMetaData[] = [
     subCategory: '',
     validation: {
       required: { value: true, message: 'pan number is required' },
+      pattern: {
+        value: /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/,
+        message: 'invalid pan number',
+      },
     },
   },
   {
@@ -123,6 +129,9 @@ export const USER_REGISTRATION_DETAILS: FormMetaData[] = [
     subCategory: '',
     validation: {
       required: { value: true, message: 'aadhar number is required' },
+      pattern: { value: /^\d+$/, message: 'aadhar number not valid' },
+      minLength: { value: 16, message: 'aadhar number not valid' },
+      maxLength: { value: 16, message: 'aadhar number not valid' },
     },
   },
   {
@@ -135,6 +144,9 @@ export const USER_REGISTRATION_DETAILS: FormMetaData[] = [
     subCategory: '',
     validation: {
       required: { value: true, message: 'address line 1 is required' },
+      pattern: /^[a-zA-Z]{1}[a-zA-Z0-9 ]*$/,
+      maxLength: { value: 25, message: 'maximum 25 characters allowed' },
+      minLength: { value: 5, message: 'minimum 5 characters allowed' },
     },
   },
   {
@@ -145,7 +157,10 @@ export const USER_REGISTRATION_DETAILS: FormMetaData[] = [
     required: false,
     type: 'text',
     subCategory: '',
-    validation: {},
+    validation: {
+      pattern: /^[a-zA-Z]{1}[a-zA-Z0-9 ]*$/,
+      maxLength: { value: 25, message: 'maximum 25 characters allowed' },
+    },
   },
   {
     id: 'state',
@@ -157,6 +172,9 @@ export const USER_REGISTRATION_DETAILS: FormMetaData[] = [
     subCategory: '',
     validation: {
       required: { value: true, message: 'state is required' },
+      pattern: /^[a-zA-Z]{1}[a-zA-Z ]*$/,
+      maxLength: { value: 20, message: 'maximum 25 characters allowed' },
+      minLength: { value: 2, message: 'minimum 2 characters allowed' },
     },
   },
   {
@@ -169,6 +187,9 @@ export const USER_REGISTRATION_DETAILS: FormMetaData[] = [
     subCategory: '',
     validation: {
       required: { value: true, message: 'city is required' },
+      pattern: /^[a-zA-Z]{1}[a-zA-Z ]*$/,
+      maxLength: { value: 20, message: 'maximum 25 characters allowed' },
+      minLength: { value: 2, message: 'minimum 2 characters allowed' },
     },
   },
   {

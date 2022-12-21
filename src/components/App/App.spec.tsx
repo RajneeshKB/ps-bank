@@ -1,10 +1,13 @@
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
+import { renderWithProviders } from '../../utils/test-utils'
 import { App } from '.'
 
 describe('TS:1 - Bank app component', () => {
   it('TC:01 - should render app successfully with home route', () => {
-    const { getByText, getAllByRole, getByLabelText } = render(<App />)
+    const { getByText, getAllByRole, getByLabelText } = renderWithProviders(
+      <App />
+    )
 
     expect(getByText('PS Bank')).toBeInTheDocument()
     expect(getAllByRole('link')).toHaveLength(2)
@@ -15,7 +18,9 @@ describe('TS:1 - Bank app component', () => {
   })
 
   it('TC:02 - should redirect to user detailed registration page on basic data filled and submitted', async () => {
-    const { getByRole, getByText, getByLabelText } = render(<App />)
+    const { getByRole, getByText, getByLabelText } = renderWithProviders(
+      <App />
+    )
 
     const nameBox = getByLabelText('Your Full Name *')
     const numberBox = getByLabelText('Mobile number *')
@@ -38,7 +43,9 @@ describe('TS:1 - Bank app component', () => {
   })
 
   it('TC:03 - should load login component on login button click', async () => {
-    const { getByText, getByRole, getByLabelText } = render(<App />)
+    const { getByText, getByRole, getByLabelText } = renderWithProviders(
+      <App />
+    )
 
     const loginButton = getByRole('link', { name: 'Login' })
     fireEvent.click(loginButton)

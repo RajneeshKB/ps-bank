@@ -5,7 +5,11 @@ import { RegistrationSuccessModal } from '.'
 describe('TS:1 - RegistrationSuccess Component', () => {
   it('TC:01 - should render success modal successfully', () => {
     const { getByText, getByRole } = render(
-      <RegistrationSuccessModal showModal onCloseClick={jest.fn()} />
+      <RegistrationSuccessModal
+        customerData={{ createCustomer: { customerName: 'Test User' } }}
+        showModal
+        onCloseClick={jest.fn()}
+      />
     )
     expect(getByText(/You're all set/)).toBeInTheDocument()
     expect(getByText(/Happy banking!/)).toBeInTheDocument()
