@@ -1,22 +1,23 @@
 import React, { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ApolloProvider } from '@apollo/client'
 import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
 
 import CustomerDashboard from '../pages/CustomerDashboard/CustomerDashboard'
 import { PageLayout } from '../organisms/PageLayout'
 import { bankTheme } from '../../theme/psBankTheme'
 import { BankContextProvider } from '../../context'
+import { getBankGraphQlClient } from '../../graphql/client'
 
 const LazyLoadedRegistrationDetails = lazy(
   () => import('../pages/CustomerRegistartion/CustomerRegistration')
 )
 const LazyLoadedLogin = lazy(() => import('../pages/Login/Login'))
 
-const queryClient = new QueryClient()
+const queryClient = getBankGraphQlClient()
 
 const App: React.FC = () => (
-  <QueryClientProvider client={queryClient}>
+  <ApolloProvider client={queryClient}>
     <ThemeProvider theme={bankTheme}>
       <CssBaseline />
       <Router>
@@ -46,7 +47,7 @@ const App: React.FC = () => (
         </BankContextProvider>
       </Router>
     </ThemeProvider>
-  </QueryClientProvider>
+  </ApolloProvider>
 )
 
 export default App

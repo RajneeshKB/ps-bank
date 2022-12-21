@@ -1,10 +1,9 @@
+import { useMutation } from '@apollo/client'
 import { CircularProgress, Stack, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import { Control, useForm } from 'react-hook-form'
-import { registerCustomerQuery } from '../../../gqlQueries'
-import { useCustomMutation } from '../../../hooks/useCustomMutation'
+import { REGISTER_CUSTOMER } from '../../../graphql/queries'
 import {
-  CUSTOMER_REGISTRATION,
   IRegistrationInputs,
   RegistrationBasicInputs,
   REGISTRATION_DETAILS_DEFAULT_VALUES,
@@ -29,36 +28,28 @@ const UserRegistrationDetailed: FC<IUserRegistrationDetailedProps> = ({
   const { control, handleSubmit }: FormProps = useForm<IRegistrationInputs>({
     defaultValues: REGISTRATION_DETAILS_DEFAULT_VALUES,
   })
-  const customerMutation = useCustomMutation({
-    query: registerCustomerQuery,
-    queryKey: [CUSTOMER_REGISTRATION],
-  })
+  const [registerCustomerMutation, { loading }] = useMutation(REGISTER_CUSTOMER)
 
   const registerUser = (formData: IRegistrationInputs) => {
     const customerRegistrationData = {
-      customerData: {
+      input: {
         ...basicRegistrationData,
         ...formData,
       },
     }
 
-    // const customerRegistrationData = {
-    //   input: {
-    //     ...basicRegistrationData,
-    //     ...formData,
-    //   },
-    // }
-
-    customerMutation.mutate(customerRegistrationData, {
-      onSettled: (mutationResponse) => {
-        // eslint-disable-next-line no-console
-        console.log('submitted', mutationResponse)
+    registerCustomerMutation({
+      variables: customerRegistrationData,
+      onCompleted: (mutationResponse) => {
+        formSubmitCallback(mutationResponse)
+      },
+      onError: (mutationResponse) => {
         formSubmitCallback(mutationResponse)
       },
     })
   }
 
-  if (customerMutation.isLoading) {
+  if (loading) {
     return (
       <Stack>
         <CircularProgress />
