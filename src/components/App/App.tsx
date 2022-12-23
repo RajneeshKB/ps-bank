@@ -4,15 +4,19 @@ import { ApolloProvider } from '@apollo/client'
 import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
 
 import CustomerDashboard from '../pages/CustomerDashboard/CustomerDashboard'
-import { PageLayout } from '../organisms/PageLayout'
 import { bankTheme } from '../../theme/psBankTheme'
 import { BankContextProvider } from '../../context'
 import { getBankGraphQlClient } from '../../graphql/client'
+import { UnprotectedLayout } from '../organisms/UnprotectedLayout'
+import { ProtectedLayout } from '../organisms/ProtectedLayout'
 
 const LazyLoadedRegistrationDetails = lazy(
   () => import('../pages/CustomerRegistartion/CustomerRegistration')
 )
 const LazyLoadedLogin = lazy(() => import('../pages/Login/Login'))
+const LazyLoadedPasswordReset = lazy(
+  () => import('../pages/PasswordReset/PasswordReset')
+)
 
 const queryClient = getBankGraphQlClient()
 
@@ -22,8 +26,8 @@ const App: React.FC = () => (
       <CssBaseline />
       <Router>
         <BankContextProvider>
-          <PageLayout>
-            <Routes>
+          <Routes>
+            <Route element={<UnprotectedLayout />}>
               <Route path="/" element={<CustomerDashboard />} />
               <Route
                 path="/login"
@@ -42,8 +46,18 @@ const App: React.FC = () => (
                 }
               />
               <Route path="*" element={<Typography>Not found</Typography>} />
-            </Routes>
-          </PageLayout>
+            </Route>
+            <Route path="/ps-bank" element={<ProtectedLayout />}>
+              <Route
+                path="reset"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <LazyLoadedPasswordReset />
+                  </Suspense>
+                }
+              />
+            </Route>
+          </Routes>
         </BankContextProvider>
       </Router>
     </ThemeProvider>

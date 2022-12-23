@@ -3,11 +3,10 @@ import { MemoryRouter } from 'react-router-dom'
 import { MockedProvider } from '@apollo/client/testing'
 import { render, RenderOptions } from '@testing-library/react'
 import { BankContextProvider } from '../context'
-import { CombinedContextStateType } from '../context/reducers'
 
 /** interface type for render option being received as prop from test file */
 interface ExtendedRenderOption extends Omit<RenderOptions, 'wrapper'> {
-  bankConextValue?: CombinedContextStateType
+  bankConextValue?: any
   graphQlResponseMocks?: any[]
 }
 /**

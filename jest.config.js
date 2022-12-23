@@ -6,6 +6,7 @@ module.exports = {
     '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
   },
   setupFilesAfterEnv: ['<rootDir>/setupJest.js'],
+  coveragePathIgnorePatterns: ['/node_modules', '/src/context', '/src/hooks'],
   coverageThreshold: {
     global: {
       branches: 80,

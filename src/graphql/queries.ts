@@ -7,3 +7,14 @@ export const REGISTER_CUSTOMER = gql`
     }
   }
 `
+
+export const LOGIN_CUSTOMER = gql`
+  query LoginCustomerToBank($input: CustomerLoginData) {
+    loginCustomer(customerData: $input) {
+      customerId
+      customerName
+      AccessToken
+      isNewUser
+    }
+  }
+`

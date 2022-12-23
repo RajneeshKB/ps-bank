@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { fireEvent, waitFor, within } from '@testing-library/react'
 import React from 'react'
 import { REGISTER_CUSTOMER } from '../../../graphql/queries'
@@ -138,7 +137,7 @@ describe('TS:1 - CustomerRegistration component', () => {
     })
   })
 
-  it('TC:03 - should render failure modal on registration failure and call mocked useNavigate on modal close', async () => {
+  it('TC:04 - should render failure modal on registration failure and call mocked useNavigate on modal close', async () => {
     const {
       getByLabelText,
       getByRole,
@@ -220,7 +219,9 @@ describe('TS:1 - CustomerRegistration component', () => {
     fireEvent.click(modalCloseButton)
 
     await waitFor(() => {
-      expect(queryByText(/You're all set/)).not.toBeInTheDocument()
+      expect(
+        queryByText(/Our system isn't cooperating./)
+      ).not.toBeInTheDocument()
       expect(mockData.mockNavigate).toHaveBeenCalled()
     })
   })

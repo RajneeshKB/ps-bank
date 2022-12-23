@@ -6,18 +6,27 @@ import { UserRegistrationDetailsForm } from '../../organisms/UserRegistrationDet
 import { useBankContext } from '../../../context'
 import { registrationDetailsStyles } from './styles'
 import { FailureModal } from '../../molecules/FailureModal'
+import { setRegistrationDetails } from '../../../context/actions'
 
 const CustomerRegistration: FC = () => {
   const [regResponse, updateRegResponse] = useState({ data: {}, error: {} })
   const [showModal, toggleShowModal] = useState(false)
   const navigate = useNavigate()
   const {
+    dispatch,
     state: { registrationData },
   } = useBankContext()
 
   const toggleModalView = () => toggleShowModal(!showModal)
   const closeModalAndNavigate = () => {
     toggleModalView()
+    dispatch(
+      setRegistrationDetails({
+        customerName: '',
+        customerEmail: '',
+        customerMob: '',
+      })
+    )
     navigate('/')
   }
   const registrationCompletionHandler = ({ data, error }: any) => {

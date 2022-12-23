@@ -232,3 +232,42 @@ export const LOGIN_FORM: FormMetaData[] = [
     },
   },
 ]
+
+export const PASSWORD_RESET_FORM: FormMetaData[] = [
+  {
+    id: 'customerId',
+    name: 'customerId',
+    label: 'Customer Id',
+    placeholder: 'Customer Id',
+    required: true,
+    type: 'text',
+    subCategory: '',
+    validation: {
+      required: { value: true, message: 'customer Id is required' },
+    },
+  },
+  {
+    id: 'oldPassword',
+    name: 'oldPassword',
+    label: 'Old Password',
+    placeholder: 'Old Password',
+    required: true,
+    type: 'text',
+    subCategory: 'password',
+    validation: {
+      required: { value: true, message: 'Old password is required' },
+    },
+  },
+  {
+    id: 'newPassword',
+    name: 'newPassword',
+    label: 'New Password',
+    placeholder: 'New Password',
+    required: true,
+    type: 'text',
+    subCategory: 'password',
+    validation: {
+      required: { value: true, message: 'New password is required' },
+    },
+  },
+]
