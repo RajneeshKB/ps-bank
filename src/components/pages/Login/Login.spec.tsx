@@ -169,7 +169,7 @@ describe('TS:1 - Login component', () => {
   })
 })
 
-describe('TS:2 Login component', () => {
+xdescribe('TS:2 Login component', () => {
   it('TC:01 - should display welcome message customerdetails and accesstoken available in session storage', async () => {
     sessionStorage.setItem(
       'customerData',
