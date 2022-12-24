@@ -167,8 +167,10 @@ describe('TS:1 - Login component', () => {
       ).toBeInTheDocument()
     })
   })
+})
 
-  it('TC:06 - should display welcome message customerdetails and accesstoken available in session storage', async () => {
+describe('TS:2 Login component', () => {
+  it('TC:01 - should display welcome message customerdetails and accesstoken available in session storage', async () => {
     sessionStorage.setItem(
       'customerData',
       JSON.stringify({
