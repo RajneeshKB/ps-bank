@@ -57,7 +57,7 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
     const addressBox = getByLabelText('Address line 1 *')
     const stateBox = getByLabelText('State *')
     const cityBox = getByLabelText('City *')
-    const countryBox = getByLabelText('Country *')
+    // const countryBox = getByLabelText('Country *')
 
     // Select option from occupation dropdown
     fireEvent.mouseDown(occupationBox)
@@ -71,9 +71,9 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
     fireEvent.change(stateBox, { target: { value: 'Delhi' } })
     fireEvent.change(cityBox, { target: { value: 'Delhi' } })
     // Select option from country dropdown
-    fireEvent.mouseDown(countryBox)
-    const countryOptions = within(getByRole('listbox'))
-    fireEvent.click(countryOptions.getByText(/India/i))
+    // fireEvent.mouseDown(countryBox)
+    // const countryOptions = within(getByRole('listbox'))
+    // fireEvent.click(countryOptions.getByText(/India/i))
 
     const submitButton = getByRole('button', { name: 'Submit' })
     fireEvent.click(submitButton)

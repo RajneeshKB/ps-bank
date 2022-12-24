@@ -101,7 +101,7 @@ describe('TS:1 - CustomerRegistration component', () => {
     const addressBox = getByLabelText('Address line 1 *')
     const stateBox = getByLabelText('State *')
     const cityBox = getByLabelText('City *')
-    const countryBox = getByLabelText('Country *')
+    // const countryBox = getByLabelText('Country *')
 
     // Select option from occupation dropdown
     fireEvent.mouseDown(occupationBox)
@@ -114,10 +114,10 @@ describe('TS:1 - CustomerRegistration component', () => {
     fireEvent.change(addressBox, { target: { value: 'test apartment flat 2' } })
     fireEvent.change(stateBox, { target: { value: 'Delhi' } })
     fireEvent.change(cityBox, { target: { value: 'Delhi' } })
-    // Select option from country dropdown
-    fireEvent.mouseDown(countryBox)
-    const countryOptions = within(getByRole('listbox'))
-    fireEvent.click(countryOptions.getByText(/India/i))
+    // // Select option from country dropdown
+    // fireEvent.mouseDown(countryBox)
+    // const countryOptions = within(getByRole('listbox'))
+    // fireEvent.click(countryOptions.getByText(/India/i))
 
     const submitButton = getByRole('button', { name: 'Submit' })
     fireEvent.click(submitButton)
@@ -189,7 +189,7 @@ describe('TS:1 - CustomerRegistration component', () => {
     const addressBox = getByLabelText('Address line 1 *')
     const stateBox = getByLabelText('State *')
     const cityBox = getByLabelText('City *')
-    const countryBox = getByLabelText('Country *')
+    // const countryBox = getByLabelText('Country *')
 
     // Select option from occupation dropdown
     fireEvent.mouseDown(occupationBox)
@@ -202,10 +202,10 @@ describe('TS:1 - CustomerRegistration component', () => {
     fireEvent.change(addressBox, { target: { value: 'test apartment flat 2' } })
     fireEvent.change(stateBox, { target: { value: 'Delhi' } })
     fireEvent.change(cityBox, { target: { value: 'Delhi' } })
-    // Select option from country dropdown
-    fireEvent.mouseDown(countryBox)
-    const countryOptions = within(getByRole('listbox'))
-    fireEvent.click(countryOptions.getByText(/India/i))
+    // // Select option from country dropdown
+    // fireEvent.mouseDown(countryBox)
+    // const countryOptions = within(getByRole('listbox'))
+    // fireEvent.click(countryOptions.getByText(/India/i))
 
     const submitButton = getByRole('button', { name: 'Submit' })
     fireEvent.click(submitButton)

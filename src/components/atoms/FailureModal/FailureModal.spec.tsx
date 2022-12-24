@@ -5,14 +5,15 @@ import { FailureModal } from '.'
 describe('TS:1 - FailureModal Component', () => {
   it('TC:01 - should render failure modal successfully', () => {
     const { getByText, getByRole } = render(
-      <FailureModal showModal onCloseClick={jest.fn()} />
+      <FailureModal
+        showModal
+        onCloseClick={jest.fn()}
+        title={<div>Failed</div>}
+        description={<div>Process failed</div>}
+      />
     )
-    expect(getByText(/Our system isn't cooperating./)).toBeInTheDocument()
-    expect(
-      getByText(
-        /There is a problem on our end. It should'nt last long so please try again shortly./
-      )
-    ).toBeInTheDocument()
+    expect(getByText(/Failed/)).toBeInTheDocument()
+    expect(getByText(/Process failed/)).toBeInTheDocument()
 
     expect(getByRole('button', { name: 'Close' })).toBeDefined()
   })

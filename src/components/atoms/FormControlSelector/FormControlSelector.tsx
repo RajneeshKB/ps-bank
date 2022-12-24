@@ -24,7 +24,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
   controlState,
   controlValues,
 }) => {
-  const { id, name, label, type, subCategory, required } = controlData
+  const { id, name, label, type, subCategory, required, disabled } = controlData
   const { onChange, value } = controlHandler
   const { error } = controlState
   switch (controlData.type) {
@@ -39,6 +39,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
           error={!!error?.message}
           type={subCategory || type}
           variant="standard"
+          disabled={disabled}
         />
       )
 
@@ -59,6 +60,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
             label={label}
             onChange={onChange}
             error={!!error?.message}
+            disabled={disabled}
           >
             {controlValues.map(
               ({ id: _id, label: _label, value: _value }: ControlValues) => (

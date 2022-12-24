@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Card, CardContent, Divider, Paper, Typography } from '@mui/material'
-import { RegistrationSuccessModal } from '../../molecules/RegistrationSuccess'
 import { UserRegistrationDetailsForm } from '../../organisms/UserRegistrationDetailed'
 import { useBankContext } from '../../../context'
-import { registrationDetailsStyles } from './styles'
-import { FailureModal } from '../../molecules/FailureModal'
 import { setRegistrationDetails } from '../../../context/actions'
+import { RegistrationSuccess } from '../../molecules/RegistrationSuccess'
+import { GenericErrorModal } from '../../molecules/GenericErrorModal'
+import { registrationDetailsStyles } from './styles'
 
 const CustomerRegistration: FC = () => {
   const [regResponse, updateRegResponse] = useState({ data: {}, error: {} })
@@ -50,13 +50,13 @@ const CustomerRegistration: FC = () => {
       </Card>
       {showModal &&
         (regResponse?.data ? (
-          <RegistrationSuccessModal
+          <RegistrationSuccess
             customerData={regResponse.data}
             showModal={showModal}
             onCloseClick={closeModalAndNavigate}
           />
         ) : (
-          <FailureModal
+          <GenericErrorModal
             showModal={showModal}
             onCloseClick={closeModalAndNavigate}
           />

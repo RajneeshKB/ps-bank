@@ -8,7 +8,7 @@ import {
   Stack,
 } from '@mui/material'
 import type { FormMetaData } from '../../../utils'
-import { FormControlSelector } from '../../molecules/FormControlSelector'
+import { FormControlSelector } from '../../atoms/FormControlSelector'
 
 interface IFormBuilderProps {
   formControls: FormMetaData[]

@@ -11,7 +11,13 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockData.mockNavigate,
   Navigate: () => <div>Mock navigate component</div>,
 }))
+
 describe('TS:1 - Login component', () => {
+  afterEach(() => {
+    window.sessionStorage.clear()
+    jest.restoreAllMocks()
+  })
+
   it('TC:01 - should render Login Component successfully', () => {
     const { getByText, getAllByRole, getByLabelText } = renderWithRouter(
       <Login />
@@ -45,7 +51,7 @@ describe('TS:1 - Login component', () => {
               variables: {
                 input: {
                   customerId: 'PS_12345',
-                  pasword: 'invalidPass',
+                  password: 'invalidPass',
                 },
               },
             },
@@ -71,20 +77,44 @@ describe('TS:1 - Login component', () => {
   })
 
   it('TC:04 - should navigate to password reset page if api call successful and context value is updated', async () => {
-    const { getByText } = renderWithRouter(
+    const { getByRole, getByLabelText, getByText } = renderWithRouter(
       <Login />,
       {},
       {
-        bankConextValue: {
-          loginData: {
-            customerId: 'PS_12345',
-            customerName: 'Test User',
-            AccessToken: 'newToken',
-            isNewUser: true,
+        graphQlResponseMocks: [
+          {
+            request: {
+              query: LOGIN_CUSTOMER,
+              variables: {
+                input: {
+                  customerId: 'PS_12345',
+                  password: 'validPass',
+                },
+              },
+            },
+            result: {
+              data: {
+                loginCustomer: {
+                  AccessToken: 'testToken',
+                  isNewUser: true,
+                  customerId: 'PS_12345',
+                  customerName: 'Test User',
+                },
+              },
+            },
           },
-        },
+        ],
       }
     )
+
+    const customerIdBox = getByLabelText('Customer Id *')
+    const passwordBox = getByLabelText('Password *')
+
+    fireEvent.change(customerIdBox, { target: { value: 'PS_12345' } })
+    fireEvent.change(passwordBox, { target: { value: 'validPass' } })
+
+    const submitButton = getByRole('button', { name: 'login' })
+    fireEvent.click(submitButton)
 
     await waitFor(() => {
       expect(getByText(/Mock navigate component/)).toBeInTheDocument()
@@ -92,21 +122,65 @@ describe('TS:1 - Login component', () => {
   })
 
   it('TC:05 - should display welcome message if api call successful and and is not new user', async () => {
-    const { getByText } = renderWithRouter(
+    const { getByRole, getByLabelText, getByText } = renderWithRouter(
       <Login />,
       {},
       {
-        bankConextValue: {
-          loginData: {
-            customerId: 'PS_12345',
-            customerName: 'Test User',
-            AccessToken: 'newToken',
-            isNewUser: false,
+        graphQlResponseMocks: [
+          {
+            request: {
+              query: LOGIN_CUSTOMER,
+              variables: {
+                input: {
+                  customerId: 'PS_12345',
+                  password: 'validPass',
+                },
+              },
+            },
+            result: {
+              data: {
+                loginCustomer: {
+                  AccessToken: 'testToken',
+                  isNewUser: false,
+                  customerId: 'PS_12345',
+                  customerName: 'Test User',
+                },
+              },
+            },
           },
-        },
+        ],
       }
     )
 
+    const customerIdBox = getByLabelText('Customer Id *')
+    const passwordBox = getByLabelText('Password *')
+
+    fireEvent.change(customerIdBox, { target: { value: 'PS_12345' } })
+    fireEvent.change(passwordBox, { target: { value: 'validPass' } })
+
+    const submitButton = getByRole('button', { name: 'login' })
+    fireEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(
+        getByText(/Welcome customer PS_12345 Test User/)
+      ).toBeInTheDocument()
+    })
+  })
+
+  it('TC:06 - should display welcome message customerdetails and accesstoken available in session storage', async () => {
+    sessionStorage.setItem(
+      'customerData',
+      JSON.stringify({
+        AccessToken: 'testToken',
+        isNewUser: false,
+        customerId: 'PS_12345',
+        customerName: 'Test User',
+      })
+    )
+    sessionStorage.setItem('AccessToken', 'testToken')
+
+    const { getByText } = renderWithRouter(<Login />)
     await waitFor(() => {
       expect(
         getByText(/Welcome customer PS_12345 Test User/)

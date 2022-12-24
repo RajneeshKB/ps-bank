@@ -1,4 +1,4 @@
-export const registrationSuccessStyles = {
+export const successModalStyles = {
   modalContent: {
     position: 'absolute',
     top: '50%',

@@ -1,18 +1,20 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { RegistrationSuccess } from '.'
+import { SuccessModal } from '.'
 
-describe('TS:1 - RegistrationSuccess Component', () => {
+describe('TS:1 - SuccessModal Component', () => {
   it('TC:01 - should render success modal successfully', () => {
     const { getByText, getByRole } = render(
-      <RegistrationSuccess
-        customerData={{ createCustomer: { customerName: 'Test User' } }}
+      <SuccessModal
         showModal
         onCloseClick={jest.fn()}
+        title={<div>Success</div>}
+        description={<div>Process successful</div>}
       />
     )
-    expect(getByText(/You're all set/)).toBeInTheDocument()
-    expect(getByText(/Happy banking!/)).toBeInTheDocument()
+    expect(getByText(/Success/)).toBeInTheDocument()
+    expect(getByText(/Process successful/)).toBeInTheDocument()
+
     expect(getByRole('button', { name: 'Close' })).toBeDefined()
   })
 })

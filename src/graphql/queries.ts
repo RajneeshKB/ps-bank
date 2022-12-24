@@ -18,3 +18,11 @@ export const LOGIN_CUSTOMER = gql`
     }
   }
 `
+
+export const RESET_PASSWORD = gql`
+  query ResetPassword($input: PasswordResetData) {
+    resetPassword(customerData: $input) {
+      message
+    }
+  }
+`

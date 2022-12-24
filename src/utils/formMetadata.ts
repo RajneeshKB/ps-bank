@@ -5,14 +5,15 @@ export type FormMetaData = {
   name: any
   label: string
   type: string
-  subCategory: string
+  subCategory?: string
   placeholder: string
   required: boolean
+  disabled?: boolean
   validation: {}
 }
 type AddressType = {
   addressLine1: string
-  addressLine2: string
+  addressLine2?: string
   city: string
   state: string
   country: string
@@ -203,6 +204,7 @@ export const USER_REGISTRATION_DETAILS: FormMetaData[] = [
     validation: {
       required: { value: true, message: 'country is required' },
     },
+    disabled: true,
   },
 ]
 
@@ -242,6 +244,7 @@ export const PASSWORD_RESET_FORM: FormMetaData[] = [
     required: true,
     type: 'text',
     subCategory: '',
+    disabled: true,
     validation: {
       required: { value: true, message: 'customer Id is required' },
     },
