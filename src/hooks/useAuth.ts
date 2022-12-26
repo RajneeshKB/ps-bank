@@ -1,23 +1,19 @@
 import { useBankContext } from '../context'
-// import { setLoginData } from '../context/actions'
+import { getItemFromSession } from '../utils'
 
 export const useAuth = () => {
   const {
-    // dispatch,
-    state: {
-      loginData: { AccessToken },
-    },
+    state: { loginData },
   } = useBankContext()
 
-  if (AccessToken) {
-    return { AccessToken }
+  if (loginData?.AccessToken) {
+    return { ...loginData, validContext: true }
   }
 
   const sessionAccessToken = sessionStorage.AccessToken
-  const sessionCustomerData = sessionStorage.customerData
-  if (sessionAccessToken && sessionCustomerData) {
-    // dispatch(setLoginData(JSON.parse(sessionStorage.customerData)))
-    return JSON.parse(sessionStorage.customerData)
+  const sessionCustomerData = getItemFromSession('customerData')
+  if (sessionAccessToken && sessionCustomerData?.AccessToken) {
+    return { ...sessionCustomerData, validContext: false }
   }
 
   return {}

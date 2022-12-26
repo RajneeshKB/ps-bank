@@ -12,9 +12,11 @@ import React, { FC } from 'react'
 import { Control, useForm } from 'react-hook-form'
 import { Navigate } from 'react-router-dom'
 import { LOGIN_CUSTOMER } from '../../../graphql/queries'
-import { getItemFromSession, LOGIN_FORM } from '../../../utils'
+import { LOGIN_FORM } from '../../../utils'
 import { FormBuilder } from '../../organisms/FormBuilder'
+import { useBankContext } from '../../../context'
 import { loginStyles } from './styles'
+import { setLoginData } from '../../../context/actions'
 
 type LoginFormInputs = {
   customerId: string
@@ -34,21 +36,22 @@ const CustomerLogin: FC = () => {
   const { control, handleSubmit }: FormProps = useForm<LoginFormInputs>({
     defaultValues: initialStateValue,
   })
-  const [loginCustomer, { loading, error, data }] = useLazyQuery(LOGIN_CUSTOMER)
-  const { AccessToken } = sessionStorage
-  const customerDetails = getItemFromSession('customerData')
+  const [loginCustomer, { loading, error }] = useLazyQuery(LOGIN_CUSTOMER)
+  const {
+    dispatch,
+    state: {
+      loginData: { AccessToken, customerId, isNewUser },
+    },
+  } = useBankContext()
 
   const registerUser = (formData: LoginFormInputs) => {
     loginCustomer({
       variables: { input: formData },
       fetchPolicy: 'no-cache',
+      onCompleted: (response) => {
+        dispatch(setLoginData({ ...response.loginCustomer }))
+      },
     })
-  }
-
-  if (AccessToken && customerDetails?.customerId) {
-    return (
-      <Typography variant="h2">{`Welcome customer ${customerDetails.customerId} ${customerDetails.customerName}`}</Typography>
-    )
   }
 
   if (loading) {
@@ -61,17 +64,9 @@ const CustomerLogin: FC = () => {
       </Stack>
     )
   }
-
-  if (data?.loginCustomer) {
-    const { loginCustomer: custDetails } = data
-    sessionStorage.setItem('customerData', JSON.stringify(custDetails))
-    sessionStorage.setItem('AccessToken', custDetails.AccessToken)
-
-    return custDetails?.isNewUser ? (
-      <Navigate to="/ps-bank/reset" />
-    ) : (
-      <Typography variant="h2">{`Welcome customer ${custDetails?.customerId} ${custDetails?.customerName}`}</Typography>
-    )
+  if (AccessToken && customerId) {
+    const navigatePath = isNewUser ? '/ps-bank/reset' : '/ps-bank/accounts'
+    return <Navigate to={navigatePath} />
   }
 
   return (

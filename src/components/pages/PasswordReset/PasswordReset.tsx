@@ -17,6 +17,8 @@ import { getItemFromSession, PASSWORD_RESET_FORM } from '../../../utils'
 import { RESET_PASSWORD } from '../../../graphql/queries'
 import { GenericErrorModal } from '../../molecules/GenericErrorModal'
 import { SuccessModal } from '../../atoms/SuccessModal'
+import { useBankContext } from '../../../context'
+import { logoutCustomer } from '../../../context/actions'
 
 type PasswordResetFormInputs = {
   customerId: string
@@ -35,6 +37,7 @@ const initialStateValue = {
 }
 
 const PasswordReset: FC = () => {
+  const { dispatch } = useBankContext()
   const { AccessToken } = sessionStorage
   const customerDetails = getItemFromSession('customerData')
   const navigate = useNavigate()
@@ -51,11 +54,10 @@ const PasswordReset: FC = () => {
     useLazyQuery(RESET_PASSWORD)
 
   const closeModalAndNavigate = () => {
+    dispatch(logoutCustomer())
     navigate('/')
   }
   const registerUser = (formData: PasswordResetFormInputs) => {
-    // eslint-disable-next-line no-console
-    console.log('password reset initiated', formData)
     resetLoginPassword({
       variables: { input: formData },
       fetchPolicy: 'no-cache',

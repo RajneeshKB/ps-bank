@@ -1,15 +1,31 @@
+import { CircularProgress, Stack, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import { useBankContext } from '../../../context'
+import { setLoginData } from '../../../context/actions'
 import { useAuth } from '../../../hooks/useAuth'
 import { PageLayout } from '../PageLayout'
 
 const ProtectedLayout: FC = () => {
+  const { dispatch } = useBankContext()
   const isAuthorized = useAuth()
 
-  if (!isAuthorized) {
+  if (!isAuthorized?.AccessToken) {
     // eslint-disable-next-line no-console
     console.log('use not authorized')
     return <Navigate to="/" />
+  }
+
+  const { validContext, customerId, customerName, isNewUser, AccessToken } =
+    isAuthorized
+  if (!validContext) {
+    dispatch(setLoginData({ customerId, customerName, isNewUser, AccessToken }))
+    return (
+      <Stack>
+        <CircularProgress />
+        <Typography variant="caption">Loading data, please wait!</Typography>
+      </Stack>
+    )
   }
 
   return (

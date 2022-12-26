@@ -121,72 +121,24 @@ describe('TS:1 - Login component', () => {
     })
   })
 
-  it('TC:05 - should display welcome message if api call successful and and is not new user', async () => {
-    const { getByRole, getByLabelText, getByText } = renderWithRouter(
+  it('TC:05 - should navigate if api call successful and context data is updated', async () => {
+    const { getByText } = renderWithRouter(
       <Login />,
       {},
       {
-        graphQlResponseMocks: [
-          {
-            request: {
-              query: LOGIN_CUSTOMER,
-              variables: {
-                input: {
-                  customerId: 'PS_12345',
-                  password: 'validPass',
-                },
-              },
-            },
-            result: {
-              data: {
-                loginCustomer: {
-                  AccessToken: 'testToken',
-                  isNewUser: false,
-                  customerId: 'PS_12345',
-                  customerName: 'Test User',
-                },
-              },
-            },
+        bankConextValue: {
+          loginData: {
+            customerId: 'PS_12345',
+            customerName: 'Test User',
+            AccessToken: 'testToken',
+            isNewUser: false,
           },
-        ],
+        },
       }
     )
 
-    const customerIdBox = getByLabelText('Customer Id *')
-    const passwordBox = getByLabelText('Password *')
-
-    fireEvent.change(customerIdBox, { target: { value: 'PS_12345' } })
-    fireEvent.change(passwordBox, { target: { value: 'validPass' } })
-
-    const submitButton = getByRole('button', { name: 'login' })
-    fireEvent.click(submitButton)
-
     await waitFor(() => {
-      expect(
-        getByText(/Welcome customer PS_12345 Test User/)
-      ).toBeInTheDocument()
-    })
-  })
-})
-
-xdescribe('TS:2 Login component', () => {
-  it('TC:01 - should display welcome message customerdetails and accesstoken available in session storage', async () => {
-    sessionStorage.setItem(
-      'customerData',
-      JSON.stringify({
-        AccessToken: 'testToken',
-        isNewUser: false,
-        customerId: 'PS_12345',
-        customerName: 'Test User',
-      })
-    )
-    sessionStorage.setItem('AccessToken', 'testToken')
-
-    const { getByText } = renderWithRouter(<Login />)
-    await waitFor(() => {
-      expect(
-        getByText(/Welcome customer PS_12345 Test User/)
-      ).toBeInTheDocument()
+      expect(getByText(/Mock navigate component/)).toBeInTheDocument()
     })
   })
 })

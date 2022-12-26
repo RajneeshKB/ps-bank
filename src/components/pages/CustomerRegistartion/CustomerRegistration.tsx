@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { Card, CardContent, Divider, Paper, Typography } from '@mui/material'
 import { UserRegistrationDetailsForm } from '../../organisms/UserRegistrationDetailed'
 import { useBankContext } from '../../../context'
-import { setRegistrationDetails } from '../../../context/actions'
+import { logoutCustomer } from '../../../context/actions'
 import { RegistrationSuccess } from '../../molecules/RegistrationSuccess'
 import { GenericErrorModal } from '../../molecules/GenericErrorModal'
 import { registrationDetailsStyles } from './styles'
@@ -20,13 +20,7 @@ const CustomerRegistration: FC = () => {
   const toggleModalView = () => toggleShowModal(!showModal)
   const closeModalAndNavigate = () => {
     toggleModalView()
-    dispatch(
-      setRegistrationDetails({
-        customerName: '',
-        customerEmail: '',
-        customerMob: '',
-      })
-    )
+    dispatch(logoutCustomer())
     navigate('/')
   }
   const registrationCompletionHandler = ({ data, error }: any) => {

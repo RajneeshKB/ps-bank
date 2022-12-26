@@ -1,5 +1,9 @@
 import { Dispatch } from 'react'
-import { SET_LOGIN_DATA, SET_REGISTRATION_DETAILS } from './actions'
+import {
+  LOGOUT_CUSTOMER,
+  SET_LOGIN_DATA,
+  SET_REGISTRATION_DETAILS,
+} from './actions'
 
 export type RegistrationDetailType = {
   customerName: string
@@ -38,22 +42,22 @@ export const reducer = (
   switch (action.type) {
     case SET_REGISTRATION_DETAILS:
       return { ...state, registrationData: { ...action.payload } }
+
     case SET_LOGIN_DATA:
-      if (action.payload?.loginCustomer) {
-        sessionStorage.setItem(
-          'customerData',
-          JSON.stringify(action.payload.loginCustomer)
-        )
-        sessionStorage.setItem(
-          'AccessToken',
-          action.payload.loginCustomer.AccessToken
-        )
+      if (action.payload?.AccessToken) {
+        sessionStorage.setItem('customerData', JSON.stringify(action.payload))
+        sessionStorage.setItem('AccessToken', action.payload.AccessToken)
         return {
           ...state,
-          loginData: { ...action.payload.loginCustomer },
+          loginData: { ...action.payload },
         }
       }
       return state
+
+    case LOGOUT_CUSTOMER:
+      sessionStorage.clear()
+      return { ...initialState }
+
     default:
       return state
   }

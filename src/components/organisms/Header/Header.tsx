@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, Button, Container, Link, Stack } from '@mui/material'
+import { Box, Container, Link, Stack } from '@mui/material'
 import { headerStyles } from './styles'
+import { HeaderActions } from '../../molecules/HeaderActions'
 
 const Header: FC = () => (
   <header>
@@ -21,14 +22,7 @@ const Header: FC = () => (
           >
             PS Bank
           </Link>
-          <Button
-            to="/login"
-            variant="contained"
-            component={RouterLink}
-            color="success"
-          >
-            Login
-          </Button>
+          <HeaderActions />
         </Stack>
       </Container>
     </Box>
