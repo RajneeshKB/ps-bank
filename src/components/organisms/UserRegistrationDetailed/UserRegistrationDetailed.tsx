@@ -1,7 +1,6 @@
-import { useMutation } from '@apollo/client'
-import { CircularProgress, Stack, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import { Control, useForm } from 'react-hook-form'
+import { useMutation } from '@apollo/client'
 import { REGISTER_CUSTOMER } from '../../../graphql/queries'
 import {
   IRegistrationInputs,
@@ -10,6 +9,7 @@ import {
   USER_REGISTRATION_CONTROL_VALUES,
   USER_REGISTRATION_DETAILS,
 } from '../../../utils'
+import { ViewLoader } from '../../atoms/ViewLoader'
 import { FormBuilder } from '../FormBuilder'
 
 type FormProps = {
@@ -26,7 +26,10 @@ const UserRegistrationDetailed: FC<IUserRegistrationDetailedProps> = ({
   formSubmitCallback,
 }) => {
   const { control, handleSubmit }: FormProps = useForm<IRegistrationInputs>({
-    defaultValues: REGISTRATION_DETAILS_DEFAULT_VALUES,
+    defaultValues: {
+      ...REGISTRATION_DETAILS_DEFAULT_VALUES,
+      ...basicRegistrationData,
+    },
   })
   const [registerCustomerMutation, { loading }] = useMutation(REGISTER_CUSTOMER)
 
@@ -51,12 +54,7 @@ const UserRegistrationDetailed: FC<IUserRegistrationDetailedProps> = ({
 
   if (loading) {
     return (
-      <Stack>
-        <CircularProgress />
-        <Typography variant="caption">
-          Registergin Customer, please wait!
-        </Typography>
-      </Stack>
+      <ViewLoader label="Customer registration in progress, please wait!" />
     )
   }
   return (

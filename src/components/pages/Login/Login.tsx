@@ -1,13 +1,5 @@
 import { useLazyQuery } from '@apollo/client'
-import {
-  Card,
-  CardContent,
-  CircularProgress,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material'
+import { Card, CardContent, Divider, Paper, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import { Control, useForm } from 'react-hook-form'
 import { Navigate } from 'react-router-dom'
@@ -17,6 +9,7 @@ import { FormBuilder } from '../../organisms/FormBuilder'
 import { useBankContext } from '../../../context'
 import { loginStyles } from './styles'
 import { setLoginData } from '../../../context/actions'
+import { ViewLoader } from '../../atoms/ViewLoader'
 
 type LoginFormInputs = {
   customerId: string
@@ -55,17 +48,10 @@ const CustomerLogin: FC = () => {
   }
 
   if (loading) {
-    return (
-      <Stack>
-        <CircularProgress />
-        <Typography variant="caption">
-          Customerlogin in progress, please wait!
-        </Typography>
-      </Stack>
-    )
+    return <ViewLoader label="Customerlogin in progress, please wait!" />
   }
   if (AccessToken && customerId) {
-    const navigatePath = isNewUser ? '/ps-bank/reset' : '/ps-bank/accounts'
+    const navigatePath = isNewUser ? '/ps-bank/reset' : '/ps-bank/welcome'
     return <Navigate to={navigatePath} />
   }
 

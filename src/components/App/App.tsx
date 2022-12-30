@@ -17,8 +17,11 @@ const LazyLoadedLogin = lazy(() => import('../pages/Login/Login'))
 const LazyLoadedPasswordReset = lazy(
   () => import('../pages/PasswordReset/PasswordReset')
 )
-const LazyLoadedAccountDashboard = lazy(
-  () => import('../pages/AccountDashboard/AccountDashboard')
+const LazyLoadedWelcomeDashboard = lazy(
+  () => import('../pages/WelcomeDashboard/WelcomeDashboard')
+)
+const LazyLoadedNewSavingAccount = lazy(
+  () => import('../pages/NewSavingAccount/NewSavingAccount')
 )
 
 const queryClient = getBankGraphQlClient()
@@ -60,10 +63,18 @@ const App: React.FC = () => (
                 }
               />
               <Route
-                path="accounts"
+                path="welcome"
                 element={
                   <Suspense fallback={<div>Loading</div>}>
-                    <LazyLoadedAccountDashboard />
+                    <LazyLoadedWelcomeDashboard />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="new-saving"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <LazyLoadedNewSavingAccount />
                   </Suspense>
                 }
               />

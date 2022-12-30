@@ -2,15 +2,7 @@ import React, { FC } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Control, useForm } from 'react-hook-form'
 import { useLazyQuery } from '@apollo/client'
-import {
-  Card,
-  CardContent,
-  CircularProgress,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material'
+import { Card, CardContent, Divider, Paper, Typography } from '@mui/material'
 import { FormBuilder } from '../../organisms/FormBuilder'
 import { passwordResetStyles } from './styles'
 import { getItemFromSession, PASSWORD_RESET_FORM } from '../../../utils'
@@ -19,6 +11,7 @@ import { GenericErrorModal } from '../../molecules/GenericErrorModal'
 import { SuccessModal } from '../../atoms/SuccessModal'
 import { useBankContext } from '../../../context'
 import { logoutCustomer } from '../../../context/actions'
+import { ViewLoader } from '../../atoms/ViewLoader'
 
 type PasswordResetFormInputs = {
   customerId: string
@@ -69,14 +62,7 @@ const PasswordReset: FC = () => {
   }
 
   if (loading) {
-    return (
-      <Stack>
-        <CircularProgress />
-        <Typography variant="caption">
-          Password reset in progress, please wait!
-        </Typography>
-      </Stack>
-    )
+    return <ViewLoader label="Password reset in progress, please wait!" />
   }
 
   return (

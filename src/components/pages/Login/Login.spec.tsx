@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react'
 import { fireEvent, waitFor } from '@testing-library/react'
 import { renderWithRouter } from '../../../utils/test-utils'
@@ -35,6 +34,7 @@ describe('TS:1 - Login component', () => {
     fireEvent.click(submitButton)
 
     await waitFor(() => {
+      // eslint-disable-next-line no-console
       expect(console.log).not.toHaveBeenCalled()
     })
   })

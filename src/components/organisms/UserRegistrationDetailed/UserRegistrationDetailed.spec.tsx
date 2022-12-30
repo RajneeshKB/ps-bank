@@ -20,10 +20,10 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
         formSubmitCallback={mockProps.mockFormSubmit}
       />
     )
-    expect(getAllByRole('textbox')).toHaveLength(6)
+    expect(getAllByRole('textbox')).toHaveLength(12)
     expect(getAllByRole('button')).toHaveLength(3)
-    expect(getAllByRole('radiogroup')).toHaveLength(1)
-    expect(getAllByRole('radio')).toHaveLength(4)
+    expect(getAllByRole('radiogroup')).toHaveLength(2)
+    expect(getAllByRole('radio')).toHaveLength(6)
   })
 
   it('TC:02 - should not call submit function on if form is not valid when submitted', async () => {
@@ -51,10 +51,15 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
       />
     )
     const occupationBox = getByLabelText('Occupation *')
-    const incomeBox = getAllByRole('radio')[1]
+    const incomeBox = getAllByRole('radio')[4]
+    const genderBox = getAllByRole('radio')[1]
     const panBox = getByLabelText('PAN number *')
+    const dobBox = getByLabelText('Date of birth *')
+    const fatherNameBox = getByLabelText("Father's Name *")
+    const motherNameBox = getByLabelText("Mother's maiden Name *")
     const aadharBox = getByLabelText('Aadhar number *')
     const addressBox = getByLabelText('Address line 1 *')
+    const pincodeBox = getByLabelText('Pincode *')
     const stateBox = getByLabelText('State *')
     const cityBox = getByLabelText('City *')
     // const countryBox = getByLabelText('Country *')
@@ -65,7 +70,12 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
     fireEvent.click(occupationOptions.getByText(/salaried/i))
     // Select income radio option
     fireEvent.click(incomeBox)
+    fireEvent.click(genderBox)
+    fireEvent.change(dobBox, { target: { value: '1990-10-22' } })
+    fireEvent.change(fatherNameBox, { target: { value: 'Father Name' } })
+    fireEvent.change(motherNameBox, { target: { value: 'Mother Name' } })
     fireEvent.change(panBox, { target: { value: 'BRSGF1472D' } })
+    fireEvent.change(pincodeBox, { target: { value: '345678' } })
     fireEvent.change(aadharBox, { target: { value: '6537238569157654' } })
     fireEvent.change(addressBox, { target: { value: 'test apartment flat 2' } })
     fireEvent.change(stateBox, { target: { value: 'Delhi' } })

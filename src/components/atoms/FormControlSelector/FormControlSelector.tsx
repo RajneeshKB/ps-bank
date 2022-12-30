@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import {
+  Checkbox,
   FormControlLabel,
   FormLabel,
   InputLabel,
@@ -24,7 +25,16 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
   controlState,
   controlValues,
 }) => {
-  const { id, name, label, type, subCategory, required, disabled } = controlData
+  const {
+    id,
+    name,
+    label,
+    type,
+    subCategory,
+    required,
+    disabled,
+    rowOrientation,
+  } = controlData
   const { onChange, value } = controlHandler
   const { error } = controlState
   switch (controlData.type) {
@@ -40,6 +50,24 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
           type={subCategory || type}
           variant="standard"
           disabled={disabled}
+        />
+      )
+
+    case 'date':
+      return (
+        <TextField
+          id={id}
+          label={label}
+          required={required}
+          onChange={onChange}
+          value={value}
+          error={!!error?.message}
+          type="date"
+          variant="standard"
+          disabled={disabled}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
       )
 
@@ -86,6 +114,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
           <RadioGroup
             id={id}
             aria-labelledby={`${id}_label`}
+            row={rowOrientation}
             value={value}
             onChange={onChange}
             name={name}
@@ -97,11 +126,26 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
                   value={_value}
                   control={<Radio />}
                   label={_label}
+                  disabled={disabled}
                 />
               )
             )}
           </RadioGroup>
         </>
+      )
+
+    case 'checkbox':
+      return (
+        <FormControlLabel
+          id={id}
+          value={value}
+          checked={value}
+          control={<Checkbox onChange={onChange} />}
+          label={label}
+          labelPlacement="top"
+          disabled={disabled}
+          sx={{ alignItems: 'flex-start', margin: '0' }}
+        />
       )
 
     default:
