@@ -14,7 +14,7 @@ import {
   SAVING_ACCOUNT_OPENING_FORM,
   SAVING_ACCOUNT_OPENING_FORM_DEFAULT_VALUES,
 } from '../../../utils'
-import { NewSavingFormBuilder } from '../NewSavingFormBuilder'
+import { NewEnrollmentFormBuilder } from '../NewEnrollmentFormBuilder'
 import { useBankContext } from '../../../context'
 import {
   GET_ACCOUNTS,
@@ -50,6 +50,7 @@ const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
 
   const { control, handleSubmit, reset }: any = useForm({
     defaultValues: SAVING_ACCOUNT_OPENING_FORM_DEFAULT_VALUES,
+    mode: 'onBlur',
   })
 
   useEffect(() => {
@@ -83,6 +84,9 @@ const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
     )
     if (SAVING_ACCOUNT_OPENING_AND_STEPPER_MAP.length - 1 === activeStep) {
       const finalFormData = getItemFromSession('accountOpeningFormData') || {}
+      if (finalFormData?.initialDeposit) {
+        finalFormData.initialDeposit = `${finalFormData.initialDeposit}`
+      }
       openNewSavingAccount({
         variables: {
           input: finalFormData,
@@ -151,13 +155,22 @@ const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
     return <Typography variant="h4">Error occured</Typography>
   }
 
+  const formControls =
+    SAVING_ACCOUNT_OPENING_FORM[
+      SAVING_ACCOUNT_OPENING_AND_STEPPER_MAP[activeStep]
+    ]
+  if (
+    activeStep === 3 &&
+    accountOpeningFormDataInSession?.savingAccountType === 'premium'
+  ) {
+    formControls.PAYMENT_DETAILS[0].validation = {
+      ...formControls.PAYMENT_DETAILS[0].validation,
+      min: { value: 10000, message: 'invalid amount' },
+    }
+  }
   return (
-    <NewSavingFormBuilder
-      formControls={
-        SAVING_ACCOUNT_OPENING_FORM[
-          SAVING_ACCOUNT_OPENING_AND_STEPPER_MAP[activeStep]
-        ]
-      }
+    <NewEnrollmentFormBuilder
+      formControls={formControls}
       activeStep={activeStep}
       controlHook={control}
       controlValues={SAVING_ACCOUNT_OPENING_CONTROL_VALUES}

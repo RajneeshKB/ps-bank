@@ -8,7 +8,9 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockData.mockNavigate,
   Navigate: () => <div>Mock navigate component</div>,
+  useLocation: () => ({ pathname: '/ps-bank/reset' }),
 }))
+
 describe('TS:1 - ProtectedLayout component', () => {
   it('TC:01 - should render ProtectedLayout Component successfully', () => {
     jest.spyOn(customHooks, 'useAuth').mockReturnValue({
@@ -31,18 +33,7 @@ describe('TS:1 - ProtectedLayout component', () => {
     expect(getByText(/Mock navigate component/)).toBeInTheDocument()
   })
 
-  xit('TC:03 - should render loading state while session data is updating local context state', () => {
-    sessionStorage.setItem(
-      'customerData',
-      JSON.stringify({
-        AccessToken: 'testToken',
-        isNewUser: false,
-        customerId: 'PS_12345',
-        customerName: 'Test User',
-      })
-    )
-    sessionStorage.setItem('AccessToken', 'testToken')
-
+  it('TC:03 - should render loading state if not a valid context but valid data', () => {
     jest.spyOn(customHooks, 'useAuth').mockReturnValue({
       validContext: false,
       AccessToken: 'testToken',
@@ -52,5 +43,23 @@ describe('TS:1 - ProtectedLayout component', () => {
     })
     const { getByText } = renderWithRouter(<ProtectedLayout />)
     expect(getByText(/Loading data, please wait!/)).toBeInTheDocument()
+  })
+
+  xit('TC:04 - should navigate if pathname is not valid route', () => {
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'),
+      useNavigate: () => mockData.mockNavigate,
+      Navigate: () => <div>Mock navigate component</div>,
+      useLocation: () => ({ pathname: '/ps-bank/' }),
+    }))
+    jest.spyOn(customHooks, 'useAuth').mockReturnValue({
+      validContext: true,
+      AccessToken: 'testToken',
+      customerId: 'test123',
+      customerName: 'Test User',
+      isNewUser: false,
+    })
+    const { getByText } = renderWithRouter(<ProtectedLayout />)
+    expect(getByText(/Mock navigate component/)).toBeInTheDocument()
   })
 })

@@ -17,11 +17,20 @@ const LazyLoadedLogin = lazy(() => import('../pages/Login/Login'))
 const LazyLoadedPasswordReset = lazy(
   () => import('../pages/PasswordReset/PasswordReset')
 )
-const LazyLoadedWelcomeDashboard = lazy(
-  () => import('../pages/WelcomeDashboard/WelcomeDashboard')
+const LazyLoadedAccountsDashboard = lazy(
+  () => import('../pages/AccountsDashboard/AccountsDashboard')
+)
+const LazyLoadedCardsDashboard = lazy(
+  () => import('../pages/CardsDashboard/CardsDashboard')
+)
+const LazyLoadedNewApplication = lazy(
+  () => import('../pages/NewApplication/NewApplication')
 )
 const LazyLoadedNewSavingAccount = lazy(
   () => import('../pages/NewSavingAccount/NewSavingAccount')
+)
+const LazyLoadedNewCard = lazy(
+  () => import('../pages/NewCreditCard/NewCreditCard')
 )
 
 const queryClient = getBankGraphQlClient()
@@ -63,10 +72,26 @@ const App: React.FC = () => (
                 }
               />
               <Route
-                path="welcome"
+                path="account-dashboard"
                 element={
                   <Suspense fallback={<div>Loading</div>}>
-                    <LazyLoadedWelcomeDashboard />
+                    <LazyLoadedAccountsDashboard />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="cards"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <LazyLoadedCardsDashboard />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="apply"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <LazyLoadedNewApplication />
                   </Suspense>
                 }
               />
@@ -75,6 +100,22 @@ const App: React.FC = () => (
                 element={
                   <Suspense fallback={<div>Loading</div>}>
                     <LazyLoadedNewSavingAccount />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="new-card"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <LazyLoadedNewCard />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="profile"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <div>Profile view here. Work in progress!</div>
                   </Suspense>
                 }
               />

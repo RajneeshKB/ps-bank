@@ -45,7 +45,7 @@ const NewSavingAccount: FC = () => {
       case 'SUCCESS':
         updateActiveStep(0)
         toggleShowToast()
-        navigate('/ps-bank/welcome')
+        navigate('account-dashboard')
         break
       case 'ERROR':
         toggleShowToast()
@@ -110,7 +110,6 @@ const NewSavingAccount: FC = () => {
             stepNavigationHandler={stepHandler}
           />
         </CardContent>
-        {/* {<CardActions><Button variant='contained'>Open Account</Button></CardActions>} */}
       </Card>
     </Paper>
   )

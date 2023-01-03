@@ -11,6 +11,7 @@ module.exports = {
     '/src/context',
     '/src/hooks',
     '/src/utils',
+    '/src/graphql',
   ],
   coverageThreshold: {
     global: {

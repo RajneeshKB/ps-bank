@@ -1,8 +1,14 @@
 import {
+  CREDIT_CARD_TYPE,
   GENDER_TYPE,
   ID_COUNTRY,
   ID_INCOME,
   ID_OCCUPATION,
+  JOINT_APPLICANT,
+  NOMINEE,
+  PAYMENT,
+  PAYMENT_METHOD,
+  PRIMARY_APPLICANT,
   RELATIONSHIP,
   SAVING_ACCOUNT_TYPE,
 } from './constants'
@@ -213,6 +219,20 @@ const SAVING_ACCOUNT_TYPE_CONTROL: FormMetaData[] = [
     type: 'checkbox',
     halfWidth: true,
     validation: {},
+  },
+]
+const CREDIT_CARD_TYPE_CONTROL: FormMetaData[] = [
+  {
+    id: CREDIT_CARD_TYPE,
+    name: CREDIT_CARD_TYPE,
+    label: 'Credit Card type',
+    required: true,
+    type: 'radioGroup',
+    rowOrientation: true,
+    halfWidth: true,
+    validation: {
+      required: { value: true, message: 'credit card type is required' },
+    },
   },
 ]
 const USER_BIOLOGICAL_DETAILS: FormMetaData[] = [
@@ -449,7 +469,7 @@ export const PASSWORD_RESET_FORM: FormMetaData[] = [
 export const SAVING_ACCOUNT_OPENING_FORM: {
   [key: string]: { [key: string]: FormMetaData[] }
 } = {
-  PRIMARY_APPLICANT: {
+  [PRIMARY_APPLICANT]: {
     SAVING_ACCOUNT_TYPE: SAVING_ACCOUNT_TYPE_CONTROL,
     PRIMARY_APPLICANT_DETAILS: USER_BIOLOGICAL_DETAILS.map((addSection) => ({
       ...addSection,
@@ -472,7 +492,7 @@ export const SAVING_ACCOUNT_OPENING_FORM: {
       halfWidth: true,
     })),
   },
-  JOINT_APPLICANT: {
+  [JOINT_APPLICANT]: {
     JOINT_APPLICANT_DETAILS: USER_BIOLOGICAL_DETAILS.map((addSection) => ({
       ...addSection,
       id: `joint_${addSection.id}`,
@@ -505,7 +525,7 @@ export const SAVING_ACCOUNT_OPENING_FORM: {
       halfWidth: true,
     })),
   },
-  NOMINEE: {
+  [NOMINEE]: {
     NOMINEE_APPLICANT_DETAILS: USER_BIOLOGICAL_DETAILS.filter((addSection) => {
       if (
         addSection.id === 'customerEmail' ||
@@ -541,4 +561,59 @@ export const SAVING_ACCOUNT_OPENING_FORM: {
       },
     ],
   },
+  [PAYMENT]: {
+    PAYMENT_DETAILS: [
+      {
+        id: 'initialDeposit',
+        name: 'initialDeposit',
+        label: 'Inital Deposit Amount',
+        placeholder: 'Inital Deposit Amount',
+        required: true,
+        type: 'text',
+        subCategory: 'number',
+        validation: {
+          required: { value: true, message: 'initial deposit is required' },
+          min: { value: 0, message: 'invalid amount' },
+        },
+      },
+      {
+        id: PAYMENT_METHOD,
+        name: PAYMENT_METHOD,
+        label: 'Payment Method',
+        placeholder: '',
+        required: true,
+        type: 'select',
+        subCategory: '',
+        validation: {
+          required: { value: true, message: 'payment method is required' },
+        },
+      },
+    ],
+  },
+}
+
+export const CREDIT_CARD_APPLY_FORM: {
+  [key: string]: FormMetaData[]
+} = {
+  CREDIT_CARD_TYPE: CREDIT_CARD_TYPE_CONTROL,
+  PRIMARY_APPLICANT_DETAILS: USER_BIOLOGICAL_DETAILS.map((addSection) => ({
+    ...addSection,
+    disabled: true,
+    halfWidth: true,
+  })),
+  PRIMARY_APPLICANT_COMMUNICATION: USER_ADDRESS.map((addSection) => ({
+    ...addSection,
+    disabled: true,
+    halfWidth: true,
+  })),
+  PRIMARY_APPLICANT_INCOME: USER_INCOME_DETAILS.map((addSection) => ({
+    ...addSection,
+    disabled: true,
+    halfWidth: true,
+  })),
+  PRIMARY_APPLICANT_KYC: USER_KYC_DETAILS.map((addSection) => ({
+    ...addSection,
+    disabled: true,
+    halfWidth: true,
+  })),
 }

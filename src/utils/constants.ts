@@ -1,9 +1,20 @@
+export const PAGES = [
+  { label: 'Accounts', href: 'account-dashboard' },
+  { label: 'Cards', href: 'cards' },
+  { label: 'Apply', href: 'apply' },
+]
 export const ID_OCCUPATION = 'occupation'
 export const ID_INCOME = 'income'
 export const ID_COUNTRY = 'country'
 export const SAVING_ACCOUNT_TYPE = 'savingAccountType'
+export const CREDIT_CARD_TYPE = 'creditCardType'
 export const GENDER_TYPE = 'genderType'
 export const RELATIONSHIP = 'relationship'
+export const PAYMENT_METHOD = 'paymentMethod'
+export const PRIMARY_APPLICANT = 'saving/primary_applicant'
+export const JOINT_APPLICANT = 'saving/joint_applicant'
+export const NOMINEE = 'saving/nominee'
+export const PAYMENT = 'saving/payment'
 
 export type ControlValues = {
   id: string
@@ -64,8 +75,23 @@ export const SAVING_ACCOUNT_OPENING_CONTROL_VALUES: {
   [`joint_${ID_COUNTRY}`]: USER_REGISTRATION_CONTROL_VALUES[ID_COUNTRY],
   [`nominee_${RELATIONSHIP}`]: RELATIONSHIP_VALUES,
   [`nominee_${GENDER_TYPE}`]: GENDER_TYPE_VALUE,
+  [PAYMENT_METHOD]: [
+    { id: '1', label: 'Cheque', value: 'cheque' },
+    { id: '2', label: 'Debit / Credit Card', value: 'card' },
+    { id: '3', label: 'Net Banking', value: 'netbanking' },
+    { id: '4', label: 'UPI', value: 'upi' },
+  ],
 }
-
+export const CREDIT_CARD_APPLY_CONTROL_VALUES: {
+  [key: string]: ControlValues[]
+} = {
+  [CREDIT_CARD_TYPE]: [
+    { id: '1', label: 'Gold', value: 'gold' },
+    { id: '2', label: 'Platinum', value: 'platinum' },
+  ],
+  [GENDER_TYPE]: GENDER_TYPE_VALUE,
+  ...USER_REGISTRATION_CONTROL_VALUES,
+}
 export const REGISTRATION_DETAILS_DEFAULT_VALUES = {
   customerName: '',
   dateOfBirth: '',
@@ -93,12 +119,14 @@ export const NEW_SAVING_ACCOUNT_OPEN_STEP = [
   'Primary Applicant Details',
   'Joint Applicant Details',
   'Nominee Details',
+  'Payment Details',
 ]
 
 export const SAVING_ACCOUNT_OPENING_AND_STEPPER_MAP = [
-  'PRIMARY_APPLICANT',
-  'JOINT_APPLICANT',
-  'NOMINEE',
+  PRIMARY_APPLICANT,
+  JOINT_APPLICANT,
+  NOMINEE,
+  PAYMENT,
 ]
 
 export const SAVING_ACCOUNT_OPENING_FORM_DEFAULT_VALUES = {
@@ -145,4 +173,27 @@ export const SAVING_ACCOUNT_OPENING_FORM_DEFAULT_VALUES = {
   [`nominee_${GENDER_TYPE}`]: '',
   nominee_fathersName: '',
   nominee_mothersName: '',
+  initialDeposit: '',
+  [PAYMENT_METHOD]: '',
+}
+
+export const CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES = {
+  [CREDIT_CARD_TYPE]: '',
+  customerName: '',
+  dateOfBirth: '',
+  [GENDER_TYPE]: '',
+  customerEmail: '',
+  customerMob: '',
+  fathersName: '',
+  mothersName: '',
+  addressLine1: '',
+  addressLine2: '',
+  city: '',
+  pincode: '',
+  state: '',
+  [ID_COUNTRY]: 'india',
+  [ID_OCCUPATION]: '',
+  [ID_INCOME]: '',
+  panNumber: '',
+  aadharNumber: '',
 }

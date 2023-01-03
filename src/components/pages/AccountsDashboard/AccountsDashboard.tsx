@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react'
 import { Container } from '@mui/material'
 import { useLazyQuery } from '@apollo/client'
-import { AccountsEnrollment } from '../../organisms/AccountsEnrollment'
 import { GET_ACCOUNTS } from '../../../graphql/queries'
 import { ViewLoader } from '../../atoms/ViewLoader'
 import { useBankContext } from '../../../context'
+import { AccountsList } from '../../organisms/Accounts'
 
-const WelcomeDashboard: FC = () => {
+const AccountsDashboard: FC = () => {
   const [getAccounts, { loading, error, data }] = useLazyQuery(GET_ACCOUNTS)
   const {
     state: {
@@ -18,7 +18,8 @@ const WelcomeDashboard: FC = () => {
     getAccounts({
       variables: { customerId },
     })
-  }, [customerId, getAccounts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (loading) {
     return <ViewLoader />
@@ -27,15 +28,12 @@ const WelcomeDashboard: FC = () => {
     return <h2>Error occured</h2>
   }
 
-  if (data?.getAccounts.length) {
-    return <h2>Work in progress!</h2>
-  }
-
+  if (!data) return null
   return (
     <Container maxWidth="xl">
-      <AccountsEnrollment />
+      <AccountsList accountsData={data} />
     </Container>
   )
 }
 
-export default WelcomeDashboard
+export default AccountsDashboard

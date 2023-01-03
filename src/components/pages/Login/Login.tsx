@@ -51,7 +51,9 @@ const CustomerLogin: FC = () => {
     return <ViewLoader label="Customerlogin in progress, please wait!" />
   }
   if (AccessToken && customerId) {
-    const navigatePath = isNewUser ? '/ps-bank/reset' : '/ps-bank/welcome'
+    const navigatePath = isNewUser
+      ? '/ps-bank/reset'
+      : '/ps-bank/account-dashboard'
     return <Navigate to={navigatePath} />
   }
 

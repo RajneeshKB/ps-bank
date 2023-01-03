@@ -8,41 +8,38 @@ import {
   FormControl,
   FormHelperText,
   Stack,
-  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material'
 import { FormMetaData, NEW_SAVING_ACCOUNT_OPEN_STEP } from '../../../utils'
 import { FormControlSelector } from '../../atoms/FormControlSelector'
-import { newSavingFormBuilderStyles } from './styles'
+import { newEnrollmentFormBuilderStyles } from './styles'
 
-interface INewSavingFormBuilderProps {
+interface INewEnrollmentFormBuilderProps {
   formControls: { [key: string]: FormMetaData[] }
   controlValues?: any
   controlHook: any
-  activeStep: number
+  activeStep?: number
   submitHandler: () => {}
-  secondaryButtonHandler: () => void
+  secondaryButtonHandler?: () => void
 }
 
-const NewSavingFormBuilder: FC<INewSavingFormBuilderProps> = ({
+const NewEnrollmentFormBuilder: FC<INewEnrollmentFormBuilderProps> = ({
   formControls,
   controlValues,
   controlHook,
-  activeStep,
+  activeStep = 0,
   submitHandler,
   secondaryButtonHandler,
 }) => {
   useEffect(() => {
     sessionStorage.activeStep = activeStep
   }, [activeStep])
-
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'))
   return (
     <form onSubmit={submitHandler} noValidate>
       <Stack spacing={4}>
-        <Box sx={newSavingFormBuilderStyles.stepTitle}>
-          <Typography variant="h3">
-            {NEW_SAVING_ACCOUNT_OPEN_STEP[activeStep]}
-          </Typography>
-        </Box>
         {Object.values(formControls)?.map((section) => {
           return (
             <React.Fragment key={`group_${section[0].id}`}>
@@ -65,7 +62,7 @@ const NewSavingFormBuilder: FC<INewSavingFormBuilderProps> = ({
                         <FormControl
                           variant="standard"
                           sx={{
-                            width: !cardControl.halfWidth ? '100%' : '47%',
+                            width: !isDesktop ? '100%' : '47%',
                           }}
                         >
                           <FormControlSelector
@@ -87,7 +84,7 @@ const NewSavingFormBuilder: FC<INewSavingFormBuilderProps> = ({
               </Box>
               <Divider
                 variant="fullWidth"
-                sx={newSavingFormBuilderStyles.stepDivider}
+                sx={newEnrollmentFormBuilderStyles.stepDivider}
               />
             </React.Fragment>
           )
@@ -120,8 +117,10 @@ const NewSavingFormBuilder: FC<INewSavingFormBuilderProps> = ({
   )
 }
 
-NewSavingFormBuilder.defaultProps = {
+NewEnrollmentFormBuilder.defaultProps = {
   controlValues: {},
+  activeStep: 0,
+  secondaryButtonHandler: () => {},
 }
 
-export default NewSavingFormBuilder
+export default NewEnrollmentFormBuilder

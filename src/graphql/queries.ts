@@ -54,14 +54,17 @@ export const GET_CUSTOMER_DETAILS = gql`
 
 export const GET_ACCOUNTS = gql`
   query GetAccounts($customerId: String) {
+    getCustomerDetails(customerId: $customerId) {
+      customerName
+    }
     getAccounts(customerId: $customerId) {
       accountNumber
       accountType
-      primaryHolderId
-      isJointAccount
-      jointHolderId
-      jointRelationship
-      nomineeId
+      availableBalance
+      activeDebitCard
+      validFrom
+      validTo
+      cvvNumber
     }
   }
 `
@@ -70,6 +73,38 @@ export const OPEN_NEW_SAVING_ACCOUNT = gql`
   mutation OpenNewAccount($input: AccountOpeningData) {
     openNewAccount(accountData: $input) {
       accountNumber
+    }
+  }
+`
+
+export const GET_CREDIT_CARDS = gql`
+  query GetCards($customerId: String) {
+    getCustomerDetails(customerId: $customerId) {
+      customerName
+    }
+    getCreditCards(customerId: $customerId) {
+      creditCardType
+      cardholderId
+      creditCardNumber
+      validFrom
+      validTo
+      cvvNumber
+      availableLimit
+      outstandingAmount
+    }
+    getAccounts(customerId: $customerId) {
+      activeDebitCard
+      validFrom
+      validTo
+      cvvNumber
+    }
+  }
+`
+
+export const APPLY_FOR_NEW_CREDIT_CARD = gql`
+  mutation IssueNewCreditCard($input: CreditCardApplicationData) {
+    issueNewCreditCard(creditCardData: $input) {
+      creditCardNumber
     }
   }
 `

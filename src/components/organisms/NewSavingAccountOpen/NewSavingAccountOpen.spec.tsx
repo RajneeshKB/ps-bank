@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, waitFor, within } from '@testing-library/react'
 import { renderWithRouter } from '../../../utils/test-utils'
 import { NewSavingAccountOpenForm } from '.'
 import {
@@ -17,7 +17,7 @@ const mockProps = {
 }
 let activeStep = 0
 const mockJointAccountFormData = {
-  savingAccountType: 'regular',
+  savingAccountType: 'premium',
   customerId: 'PS_12345',
   customerEmail: 'test@test.com',
   customerMob: '7892341234',
@@ -71,6 +71,11 @@ const mockJointNomineeFormData = {
   nominee_fathersName: 'father test',
   nominee_mothersName: 'mother test',
 }
+const mockPaymentFormData = {
+  ...mockJointNomineeFormData,
+  initialDeposit: '10000',
+  paymentMethod: 'cheque',
+}
 const customerDetailSuccessMockData = {
   request: {
     query: GET_CUSTOMER_DETAILS,
@@ -115,7 +120,7 @@ const openAccountFailedMockData = {
 const openAccountSuccessMockData = {
   request: {
     query: OPEN_NEW_SAVING_ACCOUNT,
-    variables: { input: mockJointNomineeFormData },
+    variables: { input: mockPaymentFormData },
   },
   result: {
     data: {
@@ -275,9 +280,9 @@ describe('TS:1 - NewSavingAccountOpenForm component', () => {
       'accountOpeningFormData',
       JSON.stringify(mockJointNomineeFormData)
     )
-    activeStep = 2
+    activeStep = 3
     jest.spyOn(mockProps, 'mockFormSubmit')
-    const { getByRole } = renderWithRouter(
+    const { getByRole, getByLabelText } = renderWithRouter(
       <NewSavingAccountOpenForm
         activeStep={activeStep}
         stepNavigationHandler={mockProps.mockFormSubmit}
@@ -292,12 +297,48 @@ describe('TS:1 - NewSavingAccountOpenForm component', () => {
       }
     )
     await waitFor(() => {
+      const initialAmountBox = getByLabelText('Inital Deposit Amount *')
+      const paymentMethodBox = getByLabelText('Payment Method *')
+      fireEvent.change(initialAmountBox, { target: { value: 10000 } })
+      fireEvent.mouseDown(paymentMethodBox)
+      const paymentOptions = within(getByRole('listbox'))
+      fireEvent.click(paymentOptions.getByText(/Cheque/i))
+    })
+
+    await waitFor(() => {
       const submitButton = getByRole('button', { name: 'Finish' })
       fireEvent.click(submitButton)
     })
 
     await waitFor(() => {
       expect(mockProps.mockFormSubmit).toHaveBeenLastCalledWith('SUCCESS')
+    })
+  })
+
+  it('TC:10 - should call api to open account and call mockFormSubmit with ERROR type', async () => {
+    sessionStorage.setItem(
+      'accountOpeningFormData',
+      JSON.stringify(mockJointNomineeFormData)
+    )
+    activeStep = 3
+    jest.spyOn(mockProps, 'mockFormSubmit')
+    const { getByRole, getByLabelText } = component()
+    await waitFor(() => {
+      const initialAmountBox = getByLabelText('Inital Deposit Amount *')
+      const paymentMethodBox = getByLabelText('Payment Method *')
+      fireEvent.change(initialAmountBox, { target: { value: 10000 } })
+      fireEvent.mouseDown(paymentMethodBox)
+      const paymentOptions = within(getByRole('listbox'))
+      fireEvent.click(paymentOptions.getByText(/Cheque/i))
+    })
+
+    await waitFor(() => {
+      const submitButton = getByRole('button', { name: 'Finish' })
+      fireEvent.click(submitButton)
+    })
+
+    await waitFor(() => {
+      expect(mockProps.mockFormSubmit).toHaveBeenLastCalledWith('ERROR')
     })
   })
 })

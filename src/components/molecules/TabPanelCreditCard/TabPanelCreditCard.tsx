@@ -1,4 +1,5 @@
 import React, { FC, memo } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -71,7 +72,13 @@ const TabPanelSavings: FC = () => {
         </Stack>
       </CardContent>
       <CardActions sx={tabPanelCreditCardStyles.cardActions}>
-        <Button variant="contained">Apply Now</Button>
+        <Button
+          variant="contained"
+          to="/ps-bank/new-card"
+          component={RouterLink}
+        >
+          Apply Now
+        </Button>
       </CardActions>
     </Card>
   )

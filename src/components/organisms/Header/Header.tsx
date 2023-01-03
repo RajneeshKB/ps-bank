@@ -1,32 +1,48 @@
 import React, { FC } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, Container, Link, Stack } from '@mui/material'
-import { headerStyles } from './styles'
-import { HeaderActions } from '../../molecules/HeaderActions'
+import { AppBar, Box, Button, Container, Toolbar } from '@mui/material'
+import { useBankContext } from '../../../context'
+import { MobileMenuView } from '../../molecules/HeaderMenuMobileView'
+import { ContextMenu } from '../../molecules/HeaderContextMenu'
+import { DesktopMenuView } from '../../molecules/HeaderMenuDesktopView'
 
-const Header: FC = () => (
-  <header>
-    <Box sx={headerStyles.headerWrapperStyles}>
-      <Container>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Link
-            component={RouterLink}
-            to="/"
-            underline="none"
-            variant="h1"
-            color="primary.contrastText"
-          >
-            PS Bank
-          </Link>
-          <HeaderActions />
-        </Stack>
+const Header: FC = () => {
+  const {
+    state: {
+      loginData: { AccessToken },
+    },
+  } = useBankContext()
+
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          {AccessToken && <MobileMenuView />}
+          <DesktopMenuView showMenu={!!AccessToken} />
+          {AccessToken ? (
+            <ContextMenu />
+          ) : (
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: 'flex',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Button
+                to="/login"
+                variant="contained"
+                component={RouterLink}
+                color="success"
+              >
+                Login
+              </Button>
+            </Box>
+          )}
+        </Toolbar>
       </Container>
-    </Box>
-  </header>
-)
+    </AppBar>
+  )
+}
 
 export default Header
