@@ -32,6 +32,9 @@ const LazyLoadedNewSavingAccount = lazy(
 const LazyLoadedNewCard = lazy(
   () => import('../pages/NewCreditCard/NewCreditCard')
 )
+const LazyLoadedAccountStatement = lazy(
+  () => import('../pages/AccountStatement/AccountStatement')
+)
 
 const queryClient = getBankGraphQlClient()
 
@@ -108,6 +111,14 @@ const App: React.FC = () => (
                 element={
                   <Suspense fallback={<div>Loading</div>}>
                     <LazyLoadedNewCard />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="account-statement"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <LazyLoadedAccountStatement />
                   </Suspense>
                 }
               />

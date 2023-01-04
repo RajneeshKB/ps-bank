@@ -16,6 +16,7 @@ interface IFormControlSelectorProps {
   controlData: FormMetaData
   controlHandler: any
   controlState: any
+  watchHook?: any
   controlValues?: any
 }
 
@@ -23,6 +24,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
   controlData,
   controlHandler,
   controlState,
+  watchHook,
   controlValues,
 }) => {
   const {
@@ -33,10 +35,18 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
     subCategory,
     required,
     disabled,
+    watchField,
+    watchValue,
     rowOrientation,
   } = controlData
   const { onChange, value } = controlHandler
   const { error } = controlState
+  const calculateWatchCondition = () => {
+    if (!watchHook || !watchField || !watchValue) return false
+    const result = watchHook(watchField)
+    return result === watchValue
+  }
+
   switch (controlData.type) {
     case 'text':
       return (
@@ -58,13 +68,13 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
         <TextField
           id={id}
           label={label}
-          required={required}
+          required={required || calculateWatchCondition()}
           onChange={onChange}
           value={value}
           error={!!error?.message}
           type="date"
           variant="standard"
-          disabled={disabled}
+          disabled={disabled || !calculateWatchCondition()}
           InputLabelProps={{
             shrink: true,
           }}
@@ -155,6 +165,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
 
 FormControlSelector.defaultProps = {
   controlValues: [],
+  watchHook: null,
 }
 
 export default FormControlSelector

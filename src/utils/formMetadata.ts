@@ -1,4 +1,7 @@
+import { GridColDef } from '@mui/x-data-grid'
 import {
+  BANK_ACCOUNT,
+  BANK_TRANSACTION_LIST,
   CREDIT_CARD_TYPE,
   GENDER_TYPE,
   ID_COUNTRY,
@@ -24,6 +27,8 @@ export type FormMetaData = {
   disabled?: boolean
   halfWidth?: boolean
   rowOrientation?: boolean
+  watchField?: string
+  watchValue?: any
   validation: {}
 }
 type AddressType = {
@@ -617,3 +622,95 @@ export const CREDIT_CARD_APPLY_FORM: {
     halfWidth: true,
   })),
 }
+
+export interface ITransactionFilterForm {
+  [BANK_ACCOUNT]: string
+  [BANK_TRANSACTION_LIST]: string
+  fromDate: string
+  toDate: string
+}
+export const TRANSACTION_FILTER_FORM: FormMetaData[] = [
+  {
+    id: BANK_ACCOUNT,
+    name: BANK_ACCOUNT,
+    label: 'Select Account',
+    placeholder: '',
+    required: true,
+    type: 'select',
+    subCategory: '',
+    halfWidth: true,
+    validation: {
+      required: { value: true, message: 'account is required' },
+    },
+  },
+  {
+    id: BANK_TRANSACTION_LIST,
+    name: BANK_TRANSACTION_LIST,
+    label: 'Transaction range',
+    placeholder: '',
+    required: true,
+    type: 'radioGroup',
+    subCategory: '',
+    rowOrientation: true,
+    halfWidth: true,
+    validation: {
+      required: { value: true, message: 'filter option is required' },
+    },
+  },
+  {
+    id: 'fromDate',
+    name: 'fromDate',
+    label: 'Date from',
+    required: false,
+    type: 'date',
+    halfWidth: true,
+    watchField: BANK_TRANSACTION_LIST,
+    watchValue: 'dateRange',
+    validation: {},
+  },
+  {
+    id: 'toDate',
+    name: 'toDate',
+    label: 'Date to',
+    required: false,
+    type: 'date',
+    halfWidth: true,
+    watchField: BANK_TRANSACTION_LIST,
+    watchValue: 'dateRange',
+    validation: {},
+  },
+]
+
+export const ACCOUNT_TRANSACTION_COLUMNS: GridColDef[] = [
+  {
+    field: 'id',
+    headerName: 'S. No.',
+    maxWidth: 70,
+  },
+  { field: 'trDate', headerName: 'Transaction Date', minWidth: 170 },
+  {
+    field: 'trRemark',
+    headerName: 'Transaction Remarks',
+    minWidth: 200,
+    flex: 0.7,
+  },
+  {
+    field: 'drAmount',
+    headerName: 'Amount Debited',
+    minWidth: 130,
+    type: 'number',
+  },
+  {
+    field: 'crAmount',
+    headerName: 'Amount Credited',
+    minWidth: 130,
+    type: 'number',
+  },
+  {
+    field: 'balance',
+    headerName: 'Account Balance',
+    minWidth: 130,
+    type: 'number',
+    flex: 0.3,
+  },
+]

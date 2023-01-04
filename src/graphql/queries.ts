@@ -108,3 +108,24 @@ export const APPLY_FOR_NEW_CREDIT_CARD = gql`
     }
   }
 `
+
+export const ADD_NEW_TRANSACTION = gql`
+  mutation AddNewTransaction($input: TransactionDetail) {
+    addNewTransaction(transactionDetails: $input)
+  }
+`
+
+export const FETCH_TRANSACTIONS = gql`
+  query GetTransactions($input: FetchTransactionData) {
+    getTransactions(filterData: $input) {
+      totalRowCount
+      transactions {
+        transactionDate
+        transactionRemark
+        transactionAmount
+        transactionType
+        closingBalance
+      }
+    }
+  }
+`

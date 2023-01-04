@@ -15,6 +15,8 @@ export const PRIMARY_APPLICANT = 'saving/primary_applicant'
 export const JOINT_APPLICANT = 'saving/joint_applicant'
 export const NOMINEE = 'saving/nominee'
 export const PAYMENT = 'saving/payment'
+export const BANK_ACCOUNT = 'selectedAccount'
+export const BANK_TRANSACTION_LIST = 'transactionListFilterOption'
 
 export type ControlValues = {
   id: string
@@ -196,4 +198,25 @@ export const CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES = {
   [ID_INCOME]: '',
   panNumber: '',
   aadharNumber: '',
+}
+
+export const getTransactionFilterFormControlValues = (accountInputs: any[]) => {
+  return {
+    [BANK_ACCOUNT]: accountInputs.map(({ accountNumber }, index) => ({
+      id: `${index + 1}`,
+      label: accountNumber,
+      value: accountNumber,
+    })),
+    [BANK_TRANSACTION_LIST]: [
+      { id: '1', label: 'View last 10 transactions', value: 'last10' },
+      { id: '2', label: 'View by date range', value: 'dateRange' },
+    ],
+  }
+}
+
+export const TRANSACTION_FILTER_FORM_DEFAULT_VALUES = {
+  [BANK_ACCOUNT]: '',
+  [BANK_TRANSACTION_LIST]: '',
+  fromDate: '',
+  toDate: '',
 }
