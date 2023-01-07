@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, waitFor, within } from '@testing-library/react'
 import { renderWithRouter } from '../../../utils/test-utils'
-import { NewSavingAccountOpenForm } from '.'
+import { SavingAccountOpenForm } from '.'
 import {
   GET_CUSTOMER_DETAILS,
   OPEN_NEW_SAVING_ACCOUNT,
@@ -139,7 +139,7 @@ const bankConextValueMockData = {
 
 const component = () =>
   renderWithRouter(
-    <NewSavingAccountOpenForm
+    <SavingAccountOpenForm
       activeStep={activeStep}
       stepNavigationHandler={mockProps.mockFormSubmit}
     />,
@@ -173,7 +173,7 @@ const localStorageMock = (() => {
 Object.defineProperty(window, 'sessionStorage', {
   value: localStorageMock,
 })
-describe('TS:1 - NewSavingAccountOpenForm component', () => {
+describe('TS:1 - SavingAccountOpenForm component', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     sessionStorage.clear()
@@ -181,7 +181,7 @@ describe('TS:1 - NewSavingAccountOpenForm component', () => {
 
   it('TC:01 - should render loading message while customer data is being fetched from server', () => {
     const { getByText, getByRole } = renderWithRouter(
-      <NewSavingAccountOpenForm
+      <SavingAccountOpenForm
         activeStep={activeStep}
         stepNavigationHandler={mockProps.mockFormSubmit}
       />
@@ -192,7 +192,7 @@ describe('TS:1 - NewSavingAccountOpenForm component', () => {
     expect(getByRole('progressbar')).toBeInTheDocument()
   })
 
-  it('TC:02 - should render NewSavingAccountOpenForm Component successfully when customer data resolved from server', async () => {
+  it('TC:02 - should render SavingAccountOpenForm Component successfully when customer data resolved from server', async () => {
     const { queryAllByRole } = component()
     await waitFor(() => {
       expect(queryAllByRole('textbox')).toHaveLength(12)
@@ -283,7 +283,7 @@ describe('TS:1 - NewSavingAccountOpenForm component', () => {
     activeStep = 3
     jest.spyOn(mockProps, 'mockFormSubmit')
     const { getByRole, getByLabelText } = renderWithRouter(
-      <NewSavingAccountOpenForm
+      <SavingAccountOpenForm
         activeStep={activeStep}
         stepNavigationHandler={mockProps.mockFormSubmit}
       />,

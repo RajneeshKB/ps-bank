@@ -57,14 +57,12 @@ const Accounts: FC<IAccountsProps> = ({ cardsList }) => {
       </Stack>
       <Box sx={cardsStyles.cardContainer}>
         <CardAccordian
-          title="Credit Cards"
           isCreditCard
           cardData={creditCards}
           customerName={customerName}
           showDetails={showDetails}
         />
         <CardAccordian
-          title="Debit Cards"
           cardData={debitCards}
           customerName={customerName}
           showDetails={showDetails}

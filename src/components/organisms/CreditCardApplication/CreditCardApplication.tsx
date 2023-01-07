@@ -7,7 +7,7 @@ import {
   CREDIT_CARD_APPLY_FORM,
   CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES,
 } from '../../../utils'
-import { NewEnrollmentFormBuilder } from '../NewEnrollmentFormBuilder'
+import { MultiLevelFormBuilder } from '../MultiLevelFormBuilder'
 import { useBankContext } from '../../../context'
 import {
   GET_CUSTOMER_DETAILS,
@@ -16,10 +16,10 @@ import {
 } from '../../../graphql/queries'
 import { ViewLoader } from '../../atoms/ViewLoader'
 
-interface INewSavingAccountOpenProps {
+interface ICreditCardApplicationProps {
   onApplicationCompletion: (arg: string) => void
 }
-const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
+const CreditCardApplication: FC<ICreditCardApplicationProps> = ({
   onApplicationCompletion,
 }) => {
   const {
@@ -84,7 +84,7 @@ const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
   }
 
   return (
-    <NewEnrollmentFormBuilder
+    <MultiLevelFormBuilder
       formControls={CREDIT_CARD_APPLY_FORM}
       controlHook={control}
       controlValues={CREDIT_CARD_APPLY_CONTROL_VALUES}
@@ -93,4 +93,4 @@ const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
   )
 }
 
-export default NewSavingAccountOpen
+export default CreditCardApplication

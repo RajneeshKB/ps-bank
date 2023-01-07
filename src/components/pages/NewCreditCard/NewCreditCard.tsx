@@ -10,7 +10,7 @@ import {
   Snackbar,
   Typography,
 } from '@mui/material'
-import { NewCreditCardApplication } from '../../organisms/NewCreditCardApplication'
+import { CreditCardApplication } from '../../organisms/CreditCardApplication'
 import { newCreditCardStyles } from './styles'
 
 const NewSavingAccount: FC = () => {
@@ -61,7 +61,7 @@ const NewSavingAccount: FC = () => {
           }
         />
         <CardContent>
-          <NewCreditCardApplication onApplicationCompletion={onCompletion} />
+          <CreditCardApplication onApplicationCompletion={onCompletion} />
         </CardContent>
       </Card>
     </Paper>

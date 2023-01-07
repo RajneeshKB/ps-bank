@@ -8,13 +8,14 @@ import {
   ID_COUNTRY,
   ID_INCOME,
   ID_OCCUPATION,
+  NEW_SAVING_ACCOUNT_OPEN_STEP,
   RELATIONSHIP,
   SAVING_ACCOUNT_OPENING_AND_STEPPER_MAP,
   SAVING_ACCOUNT_OPENING_CONTROL_VALUES,
   SAVING_ACCOUNT_OPENING_FORM,
   SAVING_ACCOUNT_OPENING_FORM_DEFAULT_VALUES,
 } from '../../../utils'
-import { NewEnrollmentFormBuilder } from '../NewEnrollmentFormBuilder'
+import { MultiLevelFormBuilder } from '../MultiLevelFormBuilder'
 import { useBankContext } from '../../../context'
 import {
   GET_ACCOUNTS,
@@ -23,12 +24,12 @@ import {
 } from '../../../graphql/queries'
 import { ViewLoader } from '../../atoms/ViewLoader'
 
-interface INewSavingAccountOpenProps {
+interface ISavingAccountOpenFormProps {
   activeStep: number
   stepNavigationHandler: (_arg: string, _arg2?: any) => void
 }
 
-const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
+const SavingAccountOpenForm: FC<ISavingAccountOpenFormProps> = ({
   activeStep,
   stepNavigationHandler,
 }) => {
@@ -169,9 +170,10 @@ const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
     }
   }
   return (
-    <NewEnrollmentFormBuilder
+    <MultiLevelFormBuilder
       formControls={formControls}
       activeStep={activeStep}
+      totalStepsCount={NEW_SAVING_ACCOUNT_OPEN_STEP.length}
       controlHook={control}
       controlValues={SAVING_ACCOUNT_OPENING_CONTROL_VALUES}
       submitHandler={handleSubmit(updateSavingFormDataAndStep)}
@@ -180,4 +182,4 @@ const NewSavingAccountOpen: FC<INewSavingAccountOpenProps> = ({
   )
 }
 
-export default NewSavingAccountOpen
+export default SavingAccountOpenForm

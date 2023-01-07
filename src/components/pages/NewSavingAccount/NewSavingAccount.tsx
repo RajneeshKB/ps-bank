@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material'
 import { newSavingAccountStyles } from './styles'
-import { NewSavingAccountOpenForm } from '../../organisms/NewSavingAccountOpen'
+import { SavingAccountOpenForm } from '../../organisms/SavingAccountOpen'
 import { NEW_SAVING_ACCOUNT_OPEN_STEP } from '../../../utils'
 
 const NewSavingAccount: FC = () => {
@@ -105,7 +105,7 @@ const NewSavingAccount: FC = () => {
           }
         />
         <CardContent>
-          <NewSavingAccountOpenForm
+          <SavingAccountOpenForm
             activeStep={activeStep}
             stepNavigationHandler={stepHandler}
           />

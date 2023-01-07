@@ -9,14 +9,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { AtmCard } from '../AtmCard'
 
 interface ICardsAccordianProps {
-  title: string
   isCreditCard?: boolean
   showDetails?: boolean
   cardData: any[]
   customerName: string
 }
 const CardsAccordian: FC<ICardsAccordianProps> = ({
-  title,
   isCreditCard,
   showDetails,
   cardData,
@@ -33,7 +31,7 @@ const CardsAccordian: FC<ICardsAccordianProps> = ({
       square
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography>{title}</Typography>
+        <Typography>{isCreditCard ? 'Credit Card' : 'Debit Card'}</Typography>
       </AccordionSummary>
       <AccordionDetails
         sx={{ display: 'flex', flexDirection: 'column', rowGap: '1.5rem' }}

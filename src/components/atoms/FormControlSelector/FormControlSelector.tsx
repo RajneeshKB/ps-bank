@@ -42,7 +42,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
   const { onChange, value } = controlHandler
   const { error } = controlState
   const calculateWatchCondition = () => {
-    if (!watchHook || !watchField || !watchValue) return false
+    if (!watchHook || !watchField || !watchValue) return true
     const result = watchHook(watchField)
     return result === watchValue
   }

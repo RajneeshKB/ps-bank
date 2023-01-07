@@ -1,6 +1,6 @@
 import { Theme } from '@mui/material'
 
-export const newEnrollmentFormBuilderStyles = {
+export const multiLevelFormBuilderStyles = {
   stepTitle: {
     display: 'flex',
     justifyContent: 'center',
