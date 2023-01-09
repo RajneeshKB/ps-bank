@@ -48,10 +48,10 @@ const AccountsEnrollment: FC = () => {
   return (
     <Box sx={accountsEnrollmentStyles.titleContainer}>
       <Typography variant="h2">{`Welcome ${customerName}`}</Typography>
-      <Typography variant="subtitle2">
+      <Typography variant="body2">
         Thank you for chhosing us as your banking parnter.
       </Typography>
-      <Typography variant="subtitle2" mt="1.5rem">
+      <Typography variant="body2" mt="1.5rem">
         Get started by opening a Saving bank account with us. You can also apply
         for a new credit card fro our various available options.
       </Typography>
@@ -78,7 +78,7 @@ const AccountsEnrollment: FC = () => {
         <TabPanel
           value={selectedTab}
           index={0}
-          id="saving-account"
+          id="saving-account-panel"
           ariaLabel="saving-account-panel"
         >
           <TabPanelSavings />
@@ -86,7 +86,7 @@ const AccountsEnrollment: FC = () => {
         <TabPanel
           value={selectedTab}
           index={1}
-          id="credit-card"
+          id="credit-card-panel"
           ariaLabel="credit-card-panel"
         >
           <CreditCardPanel />

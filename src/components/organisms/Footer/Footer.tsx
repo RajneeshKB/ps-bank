@@ -7,10 +7,10 @@ const Footer: FC = () => (
     <Box sx={footerStyles.footerWrapperStyles}>
       <Container maxWidth="xl">
         <Stack spacing={1} textAlign="center">
-          <Typography variant="subtitle1" color="neutral.contrastText">
+          <Typography variant="body1" color="neutral.contrastText">
             This is a sample application for learning purpose.
           </Typography>
-          <Typography variant="h5" color="neutral.contrastText">
+          <Typography variant="body2" color="neutral.contrastText">
             Developed by: Rajneesh Barnwal
           </Typography>
         </Stack>

@@ -46,7 +46,7 @@ export const bankTheme = createTheme({
     primary: {
       light: '#757ce8',
       main: '#3f50b5',
-      dark: '#002884',
+      dark: '#001C6B',
       contrastText: '#fff',
     },
     secondary: {

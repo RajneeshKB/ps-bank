@@ -33,20 +33,24 @@ const AtmCard: FC<IAtmCardProps> = ({
       // eslint-disable-next-line no-nested-ternary
       bgcolor: isCreditCard
         ? creditCardType === 'gold'
-          ? '#a48a00'
-          : '#818181'
-        : '#e88075',
+          ? '#665600'
+          : '#545454'
+        : '#A02E1D',
     }}
     raised
   >
     <CardContent sx={{ p: '0rem' }}>
       <Box sx={atmCardStyles.frontContent}>
         <Stack direction="row" justifyContent="space-between">
-          <Typography variant="h3">{creditCardType?.toUpperCase()}</Typography>
+          {creditCardType && (
+            <Typography variant="h3">
+              {creditCardType?.toUpperCase()}
+            </Typography>
+          )}
           <Stack>
             <Typography variant="h2">PS Bank</Typography>
-            <Typography variant="subtitle1">
-              {isCreditCard ? 'Credit Cards' : 'Debit Cards'}
+            <Typography variant="body1">
+              {isCreditCard ? 'Credit Card' : 'Debit Card'}
             </Typography>
           </Stack>
         </Stack>
@@ -71,7 +75,9 @@ const AtmCard: FC<IAtmCardProps> = ({
                   >
                     VALID FROM
                   </Typography>
-                  <Typography variant="h4">{validFrom}</Typography>
+                  <Typography variant="h4" component="p">
+                    {validFrom}
+                  </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1}>
                   <Typography
@@ -81,7 +87,9 @@ const AtmCard: FC<IAtmCardProps> = ({
                   >
                     VALID THRU
                   </Typography>
-                  <Typography variant="h4">{validTo}</Typography>
+                  <Typography variant="h4" component="p">
+                    {validTo}
+                  </Typography>
                 </Stack>
               </Stack>
               <Typography variant="h3" letterSpacing="2px">
@@ -96,7 +104,7 @@ const AtmCard: FC<IAtmCardProps> = ({
         {availableLimit && (
           <Stack>
             <Typography variant="caption">Available limit</Typography>
-            <Typography variant="subtitle1">
+            <Typography variant="body1">
               &#8377;
               {availableLimit}
             </Typography>
@@ -105,7 +113,7 @@ const AtmCard: FC<IAtmCardProps> = ({
         {outstandingAmount && (
           <Stack>
             <Typography variant="caption">Current Outstanding</Typography>
-            <Typography variant="subtitle1">
+            <Typography variant="body1">
               &#8377;
               {outstandingAmount}
             </Typography>
@@ -113,7 +121,7 @@ const AtmCard: FC<IAtmCardProps> = ({
         )}
         <Stack>
           <Typography variant="caption">CVV</Typography>
-          <Typography variant="subtitle1">
+          <Typography variant="body1">
             {showDetails ? cvvNumber : cvvNumber.replaceAll(/\d/g, '*')}
           </Typography>
         </Stack>

@@ -14,7 +14,7 @@ export const atmCardStyles = {
     py: '0.5rem',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    bgcolor: 'neutral.light',
+    bgcolor: 'neutral.dark',
     color: 'neutral.contrastText',
   },
   cardAction: { backgroundColor: '#00695c', px: '1rem' },

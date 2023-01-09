@@ -23,10 +23,10 @@ const TabPanelSavings: FC = () => {
       />
       <CardContent>
         <Stack>
-          <Typography variant="subtitle2">
+          <Typography variant="body2">
             Apply for a new credit card and earn benefits and reward points.
           </Typography>
-          <Typography variant="subtitle2">
+          <Typography variant="body2">
             Two different categories available for credit cards.
           </Typography>
           <List>

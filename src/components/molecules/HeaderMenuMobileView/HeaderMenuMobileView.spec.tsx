@@ -5,7 +5,9 @@ import { renderWithRouter } from '../../../utils/test-utils'
 
 describe('TS:1 - MobileMenuView Component', () => {
   it('TC:01 - should not render navigation menu successfully with bank link', () => {
-    const { getAllByRole, queryByRole } = renderWithRouter(<MobileMenuView />)
+    const { getAllByRole, queryByRole } = renderWithRouter(
+      <MobileMenuView showMenu />
+    )
     expect(getAllByRole('link')).toHaveLength(1)
     expect(getAllByRole('button')).toHaveLength(1)
     expect(queryByRole('menu')).toBeNull()
@@ -13,7 +15,9 @@ describe('TS:1 - MobileMenuView Component', () => {
   })
 
   it('TC:02 - should render navigation menu on button click', async () => {
-    const { getAllByRole, getByRole } = renderWithRouter(<MobileMenuView />)
+    const { getAllByRole, getByRole } = renderWithRouter(
+      <MobileMenuView showMenu />
+    )
     const menuButton = getByRole('button')
     fireEvent.click(menuButton)
     await waitFor(() => {
@@ -25,7 +29,7 @@ describe('TS:1 - MobileMenuView Component', () => {
 
   it('TC:03 - should render navigation menu on button click and close on click of menuitem', async () => {
     const { getAllByRole, getByRole, queryByRole } = renderWithRouter(
-      <MobileMenuView />
+      <MobileMenuView showMenu />
     )
     const menuButton = getByRole('button')
     fireEvent.click(menuButton)

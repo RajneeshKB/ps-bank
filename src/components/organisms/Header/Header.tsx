@@ -5,6 +5,7 @@ import { useBankContext } from '../../../context'
 import { MobileMenuView } from '../../molecules/HeaderMenuMobileView'
 import { ContextMenu } from '../../molecules/HeaderContextMenu'
 import { DesktopMenuView } from '../../molecules/HeaderMenuDesktopView'
+import { headerStyles } from './styles'
 
 const Header: FC = () => {
   const {
@@ -14,10 +15,10 @@ const Header: FC = () => {
   } = useBankContext()
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={headerStyles.headerWrapperStyles}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {AccessToken && <MobileMenuView />}
+          <MobileMenuView showMenu={!!AccessToken} />
           <DesktopMenuView showMenu={!!AccessToken} />
           {AccessToken ? (
             <ContextMenu />

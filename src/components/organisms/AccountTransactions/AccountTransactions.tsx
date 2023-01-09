@@ -2,22 +2,10 @@ import React, { FC, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import CachedIcon from '@mui/icons-material/Cached'
-import {
-  DataGrid,
-  GridToolbarContainer,
-  GridToolbarExport,
-} from '@mui/x-data-grid'
+import { DataGrid } from '@mui/x-data-grid'
 import { ACCOUNT_TRANSACTION_COLUMNS } from '../../../utils'
 import { ViewLoader } from '../../atoms/ViewLoader'
 import { FETCH_TRANSACTIONS } from '../../../graphql/queries'
-
-const CustomToolbar = () => {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarExport printOptions={{ disableToolbarButton: true }} />
-    </GridToolbarContainer>
-  )
-}
 
 interface ITransactionsList {
   filterData: {
@@ -119,7 +107,6 @@ const Transactions: FC<ITransactionsList> = ({ filterData }) => {
             onPageChange={(newPage) => setPage(newPage)}
             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             autoHeight
-            components={{ Toolbar: CustomToolbar }}
           />
         </Box>
       </Box>

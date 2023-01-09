@@ -15,8 +15,8 @@ describe('TS:1 - Bank app component unprotected routes', () => {
       <App />
     )
 
-    expect(getByText('PS Bank')).toBeInTheDocument()
-    expect(getAllByRole('link')).toHaveLength(2)
+    expect(getAllByRole('heading', { name: 'PS Bank' })).toHaveLength(2)
+    expect(getAllByRole('link')).toHaveLength(3)
     expect(getByLabelText('Your Full Name *')).toBeInTheDocument()
     expect(getByLabelText('Mobile number *')).toBeInTheDocument()
     expect(getByLabelText('Email *')).toBeInTheDocument()

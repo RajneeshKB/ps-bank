@@ -80,7 +80,7 @@ const NewSavingAccount: FC = () => {
                 New Saving Account Opening Application
               </Typography>
               <Typography
-                variant="subtitle1"
+                variant="body1"
                 color="primary.dark"
                 textAlign="center"
               >

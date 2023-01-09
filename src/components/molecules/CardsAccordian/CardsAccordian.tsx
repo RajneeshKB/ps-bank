@@ -20,6 +20,8 @@ const CardsAccordian: FC<ICardsAccordianProps> = ({
   cardData,
   customerName,
 }) => {
+  const ariaHeder = isCreditCard ? 'CreditCards-header' : 'DebitCards-header'
+  const ariContent = isCreditCard ? 'CreditCards-content' : 'DebitCards-content'
   return (
     <Accordion
       sx={{
@@ -30,7 +32,11 @@ const CardsAccordian: FC<ICardsAccordianProps> = ({
       defaultExpanded
       square
     >
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        id={`${ariaHeder}`}
+        aria-controls={`${ariContent}`}
+      >
         <Typography>{isCreditCard ? 'Credit Card' : 'Debit Card'}</Typography>
       </AccordionSummary>
       <AccordionDetails

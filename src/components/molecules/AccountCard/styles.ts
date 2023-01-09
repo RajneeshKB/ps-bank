@@ -1,6 +1,6 @@
 export const accountCardStyles = {
   cardContainer: {
-    backgroundColor: 'primary.light',
+    backgroundColor: 'primary.main',
     color: 'primary.contrastText',
   },
   cardContent: { p: '1rem' },

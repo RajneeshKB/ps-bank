@@ -51,7 +51,7 @@ const NewSavingAccount: FC = () => {
                 New Credit Card Application
               </Typography>
               <Typography
-                variant="subtitle1"
+                variant="body1"
                 color="primary.dark"
                 textAlign="center"
               >

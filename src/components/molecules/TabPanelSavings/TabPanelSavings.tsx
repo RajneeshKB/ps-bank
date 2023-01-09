@@ -23,10 +23,10 @@ const TabPanelSavings: FC = () => {
       />
       <CardContent>
         <Stack>
-          <Typography variant="subtitle2">
+          <Typography variant="body2">
             Open a saving account with us and get a lifetime free debit card.
           </Typography>
-          <Typography variant="subtitle2">
+          <Typography variant="body2">
             Two different categories available for opening a saving account.
           </Typography>
           <List>

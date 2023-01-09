@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, Link, List, MenuItem } from '@mui/material'
+import { Box, Link, List, MenuItem, Typography } from '@mui/material'
 import { PAGES } from '../../../utils'
 
 interface IHeaderMenuDesktopView {
@@ -21,7 +21,7 @@ const HeaderMenuDesktopView: FC<IHeaderMenuDesktopView> = ({ showMenu }) => (
       variant="h1"
       color="primary.contrastText"
     >
-      PS Bank
+      <Typography variant="h1">PS Bank</Typography>
     </Link>
     {showMenu && (
       <List
@@ -32,6 +32,7 @@ const HeaderMenuDesktopView: FC<IHeaderMenuDesktopView> = ({ showMenu }) => (
           color: 'primary.main',
           justifyContent: 'flex-end',
           alignItems: 'center',
+          padding: '0px',
         }}
         role="menu"
       >

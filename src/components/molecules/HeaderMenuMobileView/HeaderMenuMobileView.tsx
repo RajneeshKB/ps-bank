@@ -9,10 +9,15 @@ import {
   List,
   MenuItem,
   Stack,
+  Typography,
 } from '@mui/material'
 import { PAGES } from '../../../utils'
 
-const HeaderMenuMobileView: FC = () => {
+interface IHeaderMenuMobileView {
+  showMenu: boolean
+}
+
+const HeaderMenuMobileView: FC<IHeaderMenuMobileView> = ({ showMenu }) => {
   const [drawerState, updateOpenDrawer] = useState(false)
   const closeDrawer = () => {
     updateOpenDrawer(false)
@@ -24,19 +29,21 @@ const HeaderMenuMobileView: FC = () => {
   return (
     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
       <Stack direction="row" alignItems="center">
-        <IconButton
-          size="large"
-          aria-label="bank navigation"
-          aria-controls="bank-navigation-bar"
-          aria-haspopup="true"
-          onClick={openDrawer}
-          color="inherit"
-          sx={{
-            display: { xs: 'block', md: 'none' },
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {showMenu && (
+          <IconButton
+            size="large"
+            aria-label="bank navigation"
+            aria-controls="bank-navigation-bar"
+            aria-haspopup="true"
+            onClick={openDrawer}
+            color="inherit"
+            sx={{
+              display: { xs: 'block', md: 'none' },
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <Link
           component={RouterLink}
           to="/"
@@ -44,7 +51,7 @@ const HeaderMenuMobileView: FC = () => {
           variant="h1"
           color="primary.contrastText"
         >
-          PS Bank
+          <Typography variant="h1">PS Bank</Typography>
         </Link>
       </Stack>
       <Drawer open={drawerState} onClose={closeDrawer}>
