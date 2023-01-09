@@ -6,7 +6,7 @@ import { AccountCard } from '../../molecules/AccountCard'
 interface IAccountsProps {
   accountsData: {
     getCustomerDetails: { customerName: string }
-    getAccounts: [any]
+    getAccounts: any[]
   }
 }
 const Accounts: FC<IAccountsProps> = ({ accountsData }) => {

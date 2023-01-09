@@ -11,16 +11,22 @@ import { ACCOUNT_TRANSACTION_COLUMNS } from '../../../utils'
 import { ViewLoader } from '../../atoms/ViewLoader'
 import { FETCH_TRANSACTIONS } from '../../../graphql/queries'
 
-interface ITransactionsList {
-  filterData: any
-}
-
 const CustomToolbar = () => {
   return (
     <GridToolbarContainer>
       <GridToolbarExport printOptions={{ disableToolbarButton: true }} />
     </GridToolbarContainer>
   )
+}
+
+interface ITransactionsList {
+  filterData: {
+    customerId: string
+    accountNumber: string
+    lastTenTransactions?: boolean
+    fromDate?: string
+    toDate?: string
+  }
 }
 const Transactions: FC<ITransactionsList> = ({ filterData }) => {
   const [page, setPage] = useState(0)
@@ -32,8 +38,6 @@ const Transactions: FC<ITransactionsList> = ({ filterData }) => {
     }),
     [page, pageSize, filterData]
   )
-  // eslint-disable-next-line no-console
-  console.log('filter', filterData)
   const {
     loading,
     error,

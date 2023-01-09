@@ -54,13 +54,9 @@ const AccountStatement: FC = () => {
       toDate,
       transactionListFilterOption,
     } = formData
-    // eslint-disable-next-line no-console
-    console.log('filter outside', formData)
-    if (transactionListFilterOption === 'dateRange' && (!fromDate || !toDate)) {
-      // eslint-disable-next-line no-console
-      console.log('filter inside', formData)
+
+    if (transactionListFilterOption === 'dateRange' && (!fromDate || !toDate))
       return
-    }
 
     let variableInputs = {}
     if (transactionListFilterOption === 'dateRange') {

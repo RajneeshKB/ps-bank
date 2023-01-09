@@ -35,7 +35,7 @@ const UserRegistrationBasic: FC = () => {
     <Box display="flex" justifyContent="flex-end">
       <Card sx={userRegistrationStyles.formWrapper}>
         <CardContent>
-          <Typography variant="subtitle1" mb="0.5rem">
+          <Typography variant="body1" mb="0.5rem">
             Let&apos;s get started
           </Typography>
           <FormBuilder
