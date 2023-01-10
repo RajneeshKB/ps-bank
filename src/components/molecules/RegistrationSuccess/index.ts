@@ -1,1 +1,1 @@
-export { default as RegistrationSuccessModal } from './RegistrationSuccess'
+export { default as RegistrationSuccess } from './RegistrationSuccess'

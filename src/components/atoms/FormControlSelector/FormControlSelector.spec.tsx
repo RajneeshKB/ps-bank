@@ -70,4 +70,48 @@ describe('TS:1 - FormControlSelector Component', () => {
     expect(getAllByRole('radio')).toHaveLength(1)
     expect(getByLabelText('Test Text *')).toBeInTheDocument()
   })
+
+  it('TC:05 - should render date control, if type is date', () => {
+    const { getByLabelText } = render(
+      <FormControlSelector
+        controlData={{ ...mockControlData, type: 'date' }}
+        controlHandler={mockControlHandler}
+        controlState={mockControlState}
+        controlValues={mockControlValue}
+      />
+    )
+    expect(getByLabelText('Test Text *')).toBeInTheDocument()
+  })
+
+  it('TC:06 - should render date control, if type is date and not required', () => {
+    const { getByLabelText } = render(
+      <FormControlSelector
+        controlData={{
+          ...mockControlData,
+          type: 'date',
+          required: false,
+          watchField: 'test',
+          watchValue: 'test',
+        }}
+        controlHandler={mockControlHandler}
+        controlState={mockControlState}
+        controlValues={mockControlValue}
+        watchHook={jest.fn()}
+      />
+    )
+    expect(getByLabelText('Test Text')).toBeInTheDocument()
+  })
+
+  it('TC:07 - should render checkbox control, if type is checkbox', () => {
+    const { getByRole, getByText } = render(
+      <FormControlSelector
+        controlData={{ ...mockControlData, type: 'checkbox' }}
+        controlHandler={mockControlHandler}
+        controlState={mockControlState}
+        controlValues={mockControlValue}
+      />
+    )
+    expect(getByRole('checkbox')).toBeInTheDocument()
+    expect(getByText('Test Text')).toBeInTheDocument()
+  })
 })

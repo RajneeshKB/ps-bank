@@ -1,12 +1,13 @@
 import React, { FC, ReactElement } from 'react'
 import { MemoryRouter } from 'react-router-dom'
+import { MockedProvider } from '@apollo/client/testing'
 import { render, RenderOptions } from '@testing-library/react'
 import { BankContextProvider } from '../context'
-import { CombinedContextStateType } from '../context/reducers'
 
 /** interface type for render option being received as prop from test file */
 interface ExtendedRenderOption extends Omit<RenderOptions, 'wrapper'> {
-  bankConextValue?: CombinedContextStateType
+  bankConextValue?: any
+  graphQlResponseMocks?: any[]
 }
 /**
  * This function is used to wrap component with all required providers available in application
@@ -15,16 +16,22 @@ interface ExtendedRenderOption extends Omit<RenderOptions, 'wrapper'> {
  */
 const renderWithProviders = (
   ui: ReactElement,
-  { bankConextValue = undefined, ...renderOptions }: ExtendedRenderOption = {}
+  {
+    bankConextValue = undefined,
+    graphQlResponseMocks = [],
+    ...renderOptions
+  }: ExtendedRenderOption = {}
 ) => {
   /** compoent with all provider wrapped with received or default values */
   const AllTheProviders: FC<{
     children: React.ReactElement
   }> = ({ children }) => {
     return (
-      <BankContextProvider initialStateValue={bankConextValue}>
-        {children}
-      </BankContextProvider>
+      <MockedProvider addTypename={false} mocks={graphQlResponseMocks}>
+        <BankContextProvider initialStateValue={bankConextValue}>
+          {children}
+        </BankContextProvider>
+      </MockedProvider>
     )
   }
   return {

@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import {
+  Checkbox,
   FormControlLabel,
   FormLabel,
   InputLabel,
@@ -15,6 +16,7 @@ interface IFormControlSelectorProps {
   controlData: FormMetaData
   controlHandler: any
   controlState: any
+  watchHook?: any
   controlValues?: any
 }
 
@@ -22,11 +24,29 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
   controlData,
   controlHandler,
   controlState,
+  watchHook,
   controlValues,
 }) => {
-  const { id, name, label, type, subCategory, required } = controlData
+  const {
+    id,
+    name,
+    label,
+    type,
+    subCategory,
+    required,
+    disabled,
+    watchField,
+    watchValue,
+    rowOrientation,
+  } = controlData
   const { onChange, value } = controlHandler
   const { error } = controlState
+  const calculateWatchCondition = () => {
+    if (!watchHook || !watchField || !watchValue) return true
+    const result = watchHook(watchField)
+    return result === watchValue
+  }
+
   switch (controlData.type) {
     case 'text':
       return (
@@ -39,6 +59,25 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
           error={!!error?.message}
           type={subCategory || type}
           variant="standard"
+          disabled={disabled}
+        />
+      )
+
+    case 'date':
+      return (
+        <TextField
+          id={id}
+          label={label}
+          required={required || calculateWatchCondition()}
+          onChange={onChange}
+          value={value}
+          error={!!error?.message}
+          type="date"
+          variant="standard"
+          disabled={disabled || !calculateWatchCondition()}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
       )
 
@@ -59,6 +98,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
             label={label}
             onChange={onChange}
             error={!!error?.message}
+            disabled={disabled}
           >
             {controlValues.map(
               ({ id: _id, label: _label, value: _value }: ControlValues) => (
@@ -84,6 +124,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
           <RadioGroup
             id={id}
             aria-labelledby={`${id}_label`}
+            row={rowOrientation}
             value={value}
             onChange={onChange}
             name={name}
@@ -95,11 +136,26 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
                   value={_value}
                   control={<Radio />}
                   label={_label}
+                  disabled={disabled}
                 />
               )
             )}
           </RadioGroup>
         </>
+      )
+
+    case 'checkbox':
+      return (
+        <FormControlLabel
+          id={id}
+          value={value}
+          checked={value}
+          control={<Checkbox onChange={onChange} />}
+          label={label}
+          labelPlacement="top"
+          disabled={disabled}
+          sx={{ alignItems: 'flex-start', margin: '0' }}
+        />
       )
 
     default:
@@ -109,6 +165,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
 
 FormControlSelector.defaultProps = {
   controlValues: [],
+  watchHook: null,
 }
 
 export default FormControlSelector

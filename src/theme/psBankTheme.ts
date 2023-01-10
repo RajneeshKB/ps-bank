@@ -1,14 +1,16 @@
-import { blueGrey } from '@mui/material/colors'
+import { blueGrey, grey } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
 declare module '@mui/material/styles' {
   interface Palette {
     neutral: Palette['primary']
+    backgroundColor?: Palette['primary']
   }
 
   // allow configuration using `createTheme`
   interface PaletteOptions {
     neutral?: PaletteOptions['primary']
+    backgroundColor?: PaletteOptions['primary']
   }
 }
 
@@ -44,7 +46,7 @@ export const bankTheme = createTheme({
     primary: {
       light: '#757ce8',
       main: '#3f50b5',
-      dark: '#002884',
+      dark: '#001C6B',
       contrastText: '#fff',
     },
     secondary: {
@@ -58,6 +60,12 @@ export const bankTheme = createTheme({
       main: blueGrey[500],
       dark: blueGrey[700],
       contrastText: '#fff',
+    },
+    backgroundColor: {
+      light: grey[50],
+      main: grey[200],
+      dark: grey[400],
+      contrastText: '#000',
     },
   },
 })

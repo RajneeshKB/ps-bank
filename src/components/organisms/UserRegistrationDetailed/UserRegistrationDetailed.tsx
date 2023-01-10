@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 import { Control, useForm } from 'react-hook-form'
+import { useMutation } from '@apollo/client'
+import { REGISTER_CUSTOMER } from '../../../graphql/queries'
 import {
   IRegistrationInputs,
   RegistrationBasicInputs,
@@ -7,6 +9,7 @@ import {
   USER_REGISTRATION_CONTROL_VALUES,
   USER_REGISTRATION_DETAILS,
 } from '../../../utils'
+import { ViewLoader } from '../../atoms/ViewLoader'
 import { FormBuilder } from '../FormBuilder'
 
 type FormProps = {
@@ -16,24 +19,44 @@ type FormProps = {
 
 interface IUserRegistrationDetailedProps {
   basicRegistrationData: RegistrationBasicInputs
-  onFormSubmit: () => void
+  formSubmitCallback: (_arg: any) => void
 }
 const UserRegistrationDetailed: FC<IUserRegistrationDetailedProps> = ({
   basicRegistrationData,
-  onFormSubmit,
+  formSubmitCallback,
 }) => {
   const { control, handleSubmit }: FormProps = useForm<IRegistrationInputs>({
-    defaultValues: REGISTRATION_DETAILS_DEFAULT_VALUES,
-  })
-  const registerUser = (formData: IRegistrationInputs) => {
-    // eslint-disable-next-line no-console
-    console.log('registration successful wth user data', {
+    defaultValues: {
+      ...REGISTRATION_DETAILS_DEFAULT_VALUES,
       ...basicRegistrationData,
-      ...formData,
+    },
+  })
+  const [registerCustomerMutation, { loading }] = useMutation(REGISTER_CUSTOMER)
+
+  const registerUser = (formData: IRegistrationInputs) => {
+    const customerRegistrationData = {
+      input: {
+        ...basicRegistrationData,
+        ...formData,
+      },
+    }
+
+    registerCustomerMutation({
+      variables: customerRegistrationData,
+      onCompleted: (mutationResponse) => {
+        formSubmitCallback({ data: mutationResponse })
+      },
+      onError: (mutationResponse) => {
+        formSubmitCallback({ error: mutationResponse })
+      },
     })
-    onFormSubmit()
   }
 
+  if (loading) {
+    return (
+      <ViewLoader label="Customer registration in progress, please wait!" />
+    )
+  }
   return (
     <FormBuilder
       formControls={USER_REGISTRATION_DETAILS}

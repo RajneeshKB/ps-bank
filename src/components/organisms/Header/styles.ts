@@ -3,6 +3,6 @@ import { Theme } from '@mui/material'
 export const headerStyles = {
   headerWrapperStyles: {
     backgroundColor: 'primary.dark',
-    padding: (theme: Theme) => `${theme.spacing(3)} ${theme.spacing(0)}`,
+    padding: (theme: Theme) => `${theme.spacing(2)} ${theme.spacing(0)}`,
   },
 }

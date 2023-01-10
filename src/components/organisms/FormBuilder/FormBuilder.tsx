@@ -6,28 +6,44 @@ import {
   FormControl,
   FormHelperText,
   Stack,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material'
 import type { FormMetaData } from '../../../utils'
-import { FormControlSelector } from '../../molecules/FormControlSelector'
+import { FormControlSelector } from '../../atoms/FormControlSelector'
 
-interface IFormBuilderProps {
+interface IFormControlRenderer {
   formControls: FormMetaData[]
   controlValues?: any
   controlHook: any
-  submitHandler: () => {}
+  watchHook?: any
   submitButtonLabel?: string
+  showFormActions?: boolean
+}
+interface IFormBuilderProps extends IFormControlRenderer {
+  submitHandler: () => {}
 }
 
-const FormBuilder: FC<IFormBuilderProps> = ({
+export const FormControlRenderer: FC<IFormControlRenderer> = ({
   formControls,
-  controlValues,
   controlHook,
-  submitHandler,
+  watchHook,
+  controlValues,
   submitButtonLabel,
-}) => (
-  <form onSubmit={submitHandler} noValidate>
-    <Stack spacing={4}>
-      {formControls.map((cardControl) => (
+  showFormActions,
+}) => {
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'))
+
+  return (
+    <Stack
+      display="flex"
+      flexDirection="row"
+      flexWrap="wrap"
+      rowGap="1.5rem"
+      justifyContent="space-between"
+    >
+      {formControls.map((cardControl: any) => (
         <Controller
           key={cardControl.id}
           control={controlHook}
@@ -36,11 +52,22 @@ const FormBuilder: FC<IFormBuilderProps> = ({
           render={({ field, fieldState }) => {
             const { error } = fieldState
             return (
-              <FormControl variant="standard">
+              <FormControl
+                variant="standard"
+                sx={{
+                  // eslint-disable-next-line no-nested-ternary
+                  width: isDesktop
+                    ? !cardControl.halfWidth
+                      ? '100%'
+                      : '47%'
+                    : '100%',
+                }}
+              >
                 <FormControlSelector
                   controlData={cardControl}
                   controlHandler={field}
                   controlState={fieldState}
+                  watchHook={watchHook}
                   controlValues={controlValues[cardControl.id]}
                 />
                 {error?.message && (
@@ -51,25 +78,58 @@ const FormBuilder: FC<IFormBuilderProps> = ({
           }}
         />
       ))}
-      <CardActions sx={{ padding: '0' }}>
-        <Button
-          type="submit"
-          variant="contained"
-          disableElevation
-          fullWidth
-          size="large"
-          sx={{ padding: '1rem 0' }}
-        >
-          {submitButtonLabel}
-        </Button>
-      </CardActions>
+      {showFormActions && (
+        <CardActions sx={{ padding: '0', width: '100%' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            disableElevation
+            fullWidth
+            size="large"
+            sx={{ padding: '1rem 0' }}
+          >
+            {submitButtonLabel}
+          </Button>
+        </CardActions>
+      )}
     </Stack>
-  </form>
-)
+  )
+}
+const FormBuilder: FC<IFormBuilderProps> = ({
+  formControls,
+  controlValues,
+  controlHook,
+  watchHook,
+  submitHandler,
+  submitButtonLabel,
+  showFormActions,
+}) => {
+  return (
+    <form onSubmit={submitHandler} noValidate>
+      <FormControlRenderer
+        formControls={formControls}
+        controlValues={controlValues}
+        controlHook={controlHook}
+        watchHook={watchHook}
+        submitButtonLabel={submitButtonLabel}
+        showFormActions={showFormActions}
+      />
+    </form>
+  )
+}
 
 FormBuilder.defaultProps = {
   controlValues: {},
+  watchHook: () => {},
   submitButtonLabel: 'Submit',
+  showFormActions: true,
+}
+
+FormControlRenderer.defaultProps = {
+  controlValues: {},
+  watchHook: () => {},
+  submitButtonLabel: 'Submit',
+  showFormActions: true,
 }
 
 export default FormBuilder

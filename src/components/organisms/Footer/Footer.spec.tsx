@@ -4,8 +4,10 @@ import { Footer } from '.'
 
 describe('TS:1 - Bank app component', () => {
   it('TC:01 - should render Footer Component successfully', () => {
-    const { getByText, getByRole } = render(<Footer />)
-    expect(getByRole('heading')).toBeDefined()
+    const { getByText } = render(<Footer />)
+    expect(
+      getByText(/This is a sample application for learning purpose./)
+    ).toBeInTheDocument()
     expect(getByText(/Developed by: Rajneesh Barnwal/)).toBeInTheDocument()
   })
 })

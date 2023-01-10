@@ -6,17 +6,22 @@ import {
   CardContent,
   CardHeader,
   Modal,
-  Typography,
 } from '@mui/material'
 import CancelIcon from '@mui/icons-material/Cancel'
 import { failureModalStyles } from './styles'
 
 interface IRegistrationFailureProps {
+  title: React.ReactNode
+  description: React.ReactNode
+  primaryButtonTitle?: string
   showModal: boolean
   onCloseClick: () => void
 }
 
 const FailureModal: FC<IRegistrationFailureProps> = ({
+  title,
+  description,
+  primaryButtonTitle,
   showModal,
   onCloseClick,
 }) => (
@@ -28,26 +33,22 @@ const FailureModal: FC<IRegistrationFailureProps> = ({
   >
     <Card sx={failureModalStyles.modalContent}>
       <CardHeader
+        id="failure-title"
         avatar={<CancelIcon color="error" sx={{ fontSize: '4rem' }} />}
-        title={
-          <Typography id="failure-title" variant="h2">
-            Our system isn&apos;t cooperating.
-          </Typography>
-        }
+        title={title}
       />
-      <CardContent id="failure-detail">
-        <Typography variant="body1">
-          There is a problem on our end. It should&apos;nt last long so please
-          try again shortly.
-        </Typography>
-      </CardContent>
+      <CardContent id="failure-detail">{description}</CardContent>
       <CardActions sx={failureModalStyles.modalAction}>
         <Button variant="contained" onClick={onCloseClick}>
-          Close
+          {primaryButtonTitle}
         </Button>
       </CardActions>
     </Card>
   </Modal>
 )
+
+FailureModal.defaultProps = {
+  primaryButtonTitle: 'Close',
+}
 
 export default FailureModal

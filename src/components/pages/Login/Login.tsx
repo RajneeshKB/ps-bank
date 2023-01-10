@@ -1,9 +1,15 @@
+import { useLazyQuery } from '@apollo/client'
 import { Card, CardContent, Divider, Paper, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import { Control, useForm } from 'react-hook-form'
+import { Navigate } from 'react-router-dom'
+import { LOGIN_CUSTOMER } from '../../../graphql/queries'
 import { LOGIN_FORM } from '../../../utils'
 import { FormBuilder } from '../../organisms/FormBuilder'
+import { useBankContext } from '../../../context'
 import { loginStyles } from './styles'
+import { setLoginData } from '../../../context/actions'
+import { ViewLoader } from '../../atoms/ViewLoader'
 
 type LoginFormInputs = {
   customerId: string
@@ -23,16 +29,43 @@ const CustomerLogin: FC = () => {
   const { control, handleSubmit }: FormProps = useForm<LoginFormInputs>({
     defaultValues: initialStateValue,
   })
+  const [loginCustomer, { loading, error }] = useLazyQuery(LOGIN_CUSTOMER)
+  const {
+    dispatch,
+    state: {
+      loginData: { AccessToken, customerId, isNewUser },
+    },
+  } = useBankContext()
 
   const registerUser = (formData: LoginFormInputs) => {
-    // eslint-disable-next-line no-console
-    console.log('loggin user with data', formData)
+    loginCustomer({
+      variables: { input: formData },
+      fetchPolicy: 'no-cache',
+      onCompleted: (response) => {
+        dispatch(setLoginData({ ...response.loginCustomer }))
+      },
+    })
+  }
+
+  if (loading) {
+    return <ViewLoader label="Customerlogin in progress, please wait!" />
+  }
+  if (AccessToken && customerId) {
+    const navigatePath = isNewUser
+      ? '/ps-bank/reset'
+      : '/ps-bank/account-dashboard'
+    return <Navigate to={navigatePath} />
   }
 
   return (
     <Paper sx={loginStyles.formWrapper}>
       <Card sx={loginStyles.cardWrapper}>
         <CardContent>
+          {error?.message && (
+            <Typography variant="caption" color="error" mb="2rem">
+              Customer Id / Password is incorrect
+            </Typography>
+          )}
           <Typography variant="h2" color="primary.dark">
             Login to world of digital banking
           </Typography>
