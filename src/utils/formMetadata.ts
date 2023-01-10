@@ -467,6 +467,12 @@ export const PASSWORD_RESET_FORM: FormMetaData[] = [
     subCategory: 'password',
     validation: {
       required: { value: true, message: 'New password is required' },
+      pattern: {
+        value:
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/,
+        message:
+          'password length should be 8-10 characters and must include one numeric, one lowercase, one uppercase and one special character',
+      },
     },
   },
 ]

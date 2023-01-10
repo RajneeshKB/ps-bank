@@ -14,7 +14,7 @@ const RegistrationSuccess: FC<IRegistrationSuccessProps> = ({
   onCloseClick,
 }) => {
   const {
-    createCustomer: { customerName },
+    createCustomer: { customerName, customerId },
   } = customerData
 
   const modalProps = {
@@ -29,6 +29,7 @@ const RegistrationSuccess: FC<IRegistrationSuccessProps> = ({
     you on your registered mail along with customer ID and one-time
     password.`}
         </Typography>
+        <Typography variant="body2">{`Mail integration is in progress, for now use ${customerId} with default password to login.`}</Typography>
         <Typography variant="body1">
           Update your default password on first login and use your login
           credentials to open an digital account with us and give us serve you
