@@ -47,7 +47,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+        test: /\.(webp|jpg|jpeg|png|gif|mp3|svg)$/,
         type: 'asset',
         parser: {
           dataUrlCondition: {
@@ -68,5 +68,5 @@ module.exports = {
       async: false,
     }),
   ],
-  devtool: 'inline-source-map',
+  devtool: IS_DEV ? 'inline-source-map' : false,
 }

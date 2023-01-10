@@ -1,4 +1,4 @@
-import dashboardBackground from '../../../../public/assets/ps-background.jpeg'
+import dashboardBackground from '../../../../public/assets/ps-background.webp'
 
 export const CustomerDashboardStyles = {
   paperContainer: {
