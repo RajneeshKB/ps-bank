@@ -79,7 +79,7 @@ describe('TS:2 - Bank app component protected routes', () => {
       isNewUser: true,
     })
   })
-  xit('TC:04 - should load password reset component successfully', async () => {
+  xit('TC:01 - should load password reset component successfully', async () => {
     const { getByText } = renderWithRouter(
       <App />,
       {
@@ -93,7 +93,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     })
   })
 
-  it('TC:05 - should load account dashboard component successfully', async () => {
+  it('TC:02 - should load account dashboard component successfully', async () => {
     const { getByText } = renderWithRouter(
       <App />,
       {
@@ -103,11 +103,11 @@ describe('TS:2 - Bank app component protected routes', () => {
     )
 
     await waitFor(() => {
-      expect(getByText(/Error occured/)).toBeInTheDocument()
+      expect(getByText(/Loading.../)).toBeInTheDocument()
     })
   })
 
-  it('TC:06 - should load new application component successfully', async () => {
+  it('TC:03 - should load new application component successfully', async () => {
     const { getByText } = renderWithRouter(
       <App />,
       {
@@ -125,7 +125,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     })
   })
 
-  it('TC:07 - should load new savings component successfully', async () => {
+  it('TC:04 - should load new savings component successfully', async () => {
     const { getByText } = renderWithRouter(
       <App />,
       {
