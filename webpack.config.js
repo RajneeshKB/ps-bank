@@ -4,7 +4,7 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 const IS_DEV = process.env.NODE_ENV === 'development'
-const publicPath = IS_DEV ? '/' : ''
+const publicPath = IS_DEV ? '/' : '/'
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
