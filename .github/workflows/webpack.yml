@@ -29,7 +29,9 @@ jobs:
         run: |
           npm install
       - name: Test
+        run: |
           npm run test
       - name: Build
+        run: |
           npx webpack
           npm run build
