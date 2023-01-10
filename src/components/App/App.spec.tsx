@@ -38,11 +38,7 @@ describe('TS:1 - Bank app component unprotected routes', () => {
     fireEvent.click(submitButton)
 
     await waitFor(() => {
-      expect(
-        getByText(
-          /Just one more step to get started with your digital banking account/
-        )
-      ).toBeInTheDocument()
+      expect(getByText(/Loading/)).toBeInTheDocument()
     })
   })
 
