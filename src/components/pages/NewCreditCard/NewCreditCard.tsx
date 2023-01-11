@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   Alert,
   Box,
@@ -14,35 +13,48 @@ import { CreditCardApplication } from '../../organisms/CreditCardApplication'
 import { newCreditCardStyles } from './styles'
 
 const NewSavingAccount: FC = () => {
-  const [showToast, updateShowToast] = useState(false)
-  const navigate = useNavigate()
-  const toggleShowToast = () => {
-    updateShowToast(!showToast)
+  const [showToast, updateShowToast] = useState({
+    display: false,
+    success: '',
+  })
+  const toggleShowToast = (isSuccess: boolean) => {
+    updateShowToast({
+      display: !showToast.display,
+      success: isSuccess ? 'SUCCESS' : 'FAILURE',
+    })
+  }
+  const onToastClose = () => {
+    updateShowToast({ display: false, success: '' })
   }
   const onCompletion = (_type: string) => {
     if (_type === 'SUCCESS') {
-      navigate('/')
+      toggleShowToast(true)
     } else if (_type === 'FAILURE') {
-      toggleShowToast()
+      toggleShowToast(false)
     }
   }
+
   return (
     <Paper sx={newCreditCardStyles.formWrapper}>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        key="topright"
-        open={showToast}
-        autoHideDuration={8000}
-        onClose={toggleShowToast}
-      >
-        <Alert
-          onClose={toggleShowToast}
-          severity="error"
-          sx={{ width: '100%' }}
+      {showToast.success && (
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          key="topright"
+          open={showToast.display}
+          autoHideDuration={8000}
+          onClose={onToastClose}
         >
-          Oops, Failed to apply for new credit card. Try again!
-        </Alert>
-      </Snackbar>
+          <Alert
+            onClose={onToastClose}
+            severity={showToast.success === 'SUCCESS' ? 'success' : 'error'}
+            sx={{ width: '100%' }}
+          >
+            {showToast.success === 'SUCCESS'
+              ? 'Woohoo, New credit card issued successfully.'
+              : 'Oops, Failed to apply for new credit card. Try again!'}
+          </Alert>
+        </Snackbar>
+      )}
       <Card sx={newCreditCardStyles.cardWrapper}>
         <CardHeader
           title={

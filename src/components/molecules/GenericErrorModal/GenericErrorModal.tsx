@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Typography } from '@mui/material'
-import { SuccessModal } from '../../atoms/SuccessModal'
+import { FailureModal } from '../../atoms/FailureModal'
 
 interface IGenericErrorModalProps {
   showModal: boolean
@@ -26,7 +26,7 @@ const GenericErrorModal: FC<IGenericErrorModalProps> = ({
   }
 
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <SuccessModal {...modalProps} />
+  return <FailureModal {...modalProps} />
 }
 
 export default GenericErrorModal

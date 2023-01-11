@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   Alert,
   Box,
@@ -22,12 +21,20 @@ const NewSavingAccount: FC = () => {
   const [activeStep, updateActiveStep] = useState(
     +sessionStorage.activeStep || 0
   )
-  const [showToast, updateShowToast] = useState(false)
-  const navigate = useNavigate()
-
-  const toggleShowToast = () => {
-    updateShowToast(!showToast)
+  const [showToast, updateShowToast] = useState({
+    display: false,
+    success: '',
+  })
+  const toggleShowToast = (isSuccess: boolean) => {
+    updateShowToast({
+      display: !showToast.display,
+      success: isSuccess ? 'SUCCESS' : 'FAILURE',
+    })
   }
+  const onToastClose = () => {
+    updateShowToast({ display: false, success: '' })
+  }
+
   const stepHandler = (type: string) => {
     switch (type) {
       case 'NEXT':
@@ -44,11 +51,10 @@ const NewSavingAccount: FC = () => {
         break
       case 'SUCCESS':
         updateActiveStep(0)
-        toggleShowToast()
-        navigate('account-dashboard')
+        toggleShowToast(true)
         break
       case 'ERROR':
-        toggleShowToast()
+        toggleShowToast(false)
         break
       default:
         break
@@ -57,21 +63,25 @@ const NewSavingAccount: FC = () => {
 
   return (
     <Paper sx={newSavingAccountStyles.formWrapper}>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        key="topright"
-        open={showToast}
-        autoHideDuration={8000}
-        onClose={toggleShowToast}
-      >
-        <Alert
-          onClose={toggleShowToast}
-          severity="error"
-          sx={{ width: '100%' }}
+      {showToast.success && (
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          key="topright"
+          open={showToast.display}
+          autoHideDuration={8000}
+          onClose={onToastClose}
         >
-          Oops, account creation failed. Try again!
-        </Alert>
-      </Snackbar>
+          <Alert
+            onClose={onToastClose}
+            severity={showToast.success === 'SUCCESS' ? 'success' : 'error'}
+            sx={{ width: '100%' }}
+          >
+            {showToast.success === 'SUCCESS'
+              ? 'Woohoo, New saving account opened successfully.'
+              : 'Oops, account creation failed. Try again!'}
+          </Alert>
+        </Snackbar>
+      )}
       <Card sx={newSavingAccountStyles.cardWrapper}>
         <CardHeader
           title={
