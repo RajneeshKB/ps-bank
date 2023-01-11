@@ -24,7 +24,7 @@ describe('TS:1 - Bank app component unprotected routes', () => {
   })
 
   it('TC:02 - should redirect to user detailed registration page on basic data filled and submitted', async () => {
-    const { getByRole, getByText, getByLabelText } = renderWithRouter(<App />)
+    const { getByRole, getByLabelText, queryByText } = renderWithRouter(<App />)
 
     const nameBox = getByLabelText('Your Full Name *')
     const numberBox = getByLabelText('Mobile number *')
@@ -38,7 +38,11 @@ describe('TS:1 - Bank app component unprotected routes', () => {
     fireEvent.click(submitButton)
 
     await waitFor(() => {
-      expect(getByText(/Loading/)).toBeInTheDocument()
+      expect(
+        queryByText(
+          /Just one more step to get started with your digital banking account/
+        )
+      ).toBeInTheDocument()
     })
   })
 
@@ -76,7 +80,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     })
   })
   xit('TC:01 - should load password reset component successfully', async () => {
-    const { getByText } = renderWithRouter(
+    const { queryByText } = renderWithRouter(
       <App />,
       {
         route: '/ps-bank/reset',
@@ -85,12 +89,12 @@ describe('TS:2 - Bank app component protected routes', () => {
     )
 
     await waitFor(() => {
-      expect(getByText(/Reset your password/)).toBeInTheDocument()
+      expect(queryByText(/Reset your password/)).toBeInTheDocument()
     })
   })
 
   it('TC:02 - should load account dashboard component successfully', async () => {
-    const { getByText } = renderWithRouter(
+    const { queryByText } = renderWithRouter(
       <App />,
       {
         route: '/ps-bank/account-dashboard',
@@ -99,12 +103,12 @@ describe('TS:2 - Bank app component protected routes', () => {
     )
 
     await waitFor(() => {
-      expect(getByText(/Loading.../)).toBeInTheDocument()
+      expect(queryByText(/Loading.../)).toBeInTheDocument()
     })
   })
 
   it('TC:03 - should load new application component successfully', async () => {
-    const { getByText } = renderWithRouter(
+    const { queryByText } = renderWithRouter(
       <App />,
       {
         route: '/ps-bank/apply',
@@ -114,7 +118,7 @@ describe('TS:2 - Bank app component protected routes', () => {
 
     await waitFor(() => {
       expect(
-        getByText(
+        queryByText(
           /Get started by opening a Saving bank account with us. You can also apply for a new credit card fro our various available options./
         )
       ).toBeInTheDocument()
@@ -122,7 +126,7 @@ describe('TS:2 - Bank app component protected routes', () => {
   })
 
   it('TC:04 - should load new savings component successfully', async () => {
-    const { getByText } = renderWithRouter(
+    const { queryByText } = renderWithRouter(
       <App />,
       {
         route: '/ps-bank/new-saving',
@@ -131,7 +135,51 @@ describe('TS:2 - Bank app component protected routes', () => {
     )
 
     await waitFor(() => {
-      expect(getByText(/Loading/)).toBeInTheDocument()
+      expect(
+        queryByText(/New Saving Account Opening Application/)
+      ).toBeInTheDocument()
+    })
+  })
+
+  xit('TC:05 - should load new card component successfully', async () => {
+    const { queryByText } = renderWithRouter(
+      <App />,
+      {
+        route: '/ps-bank/new-card',
+      },
+      bankContextValueMock
+    )
+
+    await waitFor(() => {
+      expect(queryByText(/New Credit Card Application/)).toBeInTheDocument()
+    })
+  })
+
+  it('TC:06 - should load cards component successfully', async () => {
+    const { queryByText } = renderWithRouter(
+      <App />,
+      {
+        route: '/ps-bank/card-dashboard',
+      },
+      bankContextValueMock
+    )
+
+    await waitFor(() => {
+      expect(queryByText(/Loading.../)).toBeInTheDocument()
+    })
+  })
+
+  xit('TC:07 - should load account statement component successfully', async () => {
+    const { queryByText } = renderWithRouter(
+      <App />,
+      {
+        route: '/ps-bank/account-statement',
+      },
+      bankContextValueMock
+    )
+
+    await waitFor(() => {
+      expect(queryByText(/Loading.../)).toBeInTheDocument()
     })
   })
 })

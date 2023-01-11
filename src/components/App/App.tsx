@@ -85,7 +85,7 @@ const App: React.FC = () => (
                   }
                 />
                 <Route
-                  path="cards"
+                  path="card-dashboard"
                   element={
                     <Suspense fallback={<div>Loading</div>}>
                       <LazyLoadedCardsDashboard />

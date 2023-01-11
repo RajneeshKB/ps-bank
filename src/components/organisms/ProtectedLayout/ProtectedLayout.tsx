@@ -24,7 +24,7 @@ const ProtectedLayout: FC = () => {
 
   if (!AccessToken) {
     // eslint-disable-next-line no-console
-    console.log('use not authorized')
+    console.log('user not authorized')
     return <Navigate to="/" />
   }
 
