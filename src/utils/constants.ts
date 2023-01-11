@@ -1,6 +1,6 @@
 export const PAGES = [
   { label: 'Accounts', href: 'account-dashboard' },
-  { label: 'Cards', href: 'cards' },
+  { label: 'Cards', href: 'card-dashboard' },
   { label: 'Apply', href: 'apply' },
 ]
 export const ID_OCCUPATION = 'occupation'
