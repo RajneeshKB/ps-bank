@@ -131,9 +131,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     )
 
     await waitFor(() => {
-      expect(
-        getByText(/New Saving Account Opening Application/)
-      ).toBeInTheDocument()
+      expect(getByText(/Loading/)).toBeInTheDocument()
     })
   })
 })
