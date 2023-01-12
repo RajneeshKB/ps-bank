@@ -12,7 +12,7 @@ const ViewLoader: FC<IViewLoaderProps> = ({ label }) => (
     margin="4rem"
   >
     <CircularProgress />
-    <Typography variant="caption">{label}</Typography>
+    <Typography variant="subtitle1">{label}</Typography>
   </Stack>
 )
 

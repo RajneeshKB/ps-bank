@@ -10,6 +10,7 @@ import { getBankGraphQlClient } from '../../graphql/client'
 import { UnprotectedLayout } from '../organisms/UnprotectedLayout'
 import { ProtectedLayout } from '../organisms/ProtectedLayout'
 import { ErrorBoundary } from '../molecules/ErrorBoundary'
+import { PageLoader } from '../atoms/PageLoader'
 
 const LazyLoadedRegistrationDetails = lazy(
   () => import('../pages/CustomerRegistartion/CustomerRegistration')
@@ -52,7 +53,7 @@ const App: React.FC = () => (
                 <Route
                   path="/login"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedLogin />
                     </Suspense>
                   }
@@ -60,7 +61,7 @@ const App: React.FC = () => (
                 <Route
                   path="/registration"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedRegistrationDetails />
                     </Suspense>
                   }
@@ -71,7 +72,7 @@ const App: React.FC = () => (
                 <Route
                   path="reset"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedPasswordReset />
                     </Suspense>
                   }
@@ -79,7 +80,7 @@ const App: React.FC = () => (
                 <Route
                   path="account-dashboard"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedAccountsDashboard />
                     </Suspense>
                   }
@@ -87,7 +88,7 @@ const App: React.FC = () => (
                 <Route
                   path="card-dashboard"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedCardsDashboard />
                     </Suspense>
                   }
@@ -95,7 +96,7 @@ const App: React.FC = () => (
                 <Route
                   path="apply"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedNewApplication />
                     </Suspense>
                   }
@@ -103,7 +104,7 @@ const App: React.FC = () => (
                 <Route
                   path="new-saving"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedNewSavingAccount />
                     </Suspense>
                   }
@@ -111,7 +112,7 @@ const App: React.FC = () => (
                 <Route
                   path="new-card"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedNewCard />
                     </Suspense>
                   }
@@ -119,7 +120,7 @@ const App: React.FC = () => (
                 <Route
                   path="account-statement"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <LazyLoadedAccountStatement />
                     </Suspense>
                   }
@@ -127,7 +128,7 @@ const App: React.FC = () => (
                 <Route
                   path="profile"
                   element={
-                    <Suspense fallback={<div>Loading</div>}>
+                    <Suspense fallback={<PageLoader />}>
                       <div>Profile view here. Work in progress!</div>
                     </Suspense>
                   }

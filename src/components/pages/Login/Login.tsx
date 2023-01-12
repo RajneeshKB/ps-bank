@@ -48,7 +48,7 @@ const CustomerLogin: FC = () => {
   }
 
   if (loading) {
-    return <ViewLoader label="Customerlogin in progress, please wait!" />
+    return <ViewLoader label="Customer login in progress, please wait!" />
   }
   if (AccessToken && customerId) {
     const navigatePath = isNewUser
