@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react'
-import { useLazyQuery } from '@apollo/client'
+import React, { FC, useState } from 'react'
+import { useQuery } from '@apollo/client'
 import { Box, Container, Stack, Typography } from '@mui/material'
 import { Control, useForm } from 'react-hook-form'
 import { useBankContext } from '../../../context'
@@ -23,7 +23,6 @@ type FormProps = {
 }
 
 const AccountStatement: FC = () => {
-  const [getAccounts, { loading, error, data }] = useLazyQuery(GET_ACCOUNTS)
   const [filterData, updateFilterData] = useState<any>(null)
   const {
     state: {
@@ -31,6 +30,11 @@ const AccountStatement: FC = () => {
     },
   } = useBankContext()
   const selectedAccount = getItemFromSession('selectedAccount') || ''
+
+  const { loading, error, data } = useQuery(GET_ACCOUNTS, {
+    variables: { customerId },
+  })
+
   const defaultFormValues = {
     ...TRANSACTION_FILTER_FORM_DEFAULT_VALUES,
     [BANK_ACCOUNT]: selectedAccount,
@@ -39,13 +43,6 @@ const AccountStatement: FC = () => {
     useForm<ITransactionFilterForm>({
       defaultValues: defaultFormValues,
     })
-
-  useEffect(() => {
-    getAccounts({
-      variables: { customerId },
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const fetchTransactions = (formData: ITransactionFilterForm) => {
     const {

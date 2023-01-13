@@ -1,6 +1,6 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { useLazyQuery, useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { Typography } from '@mui/material'
 import {
   CREDIT_CARD_APPLY_CONTROL_VALUES,
@@ -22,37 +22,31 @@ interface ICreditCardApplicationProps {
 const CreditCardApplication: FC<ICreditCardApplicationProps> = ({
   onApplicationCompletion,
 }) => {
+  const { control, handleSubmit, reset }: any = useForm({
+    defaultValues: CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES,
+    mode: 'onBlur',
+  })
   const {
     state: {
       loginData: { customerId },
     },
   } = useBankContext()
-  const [getCustomerDetails, { loading, error }] =
-    useLazyQuery(GET_CUSTOMER_DETAILS)
+
+  const { loading, error } = useQuery(GET_CUSTOMER_DETAILS, {
+    variables: { customerId },
+    onCompleted: (response) => {
+      reset({
+        ...CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES,
+        ...response?.getCustomerDetails,
+      })
+    },
+  })
   const [applyForNewCreditCard, { loading: openingAccount }] = useMutation(
     APPLY_FOR_NEW_CREDIT_CARD,
     {
       refetchQueries: [{ query: GET_CREDIT_CARDS, variables: { customerId } }],
     }
   )
-
-  const { control, handleSubmit, reset }: any = useForm({
-    defaultValues: CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES,
-    mode: 'onBlur',
-  })
-
-  useEffect(() => {
-    getCustomerDetails({
-      variables: { customerId },
-      onCompleted: (response) => {
-        reset({
-          ...CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES,
-          ...response?.getCustomerDetails,
-        })
-      },
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const applyForCreditCard = (stepData: any) => {
     applyForNewCreditCard({
