@@ -1,26 +1,21 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { Container } from '@mui/material'
-import { useLazyQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { GET_CREDIT_CARDS } from '../../../graphql/queries'
 import { ViewLoader } from '../../atoms/ViewLoader'
 import { useBankContext } from '../../../context'
 import { Cards } from '../../organisms/Cards'
 
 const CardsDashboard: FC = () => {
-  const [getCreditCards, { loading, error, data }] =
-    useLazyQuery(GET_CREDIT_CARDS)
   const {
     state: {
       loginData: { customerId },
     },
   } = useBankContext()
 
-  useEffect(() => {
-    getCreditCards({
-      variables: { customerId },
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const { loading, error, data } = useQuery(GET_CREDIT_CARDS, {
+    variables: { customerId },
+  })
 
   if (loading) {
     return <ViewLoader />
