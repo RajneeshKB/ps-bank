@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { Container } from '@mui/material'
 import { useQuery } from '@apollo/client'
 import { GET_ACCOUNTS } from '../../../graphql/queries'
 import { ViewLoader } from '../../atoms/ViewLoader'
@@ -24,11 +23,7 @@ const AccountsDashboard: FC = () => {
   }
 
   if (!data) return null
-  return (
-    <Container maxWidth="xl">
-      <AccountsList accountsData={data} />
-    </Container>
-  )
+  return <AccountsList accountsData={data} />
 }
 
 export default AccountsDashboard

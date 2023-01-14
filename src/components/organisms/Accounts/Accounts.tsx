@@ -25,7 +25,7 @@ const Accounts: FC<IAccountsProps> = ({ accountsData }) => {
   }
 
   return (
-    <Box sx={{ py: '1.5rem' }}>
+    <Box>
       <Stack direction="row" justifyContent="space-between">
         <Typography variant="h2" mb="0.5rem">
           Accounts

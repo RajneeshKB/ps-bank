@@ -4,34 +4,7 @@ import TabPanelSavings from '../../molecules/TabPanelSavings/TabPanelSavings'
 import { CreditCardPanel } from '../../molecules/TabPanelCreditCard'
 import { useBankContext } from '../../../context'
 import { accountsEnrollmentStyles } from './styles'
-
-interface ITabPanelProps {
-  children: React.ReactNode
-  index: number
-  value: number
-  ariaLabel: string
-  id: string
-}
-
-const TabPanel: FC<ITabPanelProps> = ({
-  children,
-  value,
-  index,
-  ariaLabel,
-  id,
-}) => {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      aria-hidden={value !== index}
-      id={id}
-      aria-labelledby={ariaLabel}
-    >
-      {value === index && children}
-    </div>
-  )
-}
+import { TabPanel } from '../../atoms/TabPanel'
 
 const AccountsEnrollment: FC = () => {
   const [selectedTab, updatedSelectedTab] = useState(0)
@@ -41,7 +14,7 @@ const AccountsEnrollment: FC = () => {
     },
   } = useBankContext()
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     updatedSelectedTab(newValue)
   }
 
@@ -60,7 +33,7 @@ const AccountsEnrollment: FC = () => {
         <Tabs
           orientation="vertical"
           value={selectedTab}
-          onChange={handleChange}
+          onChange={handleTabChange}
           aria-label="Open new account"
           sx={{ borderRight: 1, borderColor: 'divider' }}
         >
