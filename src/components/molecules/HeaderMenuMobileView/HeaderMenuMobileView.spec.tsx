@@ -21,9 +21,9 @@ describe('TS:1 - MobileMenuView Component', () => {
     const menuButton = getByRole('button')
     fireEvent.click(menuButton)
     await waitFor(() => {
-      expect(getAllByRole('link')).toHaveLength(3)
+      expect(getAllByRole('link')).toHaveLength(4)
       expect(getAllByRole('menu')).toHaveLength(1)
-      expect(getAllByRole('menuitem')).toHaveLength(3)
+      expect(getAllByRole('menuitem')).toHaveLength(4)
     })
   })
 
@@ -34,10 +34,10 @@ describe('TS:1 - MobileMenuView Component', () => {
     const menuButton = getByRole('button')
     fireEvent.click(menuButton)
     await waitFor(() => {
-      expect(getAllByRole('link')).toHaveLength(3)
+      expect(getAllByRole('link')).toHaveLength(4)
       expect(getAllByRole('menu')).toHaveLength(1)
       const menuItems = getAllByRole('menuitem')
-      expect(menuItems).toHaveLength(3)
+      expect(menuItems).toHaveLength(4)
       fireEvent.click(menuItems[0])
     })
     await waitFor(() => {

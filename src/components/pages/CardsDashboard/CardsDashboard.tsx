@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { Container } from '@mui/material'
 import { useQuery } from '@apollo/client'
 import { GET_CREDIT_CARDS } from '../../../graphql/queries'
 import { ViewLoader } from '../../atoms/ViewLoader'
@@ -25,11 +24,7 @@ const CardsDashboard: FC = () => {
   }
 
   if (!data) return null
-  return (
-    <Container maxWidth="xl">
-      <Cards cardsList={data} />
-    </Container>
-  )
+  return <Cards cardsList={data} />
 }
 
 export default CardsDashboard

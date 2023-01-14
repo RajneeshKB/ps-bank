@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { Box, Container, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { Control, useForm } from 'react-hook-form'
 import { useBankContext } from '../../../context'
 import { GET_ACCOUNTS } from '../../../graphql/queries'
@@ -83,10 +83,8 @@ const AccountStatement: FC = () => {
   if (!data?.getAccounts?.length) return null
 
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h2" mt="1rem">
-        Account Statement
-      </Typography>
+    <Box>
+      <Typography variant="h2">Account Statement</Typography>
       <Stack my="1rem">
         <Box sx={{ border: '1px solid', p: '1rem' }}>
           <FormBuilder
@@ -102,7 +100,7 @@ const AccountStatement: FC = () => {
         </Box>
       </Stack>
       {filterData && <TransactionsList filterData={filterData} />}
-    </Container>
+    </Box>
   )
 }
 

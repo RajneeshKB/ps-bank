@@ -1,5 +1,7 @@
+import { LinkProps } from '@mui/material'
 import { blueGrey, grey } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
+import { CustomLink } from '../components/atoms/CustomRouterLink'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -66,6 +68,18 @@ export const bankTheme = createTheme({
       main: grey[200],
       dark: grey[400],
       contrastText: '#000',
+    },
+  },
+  components: {
+    MuiLink: {
+      defaultProps: {
+        component: CustomLink,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: CustomLink,
+      },
     },
   },
 })

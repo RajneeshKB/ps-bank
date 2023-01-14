@@ -14,8 +14,8 @@ describe('TS:1 - DesktopMenuView Component', () => {
 
   it('TC:02 - should render navigation menu with bank link', async () => {
     const { getAllByRole } = renderWithRouter(<DesktopMenuView showMenu />)
-    expect(getAllByRole('link')).toHaveLength(4)
+    expect(getAllByRole('link')).toHaveLength(5)
     expect(getAllByRole('menu')).toHaveLength(1)
-    expect(getAllByRole('menuitem')).toHaveLength(3)
+    expect(getAllByRole('menuitem')).toHaveLength(4)
   })
 })
