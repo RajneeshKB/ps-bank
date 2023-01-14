@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 import {
   Box,
   Button,
@@ -54,7 +53,7 @@ const HeaderContextMenu: FC = () => {
         onClose={handleCloseCustomerMenu}
       >
         <MenuItem onClick={handleCloseCustomerMenu}>
-          <Link component={RouterLink} to="profile" underline="none">
+          <Link href="profile" underline="none">
             Profile
           </Link>
         </MenuItem>

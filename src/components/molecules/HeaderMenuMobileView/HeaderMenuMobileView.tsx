@@ -1,5 +1,4 @@
 import React, { FC, memo, useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   Box,
@@ -45,8 +44,7 @@ const HeaderMenuMobileView: FC<IHeaderMenuMobileView> = ({ showMenu }) => {
           </IconButton>
         )}
         <Link
-          component={RouterLink}
-          to="/"
+          href="/"
           underline="none"
           variant="h1"
           color="primary.contrastText"
@@ -63,7 +61,7 @@ const HeaderMenuMobileView: FC<IHeaderMenuMobileView> = ({ showMenu }) => {
         >
           {PAGES.map((page) => (
             <MenuItem key={page.label}>
-              <Link component={RouterLink} to={page.href} underline="none">
+              <Link href={page.href} underline="none">
                 {page.label}
               </Link>
             </MenuItem>
