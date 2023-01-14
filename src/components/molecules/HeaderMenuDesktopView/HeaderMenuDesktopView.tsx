@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 import { Box, Link, List, MenuItem, Typography } from '@mui/material'
 import { PAGES } from '../../../utils'
 
@@ -14,13 +13,7 @@ const HeaderMenuDesktopView: FC<IHeaderMenuDesktopView> = ({ showMenu }) => (
       color: 'primary.main',
     }}
   >
-    <Link
-      component={RouterLink}
-      to="/"
-      underline="none"
-      variant="h1"
-      color="primary.contrastText"
-    >
+    <Link href="/" underline="none" variant="h1" color="primary.contrastText">
       <Typography variant="h1">PS Bank</Typography>
     </Link>
     {showMenu && (
@@ -40,8 +33,7 @@ const HeaderMenuDesktopView: FC<IHeaderMenuDesktopView> = ({ showMenu }) => (
           <MenuItem key={page.label}>
             <Link
               key={page.label}
-              component={RouterLink}
-              to={page.href}
+              href={page.href}
               underline="none"
               color="primary.contrastText"
             >

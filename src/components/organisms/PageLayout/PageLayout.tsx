@@ -1,3 +1,4 @@
+import { Container } from '@mui/material'
 import React, { FC } from 'react'
 import { Footer } from '../Footer'
 import { Header } from '../Header'
@@ -10,7 +11,11 @@ const PageLayout: FC<IPageLayoutProps> = ({ children }) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main>
+        <Container maxWidth="xl" sx={{ py: '1.5rem' }}>
+          {children}
+        </Container>
+      </main>
       <Footer />
     </>
   )

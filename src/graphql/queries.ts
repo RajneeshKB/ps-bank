@@ -70,6 +70,19 @@ export const GET_ACCOUNTS = gql`
   }
 `
 
+export const GET_ALL_ACCOUNTS_AND_BENEFICIARIES = gql`
+  query GetAccounts($customerId: String) {
+    getAccounts(customerId: $customerId) {
+      accountNumber
+      availableBalance
+    }
+    getAllBeneficiaries(customerId: $customerId) {
+      beneficiaryName
+      accountNumber
+    }
+  }
+`
+
 export const OPEN_NEW_SAVING_ACCOUNT = gql`
   mutation OpenNewAccount($input: AccountOpeningData) {
     openNewAccount(accountData: $input) {
@@ -110,9 +123,9 @@ export const APPLY_FOR_NEW_CREDIT_CARD = gql`
   }
 `
 
-export const ADD_NEW_TRANSACTION = gql`
-  mutation AddNewTransaction($input: TransactionDetail) {
-    addNewTransaction(transactionDetails: $input)
+export const TRANSFER_MONEY = gql`
+  mutation TransferMoney($input: TransactionDetail) {
+    transferMoney(transactionDetails: $input)
   }
 `
 
@@ -128,5 +141,11 @@ export const FETCH_TRANSACTIONS = gql`
         closingBalance
       }
     }
+  }
+`
+
+export const ADD_PAYEE = gql`
+  mutation AddBeneficiary($input: BeneficiaryDetails) {
+    addBeneficiary(beneficiaryDetails: $input)
   }
 `

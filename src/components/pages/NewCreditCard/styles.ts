@@ -3,7 +3,6 @@ export const newCreditCardStyles = {
     backgroundColor: '#e2e2e2',
     display: 'flex',
     justifyContent: 'center',
-    padding: '3rem 0',
   },
   cardWrapper: {
     padding: '2rem',

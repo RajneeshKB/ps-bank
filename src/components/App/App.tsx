@@ -11,6 +11,9 @@ import { UnprotectedLayout } from '../organisms/UnprotectedLayout'
 import { ProtectedLayout } from '../organisms/ProtectedLayout'
 import { ErrorBoundary } from '../molecules/ErrorBoundary'
 import { PageLoader } from '../atoms/PageLoader'
+import { PayCards } from '../organisms/PayCards'
+import { TransferMoney } from '../organisms/TransferMoney'
+import { PAY_CARD_ROUTE, TRANSFER_MONEY_ROUTE } from '../../utils'
 
 const LazyLoadedRegistrationDetails = lazy(
   () => import('../pages/CustomerRegistartion/CustomerRegistration')
@@ -37,6 +40,7 @@ const LazyLoadedNewCard = lazy(
 const LazyLoadedAccountStatement = lazy(
   () => import('../pages/AccountStatement/AccountStatement')
 )
+const LazyLoadedPayments = lazy(() => import('../pages/Payments/Payments'))
 
 const queryClient = getBankGraphQlClient()
 
@@ -125,6 +129,31 @@ const App: React.FC = () => (
                     </Suspense>
                   }
                 />
+                <Route
+                  path="payments"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      <LazyLoadedPayments />
+                    </Suspense>
+                  }
+                >
+                  <Route
+                    path={TRANSFER_MONEY_ROUTE}
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <TransferMoney />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path={PAY_CARD_ROUTE}
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <PayCards />
+                      </Suspense>
+                    }
+                  />
+                </Route>
                 <Route
                   path="profile"
                   element={

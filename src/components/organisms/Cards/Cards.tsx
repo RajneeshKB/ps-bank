@@ -44,7 +44,7 @@ const Accounts: FC<IAccountsProps> = ({ cardsList }) => {
   }
 
   return (
-    <Box sx={{ py: '1.5rem' }}>
+    <Box>
       <Stack direction="row" justifyContent="space-between">
         <Typography variant="h2" mb="0.5rem">
           Cards

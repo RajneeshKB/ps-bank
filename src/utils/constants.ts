@@ -1,8 +1,11 @@
 export const PAGES = [
   { label: 'Accounts', href: 'account-dashboard' },
   { label: 'Cards', href: 'card-dashboard' },
+  { label: 'Payments', href: 'payments' },
   { label: 'Apply', href: 'apply' },
 ]
+export const TRANSFER_MONEY_ROUTE = 'transfer-money'
+export const PAY_CARD_ROUTE = 'pay-card'
 export const ID_OCCUPATION = 'occupation'
 export const ID_INCOME = 'income'
 export const ID_COUNTRY = 'country'
