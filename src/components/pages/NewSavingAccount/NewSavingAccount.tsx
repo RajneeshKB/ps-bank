@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import {
   Alert,
+  AlertTitle,
   Box,
   Card,
   CardContent,
@@ -76,6 +77,9 @@ const NewSavingAccount: FC = () => {
             severity={showToast.success === 'SUCCESS' ? 'success' : 'error'}
             sx={{ width: '100%' }}
           >
+            <AlertTitle>
+              {showToast.success === 'SUCCESS' ? 'Success' : 'Error'}
+            </AlertTitle>
             {showToast.success === 'SUCCESS'
               ? 'Woohoo, New saving account opened successfully.'
               : 'Oops, account creation failed. Try again!'}

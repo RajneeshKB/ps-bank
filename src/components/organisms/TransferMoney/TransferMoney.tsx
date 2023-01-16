@@ -1,5 +1,12 @@
 import React, { FC, useState } from 'react'
-import { Alert, Box, Snackbar, Stack, Typography } from '@mui/material'
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Snackbar,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { useMutation, useQuery } from '@apollo/client'
 import { useBankContext } from '../../../context'
 import {
@@ -63,8 +70,6 @@ const TransferMoeny: FC = () => {
     updateShowModal(!showModal)
   }
   const initiateAmountTransfer = (formData: any) => {
-    // eslint-disable-next-line no-console
-    console.log('formdata', formData)
     transferMoney({
       variables: {
         input: { ...formData, customerId },
@@ -149,9 +154,12 @@ const TransferMoeny: FC = () => {
               severity={showToast.success === 'SUCCESS' ? 'success' : 'error'}
               sx={{ width: '100%' }}
             >
+              <AlertTitle>
+                {showToast.success === 'SUCCESS' ? 'Success' : 'Error'}
+              </AlertTitle>
               {showToast.success === 'SUCCESS'
-                ? 'Beneficiary added successfully'
-                : 'Oops, Failed to add beneficiary. Try again!'}
+                ? 'Operation successfull'
+                : 'Oops, Operation failed. Try again!'}
             </Alert>
           </Snackbar>
         )}

@@ -66,6 +66,10 @@ export const GET_ACCOUNTS = gql`
       validFrom
       validTo
       cvvNumber
+      notifications {
+        code
+        message
+      }
     }
   }
 `
@@ -105,6 +109,11 @@ export const GET_CREDIT_CARDS = gql`
       cvvNumber
       availableLimit
       outstandingAmount
+      dueDate
+      notifications {
+        code
+        message
+      }
     }
     getAccounts(customerId: $customerId) {
       activeDebitCard
