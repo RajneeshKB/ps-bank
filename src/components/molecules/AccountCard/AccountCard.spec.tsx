@@ -22,6 +22,7 @@ describe('TS:1 - AccountCard Component', () => {
         validFrom="02/2022"
         validTo="02/2026"
         showBalance={false}
+        notifications={[]}
       />
     )
     expect(getByText('REGULAR Account')).toBeInTheDocument()
@@ -47,6 +48,7 @@ describe('TS:1 - AccountCard Component', () => {
         validFrom="02/2022"
         validTo="02/2026"
         showBalance
+        notifications={[]}
       />
     )
     const viewStatementButton = getByRole('button', { name: 'View Statement' })

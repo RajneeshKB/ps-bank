@@ -1,6 +1,7 @@
 import React, { FC, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -24,6 +25,7 @@ interface IAccountCardProps {
   validFrom: string
   validTo: string
   showBalance: boolean
+  notifications: any[]
 }
 const AccountCard: FC<IAccountCardProps> = ({
   customerName,
@@ -35,6 +37,7 @@ const AccountCard: FC<IAccountCardProps> = ({
   validFrom,
   validTo,
   showBalance,
+  notifications,
 }) => {
   const navigate = useNavigate()
   return (
@@ -101,6 +104,19 @@ const AccountCard: FC<IAccountCardProps> = ({
           <ChevronRightIcon />
         </Button>
       </CardActions>
+      {notifications.map(({ code, message }) => (
+        <Alert
+          key={code}
+          severity="error"
+          sx={{
+            width: '100%',
+            borderTopRightRadius: '0',
+            borderTopLeftRadius: '0',
+          }}
+        >
+          {message}
+        </Alert>
+      ))}
     </Card>
   )
 }
