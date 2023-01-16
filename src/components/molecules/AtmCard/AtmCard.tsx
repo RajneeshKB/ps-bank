@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react'
-import { Box, Card, CardContent, Stack, Typography } from '@mui/material'
+import { Alert, Box, Card, CardContent, Stack, Typography } from '@mui/material'
 import { atmCardStyles } from './styles'
 import { getMaskedCardNumber } from '../../../utils'
 
@@ -14,6 +14,7 @@ interface IAtmCardProps {
   availableLimit?: string
   creditCardType?: string
   outstandingAmount?: string
+  notifications?: any[]
 }
 const AtmCard: FC<IAtmCardProps> = ({
   customerName,
@@ -26,6 +27,7 @@ const AtmCard: FC<IAtmCardProps> = ({
   availableLimit,
   creditCardType,
   outstandingAmount,
+  notifications,
 }) => (
   <Card
     sx={{
@@ -126,6 +128,18 @@ const AtmCard: FC<IAtmCardProps> = ({
           </Typography>
         </Stack>
       </Stack>
+      {notifications?.map(({ code, message }) => (
+        <Alert
+          key={code}
+          severity="error"
+          sx={{
+            width: '100%',
+            borderRadius: '0',
+          }}
+        >
+          {message}
+        </Alert>
+      ))}
     </CardContent>
   </Card>
 )
@@ -136,5 +150,6 @@ AtmCard.defaultProps = {
   availableLimit: '',
   creditCardType: '',
   outstandingAmount: '',
+  notifications: [],
 }
 export default memo(AtmCard)
