@@ -17,6 +17,7 @@ const mockAcounts = [
     cvvNumber: '123',
     validFrom: '02/2022',
     validTo: '02/2026',
+    notifications: [],
   },
   {
     accountNumber: '1234567891',
@@ -26,6 +27,7 @@ const mockAcounts = [
     cvvNumber: '123',
     validFrom: '02/2022',
     validTo: '02/2026',
+    notifications: [],
   },
 ]
 const mockAccountsData = {
