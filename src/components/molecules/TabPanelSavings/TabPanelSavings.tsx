@@ -65,7 +65,7 @@ const TabPanelSavings: FC = () => {
         </Stack>
       </CardContent>
       <CardActions sx={tabPanelSavingStyles.cardActions}>
-        <Button variant="contained" href="/ps-bank/new-saving">
+        <Button variant="contained" href="/ps-bank/apply/new-saving">
           Open Now
         </Button>
       </CardActions>
