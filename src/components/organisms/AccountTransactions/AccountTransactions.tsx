@@ -31,7 +31,10 @@ const Transactions: FC<ITransactionsList> = ({ filterData }) => {
     error,
     data: transactionData,
     refetch,
-  } = useQuery(FETCH_TRANSACTIONS, queryOptions)
+  } = useQuery(FETCH_TRANSACTIONS, {
+    ...queryOptions,
+    fetchPolicy: 'no-cache',
+  })
   const [rowCountState, setRowCountState] = useState(
     transactionData?.getTransactions?.totalRowCount || 0
   )
@@ -103,7 +106,7 @@ const Transactions: FC<ITransactionsList> = ({ filterData }) => {
             page={page}
             pageSize={pageSize}
             paginationMode="server"
-            rowsPerPageOptions={[5]}
+            rowsPerPageOptions={[pageSize]}
             onPageChange={(newPage) => setPage(newPage)}
             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             autoHeight

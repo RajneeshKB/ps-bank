@@ -61,8 +61,8 @@ const AccountStatement: FC = () => {
         customerId,
         accountNumber: accountNumber.toString(),
         lastTenTransactions: false,
-        fromDate,
-        toDate,
+        fromDate: new Date(fromDate).toISOString(),
+        toDate: new Date(toDate).toISOString(),
       }
     } else {
       variableInputs = {

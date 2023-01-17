@@ -15,6 +15,7 @@ import {
   RELATIONSHIP,
   SAVING_ACCOUNT_TYPE,
 } from './constants'
+import { getDateInRangeMonth } from './utilities'
 
 export type FormMetaData = {
   id: string
@@ -23,6 +24,8 @@ export type FormMetaData = {
   type: string
   subCategory?: string
   placeholder?: string
+  minDateRange?: string
+  maxDateRange?: string
   required: boolean
   disabled?: boolean
   halfWidth?: boolean
@@ -669,6 +672,8 @@ export const TRANSACTION_FILTER_FORM: FormMetaData[] = [
     label: 'Date from',
     required: false,
     type: 'date',
+    minDateRange: getDateInRangeMonth(new Date(), -6),
+    maxDateRange: new Date().toISOString(),
     halfWidth: true,
     watchField: BANK_TRANSACTION_LIST,
     watchValue: 'dateRange',
