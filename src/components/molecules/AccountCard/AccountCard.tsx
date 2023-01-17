@@ -97,7 +97,7 @@ const AccountCard: FC<IAccountCardProps> = ({
           sx={{ color: 'primary.contrastText' }}
           onClick={() => {
             sessionStorage.setItem('selectedAccount', accountNumber)
-            navigate('/ps-bank/account-statement')
+            navigate('/ps-bank/account-dashboard/account-statement')
           }}
         >
           View Statement

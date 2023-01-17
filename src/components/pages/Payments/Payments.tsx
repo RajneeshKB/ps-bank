@@ -1,30 +1,32 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import {
   Outlet,
   Link as RouterLink,
   useLocation,
-  matchPath,
+  useNavigate,
 } from 'react-router-dom'
 import { Box, Tab, Tabs, Typography } from '@mui/material'
 import { PAY_CARD_ROUTE, TRANSFER_MONEY_ROUTE } from '../../../utils'
 
-function useRouteMatch(patterns: readonly string[]) {
-  const { pathname } = useLocation()
-
-  for (let i = 0; i < patterns.length; i += 1) {
-    const pattern = patterns[i]
-    const possibleMatch = matchPath(pattern, pathname)
-    if (possibleMatch !== null) {
-      return possibleMatch
-    }
-  }
-
-  return null
-}
-
 const Payments: FC = () => {
-  const routeMatch = useRouteMatch([TRANSFER_MONEY_ROUTE, PAY_CARD_ROUTE])
-  const currentTab = routeMatch?.pattern?.path
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const splittedPath = pathname?.split('/')
+  const currentPath = splittedPath?.length
+    ? splittedPath[splittedPath.length - 1]
+    : ''
+  const selectedTab = [TRANSFER_MONEY_ROUTE, PAY_CARD_ROUTE].includes(
+    currentPath
+  )
+    ? currentPath
+    : TRANSFER_MONEY_ROUTE
+
+  useEffect(() => {
+    if ([TRANSFER_MONEY_ROUTE, PAY_CARD_ROUTE].indexOf(currentPath) === -1) {
+      navigate(TRANSFER_MONEY_ROUTE)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Box>
@@ -32,7 +34,7 @@ const Payments: FC = () => {
         Payments
       </Typography>
       <Tabs
-        value={currentTab}
+        value={selectedTab}
         aria-label="do payments"
         textColor="primary"
         indicatorColor="primary"

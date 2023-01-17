@@ -106,7 +106,7 @@ const App: React.FC = () => (
                   }
                 />
                 <Route
-                  path="new-saving"
+                  path="apply/new-saving"
                   element={
                     <Suspense fallback={<PageLoader />}>
                       <LazyLoadedNewSavingAccount />
@@ -114,7 +114,7 @@ const App: React.FC = () => (
                   }
                 />
                 <Route
-                  path="new-card"
+                  path="apply/new-card"
                   element={
                     <Suspense fallback={<PageLoader />}>
                       <LazyLoadedNewCard />
@@ -122,7 +122,7 @@ const App: React.FC = () => (
                   }
                 />
                 <Route
-                  path="account-statement"
+                  path="account-dashboard/account-statement"
                   element={
                     <Suspense fallback={<PageLoader />}>
                       <LazyLoadedAccountStatement />
