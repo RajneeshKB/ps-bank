@@ -129,7 +129,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     const { queryByText } = renderWithRouter(
       <App />,
       {
-        route: '/ps-bank/new-saving',
+        route: '/ps-bank/apply/new-saving',
       },
       bankContextValueMock
     )
@@ -145,7 +145,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     const { queryByText } = renderWithRouter(
       <App />,
       {
-        route: '/ps-bank/new-card',
+        route: '/ps-bank/apply/new-card',
       },
       bankContextValueMock
     )
@@ -173,7 +173,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     const { queryByText } = renderWithRouter(
       <App />,
       {
-        route: '/ps-bank/account-statement',
+        route: '/ps-bank/account-dashboard/account-statement',
       },
       bankContextValueMock
     )

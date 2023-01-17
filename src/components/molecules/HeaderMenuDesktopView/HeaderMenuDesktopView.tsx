@@ -4,8 +4,14 @@ import { PAGES } from '../../../utils'
 
 interface IHeaderMenuDesktopView {
   showMenu: boolean
+  selectedMenu: string
+  parentPath: string
 }
-const HeaderMenuDesktopView: FC<IHeaderMenuDesktopView> = ({ showMenu }) => (
+const HeaderMenuDesktopView: FC<IHeaderMenuDesktopView> = ({
+  showMenu,
+  selectedMenu,
+  parentPath,
+}) => (
   <Box
     sx={{
       flexGrow: 1,
@@ -30,7 +36,17 @@ const HeaderMenuDesktopView: FC<IHeaderMenuDesktopView> = ({ showMenu }) => (
         role="menu"
       >
         {PAGES.map((page) => (
-          <MenuItem key={page.label}>
+          <MenuItem
+            key={page.label}
+            sx={
+              selectedMenu === page.href || parentPath === page.href
+                ? {
+                    fontSize: '1.5rem',
+                    borderBottom: '1px solid #fff',
+                  }
+                : {}
+            }
+          >
             <Link
               key={page.label}
               href={page.href}

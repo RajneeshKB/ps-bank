@@ -14,9 +14,15 @@ import { PAGES } from '../../../utils'
 
 interface IHeaderMenuMobileView {
   showMenu: boolean
+  selectedMenu: string
+  parentPath: string
 }
 
-const HeaderMenuMobileView: FC<IHeaderMenuMobileView> = ({ showMenu }) => {
+const HeaderMenuMobileView: FC<IHeaderMenuMobileView> = ({
+  showMenu,
+  selectedMenu,
+  parentPath,
+}) => {
   const [drawerState, updateOpenDrawer] = useState(false)
   const closeDrawer = () => {
     updateOpenDrawer(false)
@@ -60,7 +66,17 @@ const HeaderMenuMobileView: FC<IHeaderMenuMobileView> = ({ showMenu }) => {
           onKeyDown={closeDrawer}
         >
           {PAGES.map((page) => (
-            <MenuItem key={page.label}>
+            <MenuItem
+              key={page.label}
+              sx={
+                selectedMenu === page.href || parentPath === page.href
+                  ? {
+                      fontSize: '1.5rem',
+                      borderBottom: '1px solid #fff',
+                    }
+                  : {}
+              }
+            >
               <Link href={page.href} underline="none">
                 {page.label}
               </Link>
