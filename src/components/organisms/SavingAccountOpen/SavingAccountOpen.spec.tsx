@@ -195,8 +195,8 @@ describe('TS:1 - SavingAccountOpenForm component', () => {
   it('TC:02 - should render SavingAccountOpenForm Component successfully when customer data resolved from server', async () => {
     const { queryAllByRole } = component()
     await waitFor(() => {
-      expect(queryAllByRole('textbox')).toHaveLength(12)
-      expect(queryAllByRole('button')).toHaveLength(3)
+      expect(queryAllByRole('textbox')).toHaveLength(13)
+      expect(queryAllByRole('button')).toHaveLength(4)
       expect(queryAllByRole('radiogroup')).toHaveLength(3)
       expect(queryAllByRole('radio')).toHaveLength(8)
     })
@@ -235,8 +235,8 @@ describe('TS:1 - SavingAccountOpenForm component', () => {
   it('TC:05 - should render joinee detail form is active step is 1', () => {
     activeStep = 1
     const { getAllByRole } = component()
-    expect(getAllByRole('textbox')).toHaveLength(12)
-    expect(getAllByRole('button')).toHaveLength(5)
+    expect(getAllByRole('textbox')).toHaveLength(13)
+    expect(getAllByRole('button')).toHaveLength(6)
     expect(getAllByRole('radiogroup')).toHaveLength(2)
     expect(getAllByRole('radio')).toHaveLength(6)
   })
@@ -245,7 +245,7 @@ describe('TS:1 - SavingAccountOpenForm component', () => {
     jest.spyOn(mockProps, 'mockFormSubmit')
     const { getByRole, getAllByRole } = component()
     await waitFor(() => {
-      expect(getAllByRole('button')).toHaveLength(5)
+      expect(getAllByRole('button')).toHaveLength(6)
       const backButton = getByRole('button', { name: 'Back' })
       backButton.click()
     })

@@ -1,6 +1,6 @@
 import React from 'react'
-import { render } from '@testing-library/react'
 import { FormControlSelector } from '.'
+import { renderWithProviders } from '../../../utils/test-utils'
 
 describe('TS:1 - FormControlSelector Component', () => {
   const mockControlHandler = {
@@ -22,7 +22,7 @@ describe('TS:1 - FormControlSelector Component', () => {
   ]
 
   it('TC:01 - should render nothing if no control type is matched with list', () => {
-    const { container } = render(
+    const { container } = renderWithProviders(
       <FormControlSelector
         controlData={{ ...mockControlData, type: '' }}
         controlHandler={mockControlHandler}
@@ -33,7 +33,7 @@ describe('TS:1 - FormControlSelector Component', () => {
   })
 
   it('TC:02 - should render text field, if type is text', () => {
-    const { getByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = renderWithProviders(
       <FormControlSelector
         controlData={{ ...mockControlData, type: 'text' }}
         controlHandler={mockControlHandler}
@@ -45,7 +45,7 @@ describe('TS:1 - FormControlSelector Component', () => {
   })
 
   it('TC:03 - should render select box, if type is select', () => {
-    const { getByRole, getByLabelText } = render(
+    const { getByRole, getByLabelText } = renderWithProviders(
       <FormControlSelector
         controlData={{ ...mockControlData, type: 'select' }}
         controlHandler={mockControlHandler}
@@ -58,7 +58,7 @@ describe('TS:1 - FormControlSelector Component', () => {
   })
 
   it('TC:04 - should render radio group, if type is radioGroup', () => {
-    const { getByRole, getAllByRole, getByLabelText } = render(
+    const { getByRole, getAllByRole, getByLabelText } = renderWithProviders(
       <FormControlSelector
         controlData={{ ...mockControlData, type: 'radioGroup' }}
         controlHandler={mockControlHandler}
@@ -72,7 +72,7 @@ describe('TS:1 - FormControlSelector Component', () => {
   })
 
   it('TC:05 - should render date control, if type is date', () => {
-    const { getByLabelText } = render(
+    const { getByLabelText } = renderWithProviders(
       <FormControlSelector
         controlData={{ ...mockControlData, type: 'date' }}
         controlHandler={mockControlHandler}
@@ -84,7 +84,7 @@ describe('TS:1 - FormControlSelector Component', () => {
   })
 
   it('TC:06 - should render date control, if type is date and not required', () => {
-    const { getByLabelText } = render(
+    const { getByLabelText } = renderWithProviders(
       <FormControlSelector
         controlData={{
           ...mockControlData,
@@ -103,7 +103,7 @@ describe('TS:1 - FormControlSelector Component', () => {
   })
 
   it('TC:07 - should render checkbox control, if type is checkbox', () => {
-    const { getByRole, getByText } = render(
+    const { getByRole, getByText } = renderWithProviders(
       <FormControlSelector
         controlData={{ ...mockControlData, type: 'checkbox' }}
         controlHandler={mockControlHandler}
