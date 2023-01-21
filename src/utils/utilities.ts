@@ -32,7 +32,7 @@ export const getMaskedCardNumber = (_data: string) => {
 const getDaysInMonth = (year: number, month: number) =>
   new Date(year, month, 0).getDate()
 
-export const getDateInRangeMonth = (_date: Date, range: number) => {
+export const calculateDate = (_date: Date, range: number) => {
   const date = new Date(_date)
   date.setDate(1)
   date.setMonth(date.getMonth() + range)

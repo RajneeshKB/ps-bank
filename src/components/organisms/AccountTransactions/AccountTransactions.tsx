@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useQuery } from '@apollo/client'
+import dayjs from 'dayjs'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import CachedIcon from '@mui/icons-material/Cached'
 import { DataGrid } from '@mui/x-data-grid'
@@ -70,9 +71,10 @@ const Transactions: FC<ITransactionsList> = ({ filterData }) => {
           closingBalance,
         } = transaction
 
+        const trDate = dayjs(+transactionDate).format('MM/DD/YYYY')
         return {
           id: index + 1,
-          trDate: transactionDate,
+          trDate,
           trRemark: transactionRemark,
           drAmount: transactionType === 'debit' ? transactionAmount : '',
           crAmount: transactionType === 'credit' ? transactionAmount : '',
