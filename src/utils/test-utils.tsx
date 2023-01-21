@@ -1,5 +1,7 @@
 import React, { FC, ReactElement } from 'react'
 import { MemoryRouter } from 'react-router-dom'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MockedProvider } from '@apollo/client/testing'
 import { render, RenderOptions } from '@testing-library/react'
 import { BankContextProvider } from '../context'
@@ -29,7 +31,9 @@ const renderWithProviders = (
     return (
       <MockedProvider addTypename={false} mocks={graphQlResponseMocks}>
         <BankContextProvider initialStateValue={bankConextValue}>
-          {children}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {children}
+          </LocalizationProvider>
         </BankContextProvider>
       </MockedProvider>
     )

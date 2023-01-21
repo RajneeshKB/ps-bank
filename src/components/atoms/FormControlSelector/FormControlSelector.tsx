@@ -1,4 +1,6 @@
 import React, { FC } from 'react'
+import { DatePicker } from '@mui/x-date-pickers'
+import dayjs from 'dayjs'
 import {
   Checkbox,
   FormControlLabel,
@@ -38,6 +40,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
     watchField,
     watchValue,
     rowOrientation,
+    minDateRange,
   } = controlData
   const { onChange, value } = controlHandler
   const { error } = controlState
@@ -65,21 +68,46 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
 
     case 'date':
       return (
-        <TextField
-          id={id}
+        <DatePicker
           label={label}
-          required={required || calculateWatchCondition()}
-          onChange={onChange}
-          value={value}
-          error={!!error?.message}
-          type="date"
-          variant="standard"
-          disabled={disabled || !calculateWatchCondition()}
-          InputLabelProps={{
-            shrink: true,
+          onChange={(newValue) => {
+            onChange(dayjs(newValue).toISOString())
           }}
+          value={value || null}
+          disabled={disabled || !calculateWatchCondition()}
+          disableFuture
+          minDate={minDateRange ? dayjs(minDateRange) : null}
+          views={['year', 'month', 'day']}
+          renderInput={(params) => (
+            <TextField
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...params}
+              id={id}
+              required={required || calculateWatchCondition()}
+              error={!!error?.message}
+              variant="standard"
+              disabled={disabled || !calculateWatchCondition()}
+              helperText="mm/dd/yyyy"
+            />
+          )}
         />
       )
+    // return (
+    //   <TextField
+    //     id={id}
+    //     label={label}
+    //     required={required || calculateWatchCondition()}
+    //     onChange={onChange}
+    //     value={value}
+    //     error={!!error?.message}
+    //     type="date"
+    //     variant="standard"
+    //     disabled={disabled || !calculateWatchCondition()}
+    //     InputLabelProps={{
+    //       shrink: true,
+    //     }}
+    //   />
+    // )
 
     case 'select':
       return (

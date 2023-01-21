@@ -2,6 +2,8 @@ import React, { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ApolloProvider } from '@apollo/client'
 import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import CustomerDashboard from '../pages/CustomerDashboard/CustomerDashboard'
 import { bankTheme } from '../../theme/psBankTheme'
@@ -50,121 +52,126 @@ const App: React.FC = () => (
       <ThemeProvider theme={bankTheme}>
         <CssBaseline />
         <Router>
-          <BankContextProvider>
-            <Routes>
-              <Route element={<UnprotectedLayout />}>
-                <Route path="/" element={<CustomerDashboard />} />
-                <Route
-                  path="/login"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedLogin />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/registration"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedRegistrationDetails />
-                    </Suspense>
-                  }
-                />
-                <Route path="*" element={<Typography>Not found</Typography>} />
-              </Route>
-              <Route path="/ps-bank" element={<ProtectedLayout />}>
-                <Route
-                  path="reset"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedPasswordReset />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="account-dashboard"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedAccountsDashboard />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="card-dashboard"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedCardsDashboard />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="apply"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedNewApplication />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="apply/new-saving"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedNewSavingAccount />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="apply/new-card"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedNewCard />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="account-dashboard/account-statement"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedAccountStatement />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="payments"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <LazyLoadedPayments />
-                    </Suspense>
-                  }
-                >
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en">
+            <BankContextProvider>
+              <Routes>
+                <Route element={<UnprotectedLayout />}>
+                  <Route path="/" element={<CustomerDashboard />} />
                   <Route
-                    path={TRANSFER_MONEY_ROUTE}
+                    path="/login"
                     element={
                       <Suspense fallback={<PageLoader />}>
-                        <TransferMoney />
+                        <LazyLoadedLogin />
                       </Suspense>
                     }
                   />
                   <Route
-                    path={PAY_CARD_ROUTE}
+                    path="/registration"
                     element={
                       <Suspense fallback={<PageLoader />}>
-                        <PayCards />
+                        <LazyLoadedRegistrationDetails />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="*"
+                    element={<Typography>Not found</Typography>}
+                  />
+                </Route>
+                <Route path="/ps-bank" element={<ProtectedLayout />}>
+                  <Route
+                    path="reset"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedPasswordReset />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="account-dashboard"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedAccountsDashboard />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="card-dashboard"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedCardsDashboard />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="apply"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedNewApplication />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="apply/new-saving"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedNewSavingAccount />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="apply/new-card"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedNewCard />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="account-dashboard/account-statement"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedAccountStatement />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="payments"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <LazyLoadedPayments />
+                      </Suspense>
+                    }
+                  >
+                    <Route
+                      path={TRANSFER_MONEY_ROUTE}
+                      element={
+                        <Suspense fallback={<PageLoader />}>
+                          <TransferMoney />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path={PAY_CARD_ROUTE}
+                      element={
+                        <Suspense fallback={<PageLoader />}>
+                          <PayCards />
+                        </Suspense>
+                      }
+                    />
+                  </Route>
+                  <Route
+                    path="profile"
+                    element={
+                      <Suspense fallback={<PageLoader />}>
+                        <div>Profile view here. Work in progress!</div>
                       </Suspense>
                     }
                   />
                 </Route>
-                <Route
-                  path="profile"
-                  element={
-                    <Suspense fallback={<PageLoader />}>
-                      <div>Profile view here. Work in progress!</div>
-                    </Suspense>
-                  }
-                />
-              </Route>
-            </Routes>
-          </BankContextProvider>
+              </Routes>
+            </BankContextProvider>
+          </LocalizationProvider>
         </Router>
       </ThemeProvider>
     </ApolloProvider>

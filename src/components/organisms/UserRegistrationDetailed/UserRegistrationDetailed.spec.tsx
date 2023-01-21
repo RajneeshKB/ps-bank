@@ -20,8 +20,8 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
         formSubmitCallback={mockProps.mockFormSubmit}
       />
     )
-    expect(getAllByRole('textbox')).toHaveLength(12)
-    expect(getAllByRole('button')).toHaveLength(3)
+    expect(getAllByRole('textbox')).toHaveLength(13)
+    expect(getAllByRole('button')).toHaveLength(4)
     expect(getAllByRole('radiogroup')).toHaveLength(2)
     expect(getAllByRole('radio')).toHaveLength(6)
   })
@@ -71,7 +71,9 @@ describe('TS:1 - UserRegistrationDetailsForm component', () => {
     // Select income radio option
     fireEvent.click(incomeBox)
     fireEvent.click(genderBox)
-    fireEvent.change(dobBox, { target: { value: '1990-10-22' } })
+    fireEvent.change(dobBox, {
+      target: { value: '10/22/1990' },
+    })
     fireEvent.change(fatherNameBox, { target: { value: 'Father Name' } })
     fireEvent.change(motherNameBox, { target: { value: 'Mother Name' } })
     fireEvent.change(panBox, { target: { value: 'BRSGF1472D' } })
