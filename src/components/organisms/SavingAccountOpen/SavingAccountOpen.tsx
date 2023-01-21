@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLazyQuery, useMutation } from '@apollo/client'
+import dayjs from 'dayjs'
 import { Typography } from '@mui/material'
 import {
   GENDER_TYPE,
@@ -62,6 +63,7 @@ const SavingAccountOpenForm: FC<ISavingAccountOpenFormProps> = ({
           reset({
             ...SAVING_ACCOUNT_OPENING_FORM_DEFAULT_VALUES,
             ...response?.getCustomerDetails,
+            dateOfBirth: dayjs(+response.getCustomerDetails.dateOfBirth),
           })
         },
       })

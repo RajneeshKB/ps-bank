@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import dayjs from 'dayjs'
 import { useMutation, useQuery } from '@apollo/client'
 import { Typography } from '@mui/material'
 import {
@@ -38,6 +39,7 @@ const CreditCardApplication: FC<ICreditCardApplicationProps> = ({
       reset({
         ...CREDIT_CARD_APPLY_FORM_DEFAULT_VALUES,
         ...response?.getCustomerDetails,
+        dateOfBirth: dayjs(+response.getCustomerDetails.dateOfBirth),
       })
     },
   })

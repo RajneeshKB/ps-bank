@@ -43,8 +43,8 @@ describe('TS:1 - CustomerRegistration component', () => {
         /Just one more step to get started with your digital banking account/
       )
     ).toBeInTheDocument()
-    expect(getAllByRole('textbox')).toHaveLength(12)
-    expect(getAllByRole('button')).toHaveLength(3)
+    expect(getAllByRole('textbox')).toHaveLength(13)
+    expect(getAllByRole('button')).toHaveLength(4)
     expect(getAllByRole('radiogroup')).toHaveLength(2)
     expect(getAllByRole('radio')).toHaveLength(6)
   })
@@ -78,7 +78,7 @@ describe('TS:1 - CustomerRegistration component', () => {
                   customerName: 'Test name',
                   occupation: 'salaried',
                   genderType: 'female',
-                  dateOfBirth: '1990-10-22',
+                  dateOfBirth: new Date('10/22/1990').toISOString(),
                   fathersName: 'Father Name',
                   mothersName: 'Mother Name',
                   income: '10_to_20',
@@ -119,7 +119,9 @@ describe('TS:1 - CustomerRegistration component', () => {
     // Select income radio option
     fireEvent.click(incomeBox)
     fireEvent.click(genderBox)
-    fireEvent.change(dobBox, { target: { value: '1990-10-22' } })
+    fireEvent.change(dobBox, {
+      target: { value: '10/22/1990' },
+    })
     fireEvent.change(fatherNameBox, { target: { value: 'Father Name' } })
     fireEvent.change(motherNameBox, { target: { value: 'Mother Name' } })
     fireEvent.change(panBox, { target: { value: 'BRSGF1472D' } })
@@ -176,7 +178,7 @@ describe('TS:1 - CustomerRegistration component', () => {
                   customerName: 'Test name',
                   occupation: 'salaried',
                   genderType: 'female',
-                  dateOfBirth: '1990-10-22',
+                  dateOfBirth: new Date('10/22/1990').toISOString(),
                   fathersName: 'Father Name',
                   mothersName: 'Mother Name',
                   income: '10_to_20',
@@ -217,7 +219,9 @@ describe('TS:1 - CustomerRegistration component', () => {
     // Select income radio option
     fireEvent.click(incomeBox)
     fireEvent.click(genderBox)
-    fireEvent.change(dobBox, { target: { value: '1990-10-22' } })
+    fireEvent.change(dobBox, {
+      target: { value: '10/22/1990' },
+    })
     fireEvent.change(fatherNameBox, { target: { value: 'Father Name' } })
     fireEvent.change(motherNameBox, { target: { value: 'Mother Name' } })
     fireEvent.change(panBox, { target: { value: 'BRSGF1472D' } })
