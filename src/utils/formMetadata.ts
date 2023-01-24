@@ -1,4 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid'
+import dayjs from 'dayjs'
 import {
   BANK_ACCOUNT,
   BANK_TRANSACTION_LIST,
@@ -15,7 +16,6 @@ import {
   RELATIONSHIP,
   SAVING_ACCOUNT_TYPE,
 } from './constants'
-import { calculateDate } from './utilities'
 
 export type FormMetaData = {
   id: string
@@ -263,6 +263,8 @@ const USER_BIOLOGICAL_DETAILS: FormMetaData[] = [
     label: 'Date of birth',
     required: true,
     type: 'date',
+    minDateRange: dayjs().subtract(80, 'year').toISOString(),
+    maxDateRange: dayjs().subtract(18, 'year').toISOString(),
     validation: {
       required: { value: true, message: 'date of birth is required' },
     },
@@ -548,12 +550,23 @@ export const SAVING_ACCOUNT_OPENING_FORM: {
         return false
       }
       return true
-    }).map((sec) => ({
-      ...sec,
-      id: `nominee_${sec.id}`,
-      name: `nominee_${sec.name}`,
-      halfWidth: true,
-    })),
+    }).map((sec) => {
+      if (sec.id === 'dateOfBirth') {
+        return {
+          ...sec,
+          maxDateRange: dayjs().toISOString(),
+          id: `nominee_${sec.id}`,
+          name: `nominee_${sec.name}`,
+          halfWidth: true,
+        }
+      }
+      return {
+        ...sec,
+        id: `nominee_${sec.id}`,
+        name: `nominee_${sec.name}`,
+        halfWidth: true,
+      }
+    }),
     NOMINEE_APPLICANT_RELATIONSHIP: USER_RELATIONSHIP_CONTROL.map(
       (addSection) => ({
         ...addSection,
@@ -672,8 +685,8 @@ export const TRANSACTION_FILTER_FORM: FormMetaData[] = [
     label: 'Date from',
     required: false,
     type: 'date',
-    minDateRange: calculateDate(new Date(), -6),
-    maxDateRange: new Date().toISOString(),
+    minDateRange: dayjs().subtract(6, 'month').toISOString(),
+    maxDateRange: dayjs().toISOString(),
     halfWidth: true,
     watchField: BANK_TRANSACTION_LIST,
     watchValue: 'dateRange',
@@ -685,6 +698,8 @@ export const TRANSACTION_FILTER_FORM: FormMetaData[] = [
     label: 'Date to',
     required: false,
     type: 'date',
+    minDateRange: dayjs().subtract(6, 'month').toISOString(),
+    maxDateRange: dayjs().toISOString(),
     halfWidth: true,
     watchField: BANK_TRANSACTION_LIST,
     watchValue: 'dateRange',

@@ -41,6 +41,7 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
     watchValue,
     rowOrientation,
     minDateRange,
+    maxDateRange,
   } = controlData
   const { onChange, value } = controlHandler
   const { error } = controlState
@@ -76,7 +77,8 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
           value={value || null}
           disabled={disabled || !calculateWatchCondition()}
           disableFuture
-          minDate={minDateRange ? dayjs(minDateRange) : null}
+          minDate={minDateRange}
+          maxDate={maxDateRange}
           views={['year', 'month', 'day']}
           renderInput={(params) => (
             <TextField
@@ -92,22 +94,6 @@ const FormControlSelector: FC<IFormControlSelectorProps> = ({
           )}
         />
       )
-    // return (
-    //   <TextField
-    //     id={id}
-    //     label={label}
-    //     required={required || calculateWatchCondition()}
-    //     onChange={onChange}
-    //     value={value}
-    //     error={!!error?.message}
-    //     type="date"
-    //     variant="standard"
-    //     disabled={disabled || !calculateWatchCondition()}
-    //     InputLabelProps={{
-    //       shrink: true,
-    //     }}
-    //   />
-    // )
 
     case 'select':
       return (
