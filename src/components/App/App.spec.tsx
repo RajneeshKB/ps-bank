@@ -23,7 +23,7 @@ describe('TS:1 - Bank app component unprotected routes', () => {
     expect(getByText(/Developed by: Rajneesh Barnwal/)).toBeInTheDocument()
   })
 
-  xit('TC:02 - should redirect to user detailed registration page on basic data filled and submitted', async () => {
+  it('TC:02 - should redirect to user detailed registration page on basic data filled and submitted', async () => {
     const { getByRole, getByLabelText, queryByText } = renderWithRouter(<App />)
 
     const nameBox = getByLabelText('Your Full Name *')
@@ -72,14 +72,19 @@ describe('TS:2 - Bank app component protected routes', () => {
   }
   beforeEach(() => {
     jest.spyOn(customHooks, 'useAuth').mockReturnValue({
+      ...bankContextValueMock.bankConextValue.loginData,
       validContext: true,
-      AccessToken: 'testToken',
-      customerId: 'test123',
-      customerName: 'Test User',
-      isNewUser: true,
     })
+    sessionStorage.setItem(
+      'customerData',
+      JSON.stringify({
+        ...bankContextValueMock.bankConextValue.loginData,
+      })
+    )
+    sessionStorage.setItem('AccessToken', 'testToken')
   })
-  xit('TC:01 - should load password reset component successfully', async () => {
+
+  it('TC:01 - should load password reset component successfully', async () => {
     const { queryByText } = renderWithRouter(
       <App />,
       {
@@ -93,7 +98,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     })
   })
 
-  xit('TC:02 - should load account dashboard component successfully', async () => {
+  it('TC:02 - should load account dashboard component successfully', async () => {
     const { queryByText } = renderWithRouter(
       <App />,
       {
@@ -141,7 +146,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     })
   })
 
-  xit('TC:05 - should load new card component successfully', async () => {
+  it('TC:05 - should load new card component successfully', async () => {
     const { queryByText } = renderWithRouter(
       <App />,
       {
@@ -169,7 +174,7 @@ describe('TS:2 - Bank app component protected routes', () => {
     })
   })
 
-  xit('TC:07 - should load account statement component successfully', async () => {
+  it('TC:07 - should load account statement component successfully', async () => {
     const { queryByText } = renderWithRouter(
       <App />,
       {
