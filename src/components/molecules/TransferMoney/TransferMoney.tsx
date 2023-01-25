@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Box } from '@mui/material'
-import { MoneyTransferForm } from '../../atoms/MoneyTransferForm'
+import { MoneyTransferForm } from '../MoneyTransferForm'
 
 interface ITransferForm {
   accountsList: any[]
@@ -78,9 +78,9 @@ const TransferForm: FC<ITransferForm> = ({
     >
       <MoneyTransferForm
         accountsList={accountsList}
-        payeeList={payeeList || []}
-        showError={showError || false}
-        transferData={transferData || {}}
+        payeeList={payeeList}
+        showError={showError}
+        transferData={transferData}
         showPayeeLoader={showPayeeLoader}
         onAddPayeeClick={onAddPayeeClick}
         handleTransferFormChange={handleTransferFormChange}

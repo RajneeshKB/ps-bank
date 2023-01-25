@@ -10,7 +10,7 @@ const filterDataMock = {
 }
 describe('TS:1 - TransactionsList component', () => {
   it('TC:01 - should render TransactionsList component successfully if api response is success', async () => {
-    const { queryByRole, queryByText } = renderWithRouter(
+    const { queryByRole, queryByText, queryAllByRole } = renderWithRouter(
       <TransactionsList filterData={filterDataMock} />,
       {},
       {
@@ -33,14 +33,14 @@ describe('TS:1 - TransactionsList component', () => {
                   totalRowCount: 2,
                   transactions: [
                     {
-                      transactionDate: '02/02/2022',
+                      transactionDate: '2022-02-01T18:30:00.000Z',
                       transactionRemark: 'test transaction',
                       transactionAmount: '10000',
                       transactionType: 'debit',
                       closingBalance: '20000',
                     },
                     {
-                      transactionDate: '02/02/2022',
+                      transactionDate: '2022-02-01T18:30:00.000Z',
                       transactionRemark: 'test transaction',
                       transactionAmount: '10000',
                       transactionType: 'credit',
@@ -58,6 +58,7 @@ describe('TS:1 - TransactionsList component', () => {
 
     await waitFor(() => {
       expect(queryByRole('button', { name: 'Refresh' }))
+      expect(queryAllByRole('row')).toHaveLength(3)
     })
   })
 

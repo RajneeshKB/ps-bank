@@ -26,7 +26,13 @@ interface IMoneyTransferForm {
   accountsList: any[]
   payeeList: any[]
   showError: boolean
-  transferData: any
+  transferData: {
+    transferType: string
+    fromAccount: string
+    toAccount: string
+    transferAmount: string
+    transferRemarks?: string
+  }
   handleTransferFormChange: (_arg1: string, _arg2: string) => void
 }
 const MoneyTransferForm: FC<IMoneyTransferForm> = ({
@@ -185,6 +191,7 @@ const MoneyTransferForm: FC<IMoneyTransferForm> = ({
               <IconButton
                 aria-label="add beneficiary"
                 color="primary"
+                data-testid="add-payee-btn"
                 onClick={onAddPayeeClick}
               >
                 <AddCircleOutlineRounded />

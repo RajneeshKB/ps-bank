@@ -20,6 +20,7 @@ export const NOMINEE = 'saving/nominee'
 export const PAYMENT = 'saving/payment'
 export const BANK_ACCOUNT = 'selectedAccount'
 export const BANK_TRANSACTION_LIST = 'transactionListFilterOption'
+export const TRANSACTION_PAGE_SIZE = 10
 
 export type ControlValues = {
   id: string

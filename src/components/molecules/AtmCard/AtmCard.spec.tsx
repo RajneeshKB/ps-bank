@@ -67,4 +67,27 @@ describe('TS:1 - AtmCard Component', () => {
     expect(queryByText('Available limit')).not.toBeInTheDocument()
     expect(queryByText('Current Outstanding')).not.toBeInTheDocument()
   })
+
+  it('TC:04 - should render credit card with notification', () => {
+    const { getByText } = render(
+      <AtmCard
+        customerName="Test user"
+        cardNumber="1234567890123456"
+        cvvNumber="123"
+        validFrom="02/2022"
+        validTo="02/2026"
+        showDetails={false}
+        isCreditCard
+        availableLimit="123456"
+        creditCardType="gold"
+        outstandingAmount="0"
+        notifications={[{ code: '101', message: 'test notification' }]}
+      />
+    )
+    expect(getByText('VALID FROM')).toBeInTheDocument()
+    expect(getByText('VALID THRU')).toBeInTheDocument()
+    expect(getByText('Available limit')).toBeInTheDocument()
+    expect(getByText('Current Outstanding')).toBeInTheDocument()
+    expect(getByText('test notification')).toBeInTheDocument()
+  })
 })

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Typography } from '@mui/material'
-import { FailureModal } from '../../atoms/FailureModal'
+import { FailureModal } from '../FailureModal'
 
 interface IGenericErrorModalProps {
   showModal: boolean

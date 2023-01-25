@@ -10,7 +10,7 @@ import {
   useTheme,
 } from '@mui/material'
 import type { FormMetaData } from '../../../utils'
-import { FormControlSelector } from '../../atoms/FormControlSelector'
+import { FormControlSelector } from '../../molecules/FormControlSelector'
 
 interface IFormControlRenderer {
   formControls: FormMetaData[]

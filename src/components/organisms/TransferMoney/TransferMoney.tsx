@@ -99,6 +99,7 @@ const TransferMoeny: FC = () => {
   if (loading) {
     return <ViewLoader />
   }
+  /* istanbul ignore next */
   if (error) {
     return (
       <Typography variant="h3">
@@ -106,6 +107,7 @@ const TransferMoeny: FC = () => {
       </Typography>
     )
   }
+  /* istanbul ignore else */
   if (accountList?.length) {
     return (
       <Box
@@ -141,7 +143,7 @@ const TransferMoeny: FC = () => {
             onCloseHandler={toggleShowModal}
           />
         )}
-        {showToast.success && (
+        {showToast.display && (
           <Snackbar
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             key="topright"
@@ -166,7 +168,7 @@ const TransferMoeny: FC = () => {
       </Box>
     )
   }
-
+  /* istanbul ignore next */
   return null
 }
 

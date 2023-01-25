@@ -4,7 +4,10 @@ import dayjs from 'dayjs'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import CachedIcon from '@mui/icons-material/Cached'
 import { DataGrid } from '@mui/x-data-grid'
-import { ACCOUNT_TRANSACTION_COLUMNS } from '../../../utils'
+import {
+  ACCOUNT_TRANSACTION_COLUMNS,
+  TRANSACTION_PAGE_SIZE,
+} from '../../../utils'
 import { ViewLoader } from '../../atoms/ViewLoader'
 import { FETCH_TRANSACTIONS } from '../../../graphql/queries'
 
@@ -17,15 +20,17 @@ interface ITransactionsList {
     toDate?: string
   }
 }
+
 const Transactions: FC<ITransactionsList> = ({ filterData }) => {
   const [page, setPage] = useState(0)
-  const [pageSize, setPageSize] = useState(10)
 
   const queryOptions = React.useMemo(
     () => ({
-      variables: { input: { ...filterData, page, pageSize } },
+      variables: {
+        input: { ...filterData, page, pageSize: TRANSACTION_PAGE_SIZE },
+      },
     }),
-    [page, pageSize, filterData]
+    [page, filterData]
   )
   const {
     loading,
@@ -106,11 +111,10 @@ const Transactions: FC<ITransactionsList> = ({ filterData }) => {
             columns={ACCOUNT_TRANSACTION_COLUMNS}
             pagination
             page={page}
-            pageSize={pageSize}
+            pageSize={TRANSACTION_PAGE_SIZE}
             paginationMode="server"
-            rowsPerPageOptions={[pageSize]}
+            rowsPerPageOptions={[TRANSACTION_PAGE_SIZE]}
             onPageChange={(newPage) => setPage(newPage)}
-            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             autoHeight
           />
         </Box>

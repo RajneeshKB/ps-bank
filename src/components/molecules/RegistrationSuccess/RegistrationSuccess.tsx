@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Stack, Typography } from '@mui/material'
-import { SuccessModal } from '../../atoms/SuccessModal'
+import { SuccessModal } from '../SuccessModal'
 
 interface IRegistrationSuccessProps {
   customerData: any
