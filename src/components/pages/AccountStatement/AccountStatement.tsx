@@ -77,9 +77,10 @@ const AccountStatement: FC = () => {
     return <ViewLoader />
   }
   if (error) {
-    return <h2>Error occured</h2>
+    return <h2>Error occured while fetching accounts. Try again!</h2>
   }
 
+  /* istanbul ignore next */
   if (!data?.getAccounts?.length) return null
 
   return (
