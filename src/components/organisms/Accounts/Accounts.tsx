@@ -1,6 +1,14 @@
 import React, { FC } from 'react'
 import { Navigate } from 'react-router-dom'
-import { Box, FormControlLabel, Stack, Switch, Typography } from '@mui/material'
+import {
+  Box,
+  FormControlLabel,
+  List,
+  ListItem,
+  Stack,
+  Switch,
+  Typography,
+} from '@mui/material'
 import { AccountCard } from '../../molecules/AccountCard'
 
 interface IAccountsProps {
@@ -36,20 +44,21 @@ const Accounts: FC<IAccountsProps> = ({ accountsData }) => {
           labelPlacement="end"
         />
       </Stack>
-      <Stack spacing={4}>
+      <List disablePadding>
         {accountList.map((account) => {
           const { accountNumber, accountType } = account
           return (
-            <AccountCard
-              key={`${accountType}_${accountNumber}`}
-              showBalance={showBalance}
-              customerName={customerName}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...account}
-            />
+            <ListItem key={`${accountType}_${accountNumber}`} sx={{ px: '0' }}>
+              <AccountCard
+                showBalance={showBalance}
+                customerName={customerName}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...account}
+              />
+            </ListItem>
           )
         })}
-      </Stack>
+      </List>
     </Box>
   )
 }
